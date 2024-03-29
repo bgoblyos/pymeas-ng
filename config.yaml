@@ -1,0 +1,12 @@
+devices:
+  - name: "830-2"
+    type: "lockin"
+    model: "SR830"
+    gpib:
+      address: 10
+      bus: 0
+  - name: "830-2"
+    type: "lockin"
+    model: "SR830"
+    gpib:
+      string: "GPIB0::11::INSTR"

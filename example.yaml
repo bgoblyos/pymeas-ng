@@ -1,0 +1,15 @@
+# Sample config file
+# Must be named config.yaml or config.yml
+# and placed in directory the driver script is ran from
+devices:
+  - name: "830-1"  # Name of the device in the interface
+    type: "lockin" # Type of intrument (used for grouping similar instruments, case insensitive)
+    model: "SR830" # Model of the instrument (case insensitive)
+    gpib:          # Simplified GPIB input method (resolves to GPIB{bus}::{address}::INSTR)
+      bus: 1       # GPIB interface number (optional, defaults to 0)
+      address: 9   # GPIB device address (1-32)
+  - name: "830-2"
+    type: "lockin"
+    model: "SR830"
+    gpib:          # Manual GPIB address input, passed verbatim to pyvisa
+      string: "GPIB0::10::INSTR" # Takes precedence over simplified input if both are specified
