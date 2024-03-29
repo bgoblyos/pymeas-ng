@@ -1,11 +1,14 @@
 import pyvisa
 
-class GPIBIntrument():
+# Common GPIB instrument class
+# Handles opening the device with pyvisa
+# and performs read/writes operations
+class GPIBInstrument():
     def __init__(self, rm, address):
-        self.device = rm.open_resource(address)
+        #self.device = rm.open_resource(address)
         print(f'Opened device on {address}')
-    
-    def writeStr(self, string)
+
+    def writeStr(self, string):
         print(f'Simulated writing {string}')
 
     def writeParam(self, param, value):

@@ -1,6 +1,9 @@
-class SRCommon(GPIBInstrument):
+import Devices.Common
+# Common class for Stanford Research Lock-In Amplifiers
+# Implements several common control commands and r/w operations
+class SRCommon(Devices.Common.GPIBInstrument):
     def __init__(self, rm, address):
-        super.__init__(rm, address)
+        super().__init__(rm, address)
 
     def clear(self):
         self.writeStr('*CLS;REST')
@@ -33,7 +36,7 @@ class SRCommon(GPIBInstrument):
             print("Invalid amplitude, must be between 0.004 and 5.0")
 
     def setPhase(self, phase):
-        if float(phase)>-360 and float(phase) < 729.99:
+        if float(phase) > -360 and float(phase) < 729.99:
             self.write('SLVL', str(phase))
         else:
             print("Invalid phase, must be between -360 and 730")
@@ -65,9 +68,9 @@ class SRCommon(GPIBInstrument):
         self.writeParam('SRAT ', state)
 
     def aux(self, channel, value):
-        if float(value)>-10.5 and float(value) < 10.5:
+        if float(value) > -10.5 and float(value) < 10.5:
             self.writeStr('AUXV '+ channel + ',' + value)
-    
+
     def display(self, channel, value, ratio):
         self.writeStr('DDEF ' + channel + ',' + value + ',' + ratio)
 
@@ -76,7 +79,7 @@ class SRCommon(GPIBInstrument):
 
     def rest(self):
         self.writeStr('REST')
-    
+
     def trigger(self):
         self.writeStr('TRIG')
 
@@ -86,7 +89,7 @@ class SRCommon(GPIBInstrument):
     def readBuffer(self):
         self.writeStr('SPTS?')
         return int(self.read())
-    
+
     def readBufferValue(self, firstPoint, numberOfPoints):
         self.writeStr('TRCA? 1,' + str(firstPoint) + ',' + str(numberOfPoints))
         rawResult = self.readValue()
@@ -122,11 +125,12 @@ class SRCommon(GPIBInstrument):
             sampling = -1
         return sampling
 
-
+# SR830 class, contains dictionaries for
+# sensitivity and time constant settings 
 class SR830(SRCommon):
     def __init__(self, rm, address):
         super().__init__(rm, address)
-    
+
         self.sensDict = {
             '2 nV' : '0',
             '5 nV' : '1',
