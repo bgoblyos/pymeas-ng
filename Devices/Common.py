@@ -6,6 +6,7 @@ import pyvisa
 class GPIBInstrument():
     def __init__(self, rm, address):
         #self.device = rm.open_resource(address)
+        self.address = address
         print(f'Opened device on {address}')
 
     def writeStr(self, string):

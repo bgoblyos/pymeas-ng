@@ -1,4 +1,5 @@
 import Devices.Common
+
 # Common class for Stanford Research Lock-In Amplifiers
 # Implements several common control commands and r/w operations
 class SRCommon(Devices.Common.GPIBInstrument):
@@ -44,7 +45,7 @@ class SRCommon(Devices.Common.GPIBInstrument):
     def readFreq(self):
         self.writeStr('FREQ?')
         return float(self.readValue())
-        
+
     def readAmp(self):
         self.writeStr('SLVL?')
         return float(self.readValue())
@@ -60,7 +61,7 @@ class SRCommon(Devices.Common.GPIBInstrument):
     def readSens(self):
         self.writeStr('SENS?')
         return int(self.readValue())
-    
+
     def triggerStartScan(self, state):
         self.writeParam('TSTR', state)
 
@@ -97,11 +98,11 @@ class SRCommon(Devices.Common.GPIBInstrument):
         for data in rawResult.split(',')[:-1]:
             result.append(float(data))
         return result
-        
+
     # TODO: Review this
     def freqSweepSetup(self):
         tau = self.readTau()
-        
+
         self.display('1', '1', '0')
         self.harmDet('1')
         self.triggerStartScan('1')
@@ -183,12 +184,11 @@ class SR830(SRCommon):
             '10 ks'  : '18',
             '30 ks'  : '19'
         }
-    
+
     def setTimeConstant(self, tc):
         self.writeParam('OFLT', tc)
 
     def setSensitivity(self, sens):
         self.writeParam('SENS', sens)
-    
 
-
+    model = "SR830"

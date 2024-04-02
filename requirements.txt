@@ -1,2 +1,4 @@
 pyvisa
 pyyaml
+pyqtgraph
+pyside6

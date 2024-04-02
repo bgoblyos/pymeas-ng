@@ -1,5 +1,5 @@
 devices:
-  - name: "830-2"
+  - name: "830-1"
     type: "lockin"
     model: "SR830"
     gpib:

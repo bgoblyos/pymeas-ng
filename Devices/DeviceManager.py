@@ -2,6 +2,15 @@ import yaml
 from os.path import isfile
 import Devices.LockIn
 
+# Dictionary for calling the correct class for each model
+models = {
+    "sr830": Devices.LockIn.SR830
+}
+
+types = {
+    "lockin": "Lock-in amplifier"
+}
+
 def readConfig(rm):
 
     # Enumerate connected devices to avoid loading
@@ -16,12 +25,6 @@ def readConfig(rm):
     devices = {
         "lockin": {}
     }
-
-    # Dictionary for calling the correct class for each model
-    models = {
-        "sr830": Devices.LockIn.SR830
-    }
-
 
     # Check if the config file has .yaml or .yml extension
     # In the future, the config should be moved into
