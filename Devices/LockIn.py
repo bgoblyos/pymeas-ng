@@ -9,9 +9,6 @@ class SRCommon(Devices.Common.GPIBInstrument):
     def clear(self):
         self.writeStr('*CLS;REST')
 
-    def frequency(self, f):
-        self.writeParam('FREQ', f)
-
     # This was taken from the original project
     # TODO: Check how it works ASAP
     def readLockIn(self, *params):
@@ -30,17 +27,26 @@ class SRCommon(Devices.Common.GPIBInstrument):
             self.writeStr('OUTP?' + self.par_dict[params[0]])
             return float(self.readValue())
 
-    def setAmplitude(self, amp):
+    def setFreq(self, f):
+        self.writeParam('FREQ', f)
+
+    def setAmp(self, amp):
         if float(amp)>0.004 and float(amp) < 5:
-            self.writeParam('SLVL', str(amp))
+            self.writeParam('SLVL', amp)
         else:
             print("Invalid amplitude, must be between 0.004 and 5.0")
 
     def setPhase(self, phase):
         if float(phase) > -360 and float(phase) < 729.99:
-            self.write('SLVL', str(phase))
+            self.writeParam('SLVL', phase)
         else:
             print("Invalid phase, must be between -360 and 730")
+
+    def setTau(self, tc):
+        self.writeParam('OFLT', tc)
+
+    def setSens(self, sens):
+        self.writeParam('SENS', sens)
 
     def readFreq(self):
         self.writeStr('FREQ?')
@@ -162,7 +168,7 @@ class SR830(SRCommon):
             '1 V' : '26'
         }
 
-        self.timeConstDict = {
+        self.tauDict = {
             '10 us'  : '0' ,
             '30 us'  : '1' ,
             '100 us' : '2' ,
@@ -184,11 +190,5 @@ class SR830(SRCommon):
             '10 ks'  : '18',
             '30 ks'  : '19'
         }
-
-    def setTimeConstant(self, tc):
-        self.writeParam('OFLT', tc)
-
-    def setSensitivity(self, sens):
-        self.writeParam('SENS', sens)
 
     model = "SR830"

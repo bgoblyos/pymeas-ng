@@ -11,6 +11,13 @@ types = {
     "lockin": "Lock-in amplifier"
 }
 
+# Converts pretty user-facing name back into the
+# internally used one. This could be replaced with a function
+# of "types" if it grows too large
+typesInverted = {
+    "Lock-in amplifier": "lockin"
+}
+
 def readConfig(rm):
 
     # Enumerate connected devices to avoid loading

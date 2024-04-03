@@ -16,5 +16,5 @@ class GPIBInstrument():
         self.writeStr(param + " " + str(value))
 
     def readValue(self):
-        printf(f'Simulated reading value')
-        return "123"
+        response = input("Enter device response: ")
+        return response
