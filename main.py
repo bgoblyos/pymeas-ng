@@ -164,18 +164,18 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         elif freq > 1e4:
             index = 1
             freq /= 1e3
-        
+
         self.genericLockInFreqPrefix.setCurrentIndex(index)
         self.genericLockInFreqBox.setValue(freq)
-    
+
         # Read in amplitude
         amp = device.readAmp()
         self.genericLockInAmp.setValue(amp)
-        
+
         # Read in phase
         phase = device.readPhase()
         self.genericLockInPhase.setValue(phase)
-        
+
         # Set up Tau combo box
         for tau in device.tauDict:
             self.genericLockInTau.addItem(tau)
@@ -207,16 +207,18 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         amp = self.genericLockInAmp.value()
         device.setAmp(amp)
-        
+
         phase = self.genericLockInPhase.value()
         device.setPhase(phase)
-        
+
         tau = self.genericLockInTau.currentIndex()
         device.setTau(tau)
-        
+
         sens = self.genericLockInSens.currentIndex()
         device.setSens(sens)
-        
+
+# Set default style
+sys.argv += ["-stlye", "Fusion"]
 
 app = QApplication(sys.argv)
 window = MainWindow()
