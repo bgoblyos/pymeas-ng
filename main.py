@@ -1,5 +1,6 @@
 from PySide6.QtWidgets import *
 from PySide6.QtCore import Qt
+from PySide6.QtUiTools import loadUiType
 import pyqtgraph as pg
 import sys
 import os
@@ -19,7 +20,7 @@ rm = "Placeholder"
 # Disconnected: nested disct ([type][name]) with entries in the form of (model, address)
 # Unknown: list of connected, but unconfigured VISA addresses
 
-uiclass, baseclass = pg.Qt.loadUiType(os.path.join("UI", "mainwindow.ui"))
+uiclass, baseclass = loadUiType(os.path.join("UI", "mainwindow.ui"))
 
 class MainWindow(uiclass, baseclass):
     def __init__(self):
