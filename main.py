@@ -10,6 +10,9 @@ import Devices.Common
 import Devices.LockIn
 from Devices.DeviceManager import readConfig
 
+# Import UI file (generated from Qt Designer .ui file)
+from UI.Mainwindow import Ui_MainWindow
+
 # PyVisa resource manager
 rm = "Placeholder"
 
@@ -17,14 +20,12 @@ rm = "Placeholder"
 # using the config file
 devices, disconnected, unknown = readConfig(rm)
 # Devices: nested dict ([type][name]) with objects inside
-# Disconnected: nested disct ([type][name]) with entries in the form of (model, address)
+# Disconnected: nested dict ([type][name]) with entries in the form of (model, address)
 # Unknown: list of connected, but unconfigured VISA addresses
 
-uiclass, baseclass = loadUiType(os.path.join("UI", "mainwindow.ui"))
-
-class MainWindow(uiclass, baseclass):
+class MainWindow(QMainWindow, Ui_MainWindow):
     def __init__(self):
-        super().__init__()
+        super(MainWindow, self).__init__()
         self.setupUi(self)
 
         self.constructSettingsTree()
