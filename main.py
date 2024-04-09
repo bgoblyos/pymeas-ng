@@ -218,11 +218,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         sens = self.genericLockInSens.currentIndex()
         device.setSens(sens)
 
+
+app = QApplication(sys.argv)
 # Set default style to Fusion (if it exists)
 if "Fusion" in QStyleFactory.keys():
     app.setStyle("Fusion")
 
-app = QApplication(sys.argv)
+
 window = MainWindow()
 window.show()
 window.displayDeviceTree(devices)
