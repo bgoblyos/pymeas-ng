@@ -15,7 +15,7 @@ rm = "Placeholder"
 
 # Get connected, disconnected and unknown devices
 # using the config file
-(devices, disconnected, unknown) = readConfig(rm)
+devices, disconnected, unknown = readConfig(rm)
 # Devices: nested dict ([type][name]) with objects inside
 # Disconnected: nested disct ([type][name]) with entries in the form of (model, address)
 # Unknown: list of connected, but unconfigured VISA addresses
