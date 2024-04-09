@@ -8,9 +8,15 @@ import Devices.Common
 import Devices.LockIn
 from Devices.DeviceManager import readConfig
 
+# PyVisa resource manager
 rm = "Placeholder"
 
-devices = readConfig(rm)
+# Get connected, disconnected and unknown devices
+# using the config file
+(devices, disconnected, unknown) = readConfig(rm)
+# Devices: nested dict ([type][name]) with objects inside
+# Disconnected: nested disct ([type][name]) with entries in the form of (model, address)
+# Unknown: list of connected, but unconfigured VISA addresses
 
 uiclass, baseclass = pg.Qt.loadUiType("UI/mainwindow.ui")
 
@@ -18,7 +24,7 @@ class MainWindow(uiclass, baseclass):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
-        
+
         self.constructSettingsTree()
 
         # Placeholder plot
@@ -35,7 +41,7 @@ class MainWindow(uiclass, baseclass):
 
         # Set up generic lock-in frequency randomizer button
         self.genericLockInRandomButton.clicked.connect(self.genericLockInRandomFreq)
-        
+
         # Set up generic lock-in apply button
         self.genericLockInApplyButton.clicked.connect(self.genericLockInApply)
 
@@ -44,20 +50,52 @@ class MainWindow(uiclass, baseclass):
         self.graphWidget.plot(xs, ys)
 
     def displayDeviceTree(self, devices):
+        # Connected devices
+        connectedItem = QTreeWidgetItem(self.deviceTree)
+        connectedItem.setText(0, "Connected")
+        connectedItem.setExpanded(True)
         # Every device category becomes a top-level foldable item
         for deviceType in devices:
-            modelItem = QTreeWidgetItem(self.deviceTree)
-            modelItem.setText(0, Devices.DeviceManager.types[deviceType])
+            modelItem = QTreeWidgetItem(connectedItem)
+            modelItem.setText(1, Devices.DeviceManager.types[deviceType])
             modelItem.setExpanded(True)
             # Each item in a given categrory is added to the list
             for name in devices[deviceType]:
                 entry = QTreeWidgetItem(modelItem)
-                entry.setText(1, name)
-                entry.setText(2, devices[deviceType][name].model)
-                entry.setText(3, devices[deviceType][name].address)
+                entry.setText(2, name)
+                entry.setText(3, devices[deviceType][name].model)
+                entry.setText(4, devices[deviceType][name].address)
                 #modelItem.addChild(entry)
 
+        # Disconnected, but configured devices
+        disconnectedItem = QTreeWidgetItem(self.deviceTree)
+        disconnectedItem.setText(0, "Disconnected")
+        disconnectedItem.setExpanded(True)
+        # Every device category becomes a top-level foldable item
+        for deviceType in disconnected:
+            modelItem = QTreeWidgetItem(disconnectedItem)
+            modelItem.setText(1, Devices.DeviceManager.types[deviceType])
+            modelItem.setExpanded(True)
+            # Each item in a given categrory is added to the list
+            for name in disconnected[deviceType]:
+                entry = QTreeWidgetItem(modelItem)
+                entry.setText(2, name)
+                entry.setText(3, disconnected[deviceType][name][0]) # Model
+                entry.setText(4, disconnected[deviceType][name][1]) # Address
+                #modelItem.addChild(entry)
+
+        unknownItem = QTreeWidgetItem(self.deviceTree)
+        unknownItem.setText(0, "Unknown")
+        unknownItem.setExpanded(True)
+        for address in unknown:
+            entry = QTreeWidgetItem(unknownItem)
+            entry.setText(1, "N/A")
+            entry.setText(2, "N/A")
+            entry.setText(3, "N/A")
+            entry.setText(4, address)
+
         self.deviceTree.resizeColumnToContents(0)
+        self.deviceTree.resizeColumnToContents(1)
 
     # Construct the settings device tree
     def constructSettingsTree(self):
@@ -73,7 +111,7 @@ class MainWindow(uiclass, baseclass):
 
     def settingsHandler(self):
         currItem = self.deviceSelectionTree.currentItem()
-    
+
         # DO nothing if a top-level item is selected
         # This shouldn't be necessary, but for some reason
         # disabling the top level items does not work.

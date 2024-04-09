@@ -1,6 +1,7 @@
 import yaml
 from os.path import isfile
 import Devices.LockIn
+import copy
 
 # Dictionary for calling the correct class for each model
 models = {
@@ -18,20 +19,29 @@ typesInverted = {
     "Lock-in amplifier": "lockin"
 }
 
+# Template dictionary for devices
+template = {
+    "lockin": {}
+}
+
 def readConfig(rm):
 
-    # Enumerate connected devices to avoid loading
-    # those that are not connected
+    # Enumerate connected devices
 
     # connectedDevices = rm.list_resources()
 
     # Placeholder:
     connectedDevices = ("GPIB0::9::INSTR", "GPIB0::10::INSTR", "GPIB0::11::INSTR", "GPIB0::12::INSTR")
 
-    # Nested dictionary to be populated and returned
-    devices = {
-        "lockin": {}
-    }
+    # Nested dictionaries to be populated
+    devices = copy.deepcopy(template)
+    disconnected = copy.deepcopy(template)
+
+    # List to better track connected devices
+    connected = []
+
+    # Unkown device list
+    unknown = []
 
     # Check if the config file has .yaml or .yml extension
     # In the future, the config should be moved into
@@ -62,35 +72,6 @@ def readConfig(rm):
             print("Invalid entry (no name specified)")
             continue
 
-        # Process GPIB field
-        if "gpib" in device:
-            if "string" in device["gpib"]:
-                address = device["gpib"]["string"]
-
-            # Construct address string from bus and device ID
-            elif "address" in device["gpib"]:
-                deviceID = device["gpib"]["address"]
-
-                # The interface is optional, defaults to 0
-                busID = 0
-                if "bus" in device["gpib"]:
-                    busID = device["gpib"]["bus"]
-
-                address = f"GPIB{busID}::{deviceID}::INSTR"
-
-            else:
-                print(f"GPIB entry incomplete for {name}.")
-                print("Either an address string (string:) or a device number (address:) must be specified.")
-                continue
-
-            # Check if device is connected
-            if address not in connectedDevices:
-                print(f"{name} not connected (address: {address})")
-                continue
-
-        else:
-            print(f"No GPIB entry found for {name}, skipping to next device.")
-            continue
 
         # Check if device type is specified
         if "type" in device:
@@ -116,10 +97,55 @@ def readConfig(rm):
             print(f"No model entry found for {name}, skipping to next device.")
             continue
 
-        devices[deviceType][name] = models[model](rm, address)
-        print(f"Loaded device {name} with attributes:")
-        print(f"\tType: {deviceType}")
-        print(f"\tModel: {model}")
-        print(f"\tAddress: {address}\n")
+        # Process GPIB field
+        # This can be retrofitted to work with other connection types as well,
+        # we just need to go over each field, construct the address if possible,
+        # and abort when no address is specified at all
+        if "gpib" in device:
+            if "string" in device["gpib"]:
+                address = device["gpib"]["string"]
 
-    return devices
+            # Construct address string from bus and device ID
+            elif "address" in device["gpib"]:
+                deviceID = device["gpib"]["address"]
+
+                # The interface is optional, defaults to 0
+                busID = 0
+                if "bus" in device["gpib"]:
+                    busID = device["gpib"]["bus"]
+
+                address = f"GPIB{busID}::{deviceID}::INSTR"
+
+            else:
+                print(f"GPIB entry incomplete for {name}.")
+                print("Either an address string (string:) or a device number (address:) must be specified.")
+                continue
+
+        else:
+            print(f"No GPIB entry found for {name}, skipping to next device.")
+            continue
+
+        # Check if device is connected
+        if address in connectedDevices:
+            # Add connected device
+            devices[deviceType][name] = models[model](rm, address)
+            # Track connected device addresses
+            connected.append(address)
+            print(f"Loaded connected device {name} with attributes:")
+            print(f"\tType: {deviceType}")
+            print(f"\tModel: {model}")
+            print(f"\tAddress: {address}\n")
+        else:
+            disconnected[deviceType][name] = (model, address)
+            print(f"Loaded disconnected device {name} with attributes:")
+            print(f"\tType: {deviceType}")
+            print(f"\tModel: {model}")
+            print(f"\tAddress: {address}\n")
+
+
+    for connectedDevice in connectedDevices:
+        if connectedDevice not in connected:
+            unknown.append(connectedDevice)
+
+
+    return (devices, disconnected, unknown)

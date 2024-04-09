@@ -1,9 +1,9 @@
 import pyvisa
 
-# Common GPIB instrument class
+# Common instrument class
 # Handles opening the device with pyvisa
 # and performs read/writes operations
-class GPIBInstrument():
+class CommonInstrument():
     def __init__(self, rm, address):
         #self.device = rm.open_resource(address)
         self.address = address

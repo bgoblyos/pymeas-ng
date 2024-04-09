@@ -2,7 +2,7 @@ import Devices.Common
 
 # Common class for Stanford Research Lock-In Amplifiers
 # Implements several common control commands and r/w operations
-class SRCommon(Devices.Common.GPIBInstrument):
+class SRCommon(Devices.Common.CommonInstrument):
     def __init__(self, rm, address):
         super().__init__(rm, address)
 
