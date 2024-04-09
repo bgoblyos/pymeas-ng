@@ -1,11 +1,12 @@
 from PySide6.QtWidgets import *
 from PySide6.QtCore import Qt
 from PySide6.QtUiTools import loadUiType
-import pyqtgraph as pg
+
 import sys
 import os
 from random import uniform
 
+# Import device classes and handlers
 import Devices.Common
 import Devices.LockIn
 from Devices.DeviceManager import readConfig
@@ -33,7 +34,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         # Placeholder plot
         self.plot(
             [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-            [30, 32, 34, 32, 33, 31, 29, 32, 35, 45],
+            [1, 4, 9, 16, 25, 36, 49, 64, 81, 100],
         )
 
         # Call the settings handler when the settings device tree selection changes
@@ -217,8 +218,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         sens = self.genericLockInSens.currentIndex()
         device.setSens(sens)
 
-# Set default style
-sys.argv += ["-stlye", "Fusion"]
+# Set default style to Fusion (if it exists)
+if "Fusion" in QStyleFactory.keys():
+    app.setStyle("Fusion")
 
 app = QApplication(sys.argv)
 window = MainWindow()
