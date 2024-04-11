@@ -3,15 +3,16 @@ devices:
     type: "lockin"
     model: "SR830"
     gpib:
-      address: 10
+      address: 7
       bus: 0
   - name: "830-2"
     type: "lockin"
     model: "SR830"
     gpib:
-      string: "GPIB0::11::INSTR"
-  - name: "830-3"
-    type: "lockin"
-    model: "SR830"
+      string: "GPIB0::8::INSTR"
+  - name: "HP"
+    type: "sweeper"
+    model: "HP83751A"
     gpib:
-      string: "GPIB0::15::INSTR"
+      address: 11
+      bus: 0

@@ -1,37 +1,53 @@
 import yaml
 from os.path import isfile
 import Devices.LockIn
+import Devices.Sweeper
 import copy
+
+def invertDict(inDict):
+    outDict = {}
+    for key in inDict:
+        value = inDict[key]
+        outDict[value] = key
+
+    return outDict
+
 
 # Dictionary for calling the correct class for each model
 models = {
-    "sr830": Devices.LockIn.SR830
+    "lockin": {
+        "sr830": Devices.LockIn.SR830
+    },
+    "sweeper": {
+        "hp83751a": Devices.Sweeper.HP83751A
+    }
+
 }
 
 types = {
-    "lockin": "Lock-in amplifier"
+    "lockin": "Lock-in amplifier",
+    "sweeper": "Sweeper"
 }
 
 # Converts pretty user-facing name back into the
 # internally used one. This could be replaced with a function
 # of "types" if it grows too large
-typesInverted = {
-    "Lock-in amplifier": "lockin"
-}
+typesInverted = invertDict(types)
 
 # Template dictionary for devices
-template = {
-    "lockin": {}
-}
+"""template = {
+    "lockin": {},
+    "sweeper": {}
+}"""
+
+template = {}
+for deviceType in types:
+    template[deviceType] = {}
 
 def readConfig(rm):
 
     # Enumerate connected devices
-
-    # connectedDevices = rm.list_resources()
-
-    # Placeholder:
-    connectedDevices = ("GPIB0::9::INSTR", "GPIB0::10::INSTR", "GPIB0::11::INSTR", "GPIB0::12::INSTR")
+    connectedDevices = rm.list_resources()
 
     # Nested dictionaries to be populated
     devices = copy.deepcopy(template)
@@ -45,7 +61,7 @@ def readConfig(rm):
 
     # Check if the config file has .yaml or .yml extension
     # In the future, the config should be moved into
-    # a standardized location
+    # a standardized location (XDG-config, AppData, etc.)
     if isfile("config.yaml"):
         confFile = "config.yaml"
     elif isfile("config.yml"):
@@ -89,9 +105,9 @@ def readConfig(rm):
         if "model" in device:
             # Check if the model is known
             model = device["model"].lower()
-            if model not in models:
+            if model not in models[deviceType]:
                 print(f"{name} has unknown model {model}.")
-                print(f"The following models are supported: {list(models.keys())}.")
+                print(f"The following models are supported: {list(models[deviceType].keys())}.")
                 continue
         else:
             print(f"No model entry found for {name}, skipping to next device.")
@@ -128,7 +144,7 @@ def readConfig(rm):
         # Check if device is connected
         if address in connectedDevices:
             # Add connected device
-            devices[deviceType][name] = models[model](rm, address)
+            devices[deviceType][name] = models[deviceType][model](rm, address)
             # Track connected device addresses
             connected.append(address)
             print(f"Loaded connected device {name} with attributes:")

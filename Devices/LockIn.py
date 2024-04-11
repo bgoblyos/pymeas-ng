@@ -10,8 +10,8 @@ class SRCommon(Devices.Common.CommonInstrument):
         self.writeStr('*CLS;REST')
 
     # This was taken from the original project
-    # TODO: Check how it works ASAP
-    def readLockIn(self, *params):
+    # Left in for reference
+    def oldReadLockIn(self, *params):
         if len(params) > 1:
             com = 'SNAP?'
             for param in params:
@@ -26,6 +26,13 @@ class SRCommon(Devices.Common.CommonInstrument):
         else:
             self.writeStr('OUTP?' + self.par_dict[params[0]])
             return float(self.readValue())
+        
+    def readXY(self):
+        response = self.query("SNAP? 1,2")
+        responseList = response.split(',')
+        x = float(responseList[0])
+        y = float(responseList[1])
+        return (x, y)
 
     def setFreq(self, f):
         self.writeParam('FREQ', f)
@@ -38,7 +45,7 @@ class SRCommon(Devices.Common.CommonInstrument):
 
     def setPhase(self, phase):
         if float(phase) > -360 and float(phase) < 729.99:
-            self.writeParam('SLVL', phase)
+            self.writeParam('PHAS', phase)
         else:
             print("Invalid phase, must be between -360 and 730")
 
@@ -49,24 +56,19 @@ class SRCommon(Devices.Common.CommonInstrument):
         self.writeParam('SENS', sens)
 
     def readFreq(self):
-        self.writeStr('FREQ?')
-        return float(self.readValue())
+        return float(self.query('FREQ?'))
 
     def readAmp(self):
-        self.writeStr('SLVL?')
-        return float(self.readValue())
+        return float(self.query('SLVL?'))
 
     def readPhase(self):
-        self.writeStr('PHAS?')
-        return float(self.readValue())
+        return float(self.query('PHAS?'))
 
     def readTau(self):
-        self.writeStr('OFLT?')
-        return int(self.readValue())
+        return int(self.query('OFLT?'))
 
     def readSens(self):
-        self.writeStr('SENS?')
-        return int(self.readValue())
+        return int(self.query('SENS?'))
 
     def triggerStartScan(self, state):
         self.writeParam('TSTR', state)

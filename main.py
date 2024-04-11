@@ -14,8 +14,11 @@ from Devices.DeviceManager import readConfig
 # Import UI file (generated from Qt Designer .ui file)
 from UI.Mainwindow import Ui_MainWindow
 
+import pyvisa
+
 # PyVisa resource manager
-rm = "Placeholder"
+# TODO: Write a class that simulates the resource manager
+rm = pyvisa.ResourceManager()
 
 # Get connected, disconnected and unknown devices
 # using the config file
@@ -116,7 +119,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def settingsHandler(self):
         currItem = self.deviceSelectionTree.currentItem()
 
-        # DO nothing if a top-level item is selected
+        # Do nothing if a top-level item is selected
         # This shouldn't be necessary, but for some reason
         # disabling the top level items does not work.
         if currItem.parent() == None:
@@ -124,7 +127,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         deviceName = currItem.text(0)
         # Convert the top level user-facing name back to the dictionary key
-        # This is a really hacky soluion, but the it's the best I could come up with
+        # This is a really hacky solution, but the it's the best I could come up with
         # Refactoring it later might be a good idea
         deviceType = Devices.DeviceManager.typesInverted[currItem.parent().text(0)]
         print(f"Type: {deviceType}\nName: {deviceName}")
@@ -144,6 +147,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.genericLockInHandler(device)
                 return
 
+        # Set the device config page to the placeholder if no handler is found
+        self.settingsStack.setCurrentIndex(0)
         print("Selected device does not have a settings handler")
 
 
@@ -153,7 +158,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         # Set up frequency field
         freq = device.readFreq()
-        index = 0;
+        index = 0
         
         # Set the prefix according to the value
         if freq > 1e10:
