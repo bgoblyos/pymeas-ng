@@ -1,6 +1,5 @@
-from PySide6.QtWidgets import *
-from PySide6.QtCore import Qt
-from PySide6.QtUiTools import loadUiType
+from PySide6.QtWidgets import QMainWindow, QApplication, QStyleFactory
+#from PySide6.QtCore import Qt
 
 import sys
 import os
@@ -33,6 +32,7 @@ rm = Devices.Simulator.RMSimulator()
 class MainWindow(QMainWindow, Ui_MainWindow, DeviceTree, Settings):
     def __init__(self):
         super(MainWindow, self).__init__()
+
         self.setupUi(self)
 
         # Get connected, disconnected and unknown devices
