@@ -1,5 +1,6 @@
 import pyvisa
 import struct
+import logging
 
 # Common instrument class
 # Handles opening the device with pyvisa
@@ -44,4 +45,5 @@ class CommonInstrument():
         response = self.queryBinary(param)
         entries = len(response) // 4
         data = struct.unpack(f"{entries}f", response)
+        logging.debug(f"Read {entries} floats from device")
         return data

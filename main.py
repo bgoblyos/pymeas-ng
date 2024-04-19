@@ -3,6 +3,7 @@ from PySide6.QtWidgets import QMainWindow, QApplication, QStyleFactory
 
 import sys
 import os
+import logging
 from random import uniform
 
 # Import device classes and handlers
@@ -23,6 +24,8 @@ from Devices.DeviceTree import DeviceTree
 # Import settings handler class to inherit
 from Settings.Common import Settings
 
+from UI.Logger import QTextEditLogger
+
 import pyvisa
 
 # PyVisa resource manager
@@ -34,7 +37,13 @@ class MainWindow(QMainWindow, Ui_MainWindow, DeviceTree, Settings):
         super(MainWindow, self).__init__()
 
         self.setupUi(self)
+        
+        logTextBox = QTextEditLogger(self.logBox)
+        logging.getLogger().addHandler(logTextBox)
+        logging.getLogger().setLevel(logging.DEBUG)
 
+        logging.debug("Main window initialized")
+        
         # Get connected, disconnected and unknown devices
         # using the config file
         self.devices, self.disconnected, self.unknown = Devices.DeviceManager.readConfig(rm)
@@ -77,7 +86,9 @@ if "Fusion" in QStyleFactory.keys():
 
 
 window = MainWindow()
+
 window.show()
+
 #window.displayDeviceTree(devices)
 app.exec()
 

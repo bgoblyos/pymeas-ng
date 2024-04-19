@@ -4,6 +4,8 @@ from PySide6.QtCore import Qt
 import Devices.DeviceManager
 from Settings.GenericLockIn import GenericLockInSettings
 
+import logging
+
 class Settings(GenericLockInSettings):
     def placeholderSettingsPage(self):
         self.settingsStack.setCurrentIndex(0)
@@ -34,7 +36,7 @@ class Settings(GenericLockInSettings):
         # This is a really hacky solution, but the it's the best I could come up with
         # Refactoring it later might be a good idea
         deviceType = Devices.DeviceManager.typesInverted[currItem.parent().text(0)]
-        print(f"Type: {deviceType}\nName: {deviceName}")
+        logging.debug(f"Type: {deviceType}\nName: {deviceName}")
 
         device = self.devices[deviceType][deviceName]
 

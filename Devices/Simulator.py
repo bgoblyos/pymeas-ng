@@ -2,6 +2,8 @@
 # of the pyvisa resource manager to facilitate
 # development without access to the instruments
 
+import logging
+
 # Resource manager implementing list_resources() (using a predefined list)
 # and open_resource(address)
 # Interactivity controls whether or not to ask for input on read operations
@@ -36,7 +38,7 @@ class DeviceSimulator():
         self.interactive = interactive
 
     def write(self, string):
-        print(f"{string} written to {self.gpib}.")
+        logging.info(f"{string} written to {self.gpib}.")
 
     def read(self):
         if self.interactive:
@@ -49,6 +51,6 @@ class DeviceSimulator():
         if self.interactive:
             res = input(f"Enter response from {self.gpib} to {string}: ")
         else:
-            print(f"Query {string} sent to {self.gpib}.")
+            logging.info(f"Query {string} sent to {self.gpib}.")
             res = "1"
         return res

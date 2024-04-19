@@ -35,6 +35,7 @@ class Ui_MainWindow(object):
         self.verticalLayout_2.setObjectName(u"verticalLayout_2")
         self.tabWidget_2 = QTabWidget(self.centralwidget)
         self.tabWidget_2.setObjectName(u"tabWidget_2")
+        self.tabWidget_2.setTabPosition(QTabWidget.North)
         self.plot_tab = QWidget()
         self.plot_tab.setObjectName(u"plot_tab")
         self.horizontalLayout_9 = QHBoxLayout(self.plot_tab)
@@ -140,7 +141,7 @@ class Ui_MainWindow(object):
         self.scrollArea.setWidgetResizable(True)
         self.scrollAreaWidgetContents = QWidget()
         self.scrollAreaWidgetContents.setObjectName(u"scrollAreaWidgetContents")
-        self.scrollAreaWidgetContents.setGeometry(QRect(0, -37, 487, 348))
+        self.scrollAreaWidgetContents.setGeometry(QRect(0, -167, 497, 462))
         sizePolicy4 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred)
         sizePolicy4.setHorizontalStretch(0)
         sizePolicy4.setVerticalStretch(0)
@@ -350,7 +351,7 @@ class Ui_MainWindow(object):
         self.scrollArea_2.setWidgetResizable(True)
         self.scrollAreaWidgetContents_2 = QWidget()
         self.scrollAreaWidgetContents_2.setObjectName(u"scrollAreaWidgetContents_2")
-        self.scrollAreaWidgetContents_2.setGeometry(QRect(0, 0, 185, 98))
+        self.scrollAreaWidgetContents_2.setGeometry(QRect(0, 0, 226, 112))
         self.formLayout_2 = QFormLayout(self.scrollAreaWidgetContents_2)
         self.formLayout_2.setObjectName(u"formLayout_2")
         self.label_4 = QLabel(self.scrollAreaWidgetContents_2)
@@ -400,16 +401,104 @@ class Ui_MainWindow(object):
         self.verticalLayout_10.addLayout(self.horizontalLayout_4)
 
         self.tabWidget_2.addTab(self.settingsTab, "")
+        self.tab = QWidget()
+        self.tab.setObjectName(u"tab")
+        self.horizontalLayout_5 = QHBoxLayout(self.tab)
+        self.horizontalLayout_5.setObjectName(u"horizontalLayout_5")
+        self.listWidget = QListWidget(self.tab)
+        QListWidgetItem(self.listWidget)
+        self.listWidget.setObjectName(u"listWidget")
+        sizePolicy7 = QSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
+        sizePolicy7.setHorizontalStretch(0)
+        sizePolicy7.setVerticalStretch(0)
+        sizePolicy7.setHeightForWidth(self.listWidget.sizePolicy().hasHeightForWidth())
+        self.listWidget.setSizePolicy(sizePolicy7)
+        self.listWidget.setMinimumSize(QSize(150, 0))
+        self.listWidget.setMaximumSize(QSize(150, 16777215))
+
+        self.horizontalLayout_5.addWidget(self.listWidget)
+
+        self.stackedWidget = QStackedWidget(self.tab)
+        self.stackedWidget.setObjectName(u"stackedWidget")
+        self.expPlaceholder = QWidget()
+        self.expPlaceholder.setObjectName(u"expPlaceholder")
+        self.horizontalLayout_10 = QHBoxLayout(self.expPlaceholder)
+        self.horizontalLayout_10.setObjectName(u"horizontalLayout_10")
+        self.label_15 = QLabel(self.expPlaceholder)
+        self.label_15.setObjectName(u"label_15")
+        self.label_15.setAlignment(Qt.AlignCenter)
+
+        self.horizontalLayout_10.addWidget(self.label_15)
+
+        self.stackedWidget.addWidget(self.expPlaceholder)
+        self.expSweepAndLockIn = QWidget()
+        self.expSweepAndLockIn.setObjectName(u"expSweepAndLockIn")
+        self.verticalLayout_4 = QVBoxLayout(self.expSweepAndLockIn)
+        self.verticalLayout_4.setObjectName(u"verticalLayout_4")
+        self.scrollArea_3 = QScrollArea(self.expSweepAndLockIn)
+        self.scrollArea_3.setObjectName(u"scrollArea_3")
+        self.scrollArea_3.setWidgetResizable(True)
+        self.scrollArea_3.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignVCenter)
+        self.scrollAreaWidgetContents_3 = QWidget()
+        self.scrollAreaWidgetContents_3.setObjectName(u"scrollAreaWidgetContents_3")
+        self.scrollAreaWidgetContents_3.setGeometry(QRect(0, 0, 570, 284))
+        self.formLayout_3 = QFormLayout(self.scrollAreaWidgetContents_3)
+        self.formLayout_3.setObjectName(u"formLayout_3")
+        self.label_16 = QLabel(self.scrollAreaWidgetContents_3)
+        self.label_16.setObjectName(u"label_16")
+
+        self.formLayout_3.setWidget(0, QFormLayout.LabelRole, self.label_16)
+
+        self.comboBox = QComboBox(self.scrollAreaWidgetContents_3)
+        self.comboBox.setObjectName(u"comboBox")
+        sizePolicy8 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
+        sizePolicy8.setHorizontalStretch(0)
+        sizePolicy8.setVerticalStretch(0)
+        sizePolicy8.setHeightForWidth(self.comboBox.sizePolicy().hasHeightForWidth())
+        self.comboBox.setSizePolicy(sizePolicy8)
+
+        self.formLayout_3.setWidget(0, QFormLayout.FieldRole, self.comboBox)
+
+        self.label_17 = QLabel(self.scrollAreaWidgetContents_3)
+        self.label_17.setObjectName(u"label_17")
+
+        self.formLayout_3.setWidget(1, QFormLayout.LabelRole, self.label_17)
+
+        self.comboBox_2 = QComboBox(self.scrollAreaWidgetContents_3)
+        self.comboBox_2.setObjectName(u"comboBox_2")
+        sizePolicy8.setHeightForWidth(self.comboBox_2.sizePolicy().hasHeightForWidth())
+        self.comboBox_2.setSizePolicy(sizePolicy8)
+
+        self.formLayout_3.setWidget(1, QFormLayout.FieldRole, self.comboBox_2)
+
+        self.verticalSpacer_2 = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
+
+        self.formLayout_3.setItem(2, QFormLayout.FieldRole, self.verticalSpacer_2)
+
+        self.scrollArea_3.setWidget(self.scrollAreaWidgetContents_3)
+
+        self.verticalLayout_4.addWidget(self.scrollArea_3)
+
+        self.pushButton_2 = QPushButton(self.expSweepAndLockIn)
+        self.pushButton_2.setObjectName(u"pushButton_2")
+
+        self.verticalLayout_4.addWidget(self.pushButton_2)
+
+        self.stackedWidget.addWidget(self.expSweepAndLockIn)
+
+        self.horizontalLayout_5.addWidget(self.stackedWidget)
+
+        self.tabWidget_2.addTab(self.tab, "")
 
         self.verticalLayout_2.addWidget(self.tabWidget_2)
 
         self.logBox = QPlainTextEdit(self.centralwidget)
         self.logBox.setObjectName(u"logBox")
-        sizePolicy7 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Preferred)
-        sizePolicy7.setHorizontalStretch(0)
-        sizePolicy7.setVerticalStretch(1)
-        sizePolicy7.setHeightForWidth(self.logBox.sizePolicy().hasHeightForWidth())
-        self.logBox.setSizePolicy(sizePolicy7)
+        sizePolicy9 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Preferred)
+        sizePolicy9.setHorizontalStretch(0)
+        sizePolicy9.setVerticalStretch(1)
+        sizePolicy9.setHeightForWidth(self.logBox.sizePolicy().hasHeightForWidth())
+        self.logBox.setSizePolicy(sizePolicy9)
         self.logBox.setMinimumSize(QSize(0, 0))
         self.logBox.setMaximumSize(QSize(16777215, 120))
         self.logBox.setBaseSize(QSize(0, 0))
@@ -424,8 +513,9 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
 
-        self.tabWidget_2.setCurrentIndex(0)
+        self.tabWidget_2.setCurrentIndex(3)
         self.settingsStack.setCurrentIndex(1)
+        self.stackedWidget.setCurrentIndex(0)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -489,6 +579,18 @@ class Ui_MainWindow(object):
         self.radioButton.setText(QCoreApplication.translate("MainWindow", u"&RadioButton", None))
         self.radioButton_2.setText(QCoreApplication.translate("MainWindow", u"RadioB&utton", None))
         self.pushButton.setText(QCoreApplication.translate("MainWindow", u"PushButton", None))
-        self.tabWidget_2.setTabText(self.tabWidget_2.indexOf(self.settingsTab), QCoreApplication.translate("MainWindow", u"Instrument Settings", None))
+        self.tabWidget_2.setTabText(self.tabWidget_2.indexOf(self.settingsTab), QCoreApplication.translate("MainWindow", u"Instrument settings", None))
+
+        __sortingEnabled1 = self.listWidget.isSortingEnabled()
+        self.listWidget.setSortingEnabled(False)
+        ___qlistwidgetitem5 = self.listWidget.item(0)
+        ___qlistwidgetitem5.setText(QCoreApplication.translate("MainWindow", u"Sweep and Lock-in", None));
+        self.listWidget.setSortingEnabled(__sortingEnabled1)
+
+        self.label_15.setText(QCoreApplication.translate("MainWindow", u"Select experiment", None))
+        self.label_16.setText(QCoreApplication.translate("MainWindow", u"Sweeper", None))
+        self.label_17.setText(QCoreApplication.translate("MainWindow", u"Lock-in", None))
+        self.pushButton_2.setText(QCoreApplication.translate("MainWindow", u"PushButton", None))
+        self.tabWidget_2.setTabText(self.tabWidget_2.indexOf(self.tab), QCoreApplication.translate("MainWindow", u"Experiments", None))
     # retranslateUi
 
