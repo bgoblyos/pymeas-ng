@@ -21,7 +21,7 @@
        <enum>QTabWidget::North</enum>
       </property>
       <property name="currentIndex">
-       <number>3</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="plot_tab">
        <attribute name="title">
@@ -29,7 +29,7 @@
        </attribute>
        <layout class="QHBoxLayout" name="horizontalLayout_9">
         <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_2">
+         <layout class="QVBoxLayout" name="verticalLayout_11">
           <item>
            <widget class="PlotWidget" name="graphWidget" native="true">
             <property name="sizePolicy">
@@ -41,58 +41,37 @@
            </widget>
           </item>
           <item>
-           <layout class="QVBoxLayout" name="verticalLayout_11">
+           <layout class="QHBoxLayout" name="horizontalLayout_2">
             <item>
-             <widget class="QListWidget" name="plotDataList">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
-                <horstretch>1</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
+             <spacer name="horizontalSpacer">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
               </property>
-              <property name="minimumSize">
+              <property name="sizeHint" stdset="0">
                <size>
-                <width>0</width>
-                <height>0</height>
+                <width>40</width>
+                <height>20</height>
                </size>
               </property>
-              <item>
-               <property name="text">
-                <string>Placeholder</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>For</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>Plot</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>Data</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>Selection</string>
-               </property>
-              </item>
+             </spacer>
+            </item>
+            <item>
+             <widget class="QPushButton" name="quickSaveButton">
+              <property name="toolTip">
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Save data to current directory.&lt;/p&gt;&lt;p&gt;The filename is the current timestamp.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              </property>
+              <property name="text">
+               <string>Quick Save</string>
+              </property>
              </widget>
             </item>
             <item>
-             <widget class="QPushButton" name="plotRefresh">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                <horstretch>1</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
+             <widget class="QPushButton" name="saveAsButton">
+              <property name="toolTip">
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Open save dialog&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
               </property>
               <property name="text">
-               <string>PushButton</string>
+               <string>Save As</string>
               </property>
              </widget>
             </item>
@@ -200,7 +179,7 @@
                  <property name="geometry">
                   <rect>
                    <x>0</x>
-                   <y>-167</y>
+                   <y>0</y>
                    <width>497</width>
                    <height>462</height>
                   </rect>
@@ -625,8 +604,8 @@
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>570</width>
-                 <height>284</height>
+                 <width>159</width>
+                 <height>88</height>
                 </rect>
                </property>
                <layout class="QFormLayout" name="formLayout_3">
