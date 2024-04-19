@@ -5,7 +5,8 @@ from random import uniform
 import Devices.Common
 import Devices.LockIn
 import Devices.DeviceManager
-from UI.Prefix import formatPrefix
+
+from Misc.Prefix import formatPrefix
 
 class GenericLockInSettings():
     def genericLockInHandler(self):

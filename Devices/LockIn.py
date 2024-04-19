@@ -1,5 +1,5 @@
 import Devices.Common
-from UI.Prefix import formatPrefix
+from Misc.Prefix import formatPrefix
 
 # Common class for Stanford Research Lock-In Amplifiers
 # Implements several common control commands and r/w operations
@@ -114,22 +114,24 @@ class SRCommon(Devices.Common.CommonInstrument):
     def setDisplay(self, display, value, ratio = 0):
         self.writeParam("DDEF", f"{display}, {value}, {ratio}")
 
-    def maxSampleFreq(self):
+    def maxSampleRate(self):
         tau = self.tauList[self.readTau]
         maxfreq = 1/tau
         # Iterate over the list in reverse
         for i in reversed(range(0, len(self.sampleFreqList))):
             if self.sampleFreqList[i] < maxfreq:
                 return i
+        
+        print("No appropriate sample rate found, setting it to the lowest available.")
+        return 0
             
     def armTimedMeasurement(self, time, chosenFreqIndex):
-        maxFreqIndex = self.maxSampleFreq()
+        maxFreqIndex = self.maxSampleRate()
         maxFreq = self.sampleFreqList[maxFreqIndex]
         chosenFreq = self.sampleFreqList[chosenFreqIndex]
 
         if chosenFreq > maxFreq:
-            print(f"{formatPrefix(chosenFreq, "Hz")} is too high,\
-                  clamping it to {formatPrefix(maxFreq, "Hz")}")
+            print(f"{formatPrefix(chosenFreq, 'Hz')} is too high, clamping it to {formatPrefix(maxFreq, 'Hz')}")
             self.writeParam("SRAT", maxFreqIndex)
         else:
             self.writeParam("SRAT", chosenFreqIndex)

@@ -18,16 +18,16 @@ import Devices.Simulator
 from UI.Mainwindow import Ui_MainWindow
 
 # Import device tree handler class to inherit
-from UI.DeviceTree import DeviceTree
+from Devices.DeviceTree import DeviceTree
 
 # Import settings handler class to inherit
-from UI.Settings.Common import Settings
+from Settings.Common import Settings
 
 import pyvisa
 
 # PyVisa resource manager
-rm = pyvisa.ResourceManager()
-# rm = Devices.Simulator.RMSimulator()
+# rm = pyvisa.ResourceManager()
+rm = Devices.Simulator.RMSimulator()
 
 class MainWindow(QMainWindow, Ui_MainWindow, DeviceTree, Settings):
     def __init__(self):

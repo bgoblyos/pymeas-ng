@@ -2,7 +2,7 @@ from PySide6.QtWidgets import *
 from PySide6.QtCore import Qt
 
 import Devices.DeviceManager
-from UI.Settings.GenericLockIn import GenericLockInSettings
+from Settings.GenericLockIn import GenericLockInSettings
 
 class Settings(GenericLockInSettings):
     def placeholderSettingsPage(self):
