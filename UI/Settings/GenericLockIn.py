@@ -5,6 +5,7 @@ from random import uniform
 import Devices.Common
 import Devices.LockIn
 import Devices.DeviceManager
+from UI.Prefix import formatPrefix
 
 class GenericLockInSettings():
     def genericLockInHandler(self):
@@ -40,15 +41,17 @@ class GenericLockInSettings():
         self.genericLockInPhase.setValue(phase)
 
         # Set up Tau combo box
-        for tau in device.tauDict:
-            self.genericLockInTau.addItem(tau)
+        self.genericLockInTau.clear()
+        for tau in device.tauList:
+            self.genericLockInTau.addItem(formatPrefix(tau, 's'))
 
         currentTau = device.readTau()
         self.genericLockInTau.setCurrentIndex(currentTau)
 
         # Set up Sensitivity combo box
-        for sens in device.sensDict:
-            self.genericLockInSens.addItem(sens)
+        self.genericLockInSens.clear()
+        for sens in device.sensList:
+            self.genericLockInSens.addItem(formatPrefix(sens, 'V'))
 
         currentSens = device.readSens()
         self.genericLockInSens.setCurrentIndex(currentSens)

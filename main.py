@@ -26,8 +26,8 @@ from UI.Settings.Common import Settings
 import pyvisa
 
 # PyVisa resource manager
-# rm = pyvisa.ResourceManager()
-rm = Devices.Simulator.RMSimulator()
+rm = pyvisa.ResourceManager()
+# rm = Devices.Simulator.RMSimulator()
 
 class MainWindow(QMainWindow, Ui_MainWindow, DeviceTree, Settings):
     def __init__(self):
@@ -48,10 +48,10 @@ class MainWindow(QMainWindow, Ui_MainWindow, DeviceTree, Settings):
         self.constructSettingsTree()
 
         # Placeholder plot
-        self.plot(
-            [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-            [1, 4, 9, 16, 25, 36, 49, 64, 81, 100],
-        )
+        #self.plot(
+        #    [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+        #    [1, 4, 9, 16, 25, 36, 49, 64, 81, 100],
+        #)
 
         # Call the settings handler when the settings device tree selection changes
         self.deviceSelectionTree.currentItemChanged.connect(self.settingsHandler)

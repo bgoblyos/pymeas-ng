@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1091</width>
-    <height>842</height>
+    <width>774</width>
+    <height>517</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -28,36 +28,72 @@
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_2">
           <item>
-           <widget class="PlotWidget" name="graphWidget" native="true"/>
+           <widget class="PlotWidget" name="graphWidget" native="true">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+           </widget>
           </item>
           <item>
-           <widget class="QListWidget" name="listWidget">
+           <layout class="QVBoxLayout" name="verticalLayout_11">
             <item>
-             <property name="text">
-              <string>Placeholder</string>
-             </property>
+             <widget class="QListWidget" name="plotDataList">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+                <horstretch>1</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>0</height>
+               </size>
+              </property>
+              <item>
+               <property name="text">
+                <string>Placeholder</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>For</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Plot</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Data</string>
+               </property>
+              </item>
+              <item>
+               <property name="text">
+                <string>Selection</string>
+               </property>
+              </item>
+             </widget>
             </item>
             <item>
-             <property name="text">
-              <string>For</string>
-             </property>
+             <widget class="QPushButton" name="plotRefresh">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                <horstretch>1</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="text">
+               <string>PushButton</string>
+              </property>
+             </widget>
             </item>
-            <item>
-             <property name="text">
-              <string>Plot</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>Data</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>Selection</string>
-             </property>
-            </item>
-           </widget>
+           </layout>
           </item>
          </layout>
         </item>
@@ -161,9 +197,9 @@
                  <property name="geometry">
                   <rect>
                    <x>0</x>
-                   <y>0</y>
-                   <width>816</width>
-                   <height>566</height>
+                   <y>-37</y>
+                   <width>487</width>
+                   <height>348</height>
                   </rect>
                  </property>
                  <property name="sizePolicy">
@@ -209,9 +245,6 @@
                         </property>
                         <property name="singleStep">
                          <double>1.000000000000000</double>
-                        </property>
-                        <property name="stepType">
-                         <enum>QAbstractSpinBox::DefaultStepType</enum>
                         </property>
                         <property name="value">
                          <double>1.000000000000000</double>
@@ -288,9 +321,6 @@
                     </property>
                     <property name="singleStep">
                      <double>0.010000000000000</double>
-                    </property>
-                    <property name="stepType">
-                     <enum>QAbstractSpinBox::AdaptiveDecimalStepType</enum>
                     </property>
                    </widget>
                   </item>
@@ -463,8 +493,8 @@
                   <rect>
                    <x>0</x>
                    <y>0</y>
-                   <width>733</width>
-                   <height>381</height>
+                   <width>185</width>
+                   <height>98</height>
                   </rect>
                  </property>
                  <layout class="QFormLayout" name="formLayout_2">
@@ -524,18 +554,39 @@
           </item>
          </layout>
         </item>
-        <item>
-         <widget class="QPlainTextEdit" name="settingsLogBox">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-         </widget>
-        </item>
        </layout>
       </widget>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPlainTextEdit" name="logBox">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>1</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>120</height>
+       </size>
+      </property>
+      <property name="baseSize">
+       <size>
+        <width>0</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="readOnly">
+       <bool>true</bool>
+      </property>
      </widget>
     </item>
    </layout>

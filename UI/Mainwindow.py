@@ -15,12 +15,12 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QAbstractSpinBox, QApplication, QComboBox, QDoubleSpinBox,
-    QFormLayout, QHBoxLayout, QHeaderView, QLabel,
-    QListWidget, QListWidgetItem, QMainWindow, QPlainTextEdit,
-    QPushButton, QRadioButton, QScrollArea, QSizePolicy,
-    QSpacerItem, QStackedWidget, QStatusBar, QTabWidget,
-    QTreeWidget, QTreeWidgetItem, QVBoxLayout, QWidget)
+from PySide6.QtWidgets import (QApplication, QComboBox, QDoubleSpinBox, QFormLayout,
+    QHBoxLayout, QHeaderView, QLabel, QListWidget,
+    QListWidgetItem, QMainWindow, QPlainTextEdit, QPushButton,
+    QRadioButton, QScrollArea, QSizePolicy, QSpacerItem,
+    QStackedWidget, QStatusBar, QTabWidget, QTreeWidget,
+    QTreeWidgetItem, QVBoxLayout, QWidget)
 
 from pyqtgraph import PlotWidget
 
@@ -28,7 +28,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(1091, 842)
+        MainWindow.resize(774, 517)
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.verticalLayout_2 = QVBoxLayout(self.centralwidget)
@@ -43,18 +43,44 @@ class Ui_MainWindow(object):
         self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
         self.graphWidget = PlotWidget(self.plot_tab)
         self.graphWidget.setObjectName(u"graphWidget")
+        sizePolicy = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.graphWidget.sizePolicy().hasHeightForWidth())
+        self.graphWidget.setSizePolicy(sizePolicy)
 
         self.horizontalLayout_2.addWidget(self.graphWidget)
 
-        self.listWidget = QListWidget(self.plot_tab)
-        QListWidgetItem(self.listWidget)
-        QListWidgetItem(self.listWidget)
-        QListWidgetItem(self.listWidget)
-        QListWidgetItem(self.listWidget)
-        QListWidgetItem(self.listWidget)
-        self.listWidget.setObjectName(u"listWidget")
+        self.verticalLayout_11 = QVBoxLayout()
+        self.verticalLayout_11.setObjectName(u"verticalLayout_11")
+        self.plotDataList = QListWidget(self.plot_tab)
+        QListWidgetItem(self.plotDataList)
+        QListWidgetItem(self.plotDataList)
+        QListWidgetItem(self.plotDataList)
+        QListWidgetItem(self.plotDataList)
+        QListWidgetItem(self.plotDataList)
+        self.plotDataList.setObjectName(u"plotDataList")
+        sizePolicy1 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Expanding)
+        sizePolicy1.setHorizontalStretch(1)
+        sizePolicy1.setVerticalStretch(0)
+        sizePolicy1.setHeightForWidth(self.plotDataList.sizePolicy().hasHeightForWidth())
+        self.plotDataList.setSizePolicy(sizePolicy1)
+        self.plotDataList.setMinimumSize(QSize(0, 0))
 
-        self.horizontalLayout_2.addWidget(self.listWidget)
+        self.verticalLayout_11.addWidget(self.plotDataList)
+
+        self.plotRefresh = QPushButton(self.plot_tab)
+        self.plotRefresh.setObjectName(u"plotRefresh")
+        sizePolicy2 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred)
+        sizePolicy2.setHorizontalStretch(1)
+        sizePolicy2.setVerticalStretch(0)
+        sizePolicy2.setHeightForWidth(self.plotRefresh.sizePolicy().hasHeightForWidth())
+        self.plotRefresh.setSizePolicy(sizePolicy2)
+
+        self.verticalLayout_11.addWidget(self.plotRefresh)
+
+
+        self.horizontalLayout_2.addLayout(self.verticalLayout_11)
 
 
         self.horizontalLayout_9.addLayout(self.horizontalLayout_2)
@@ -68,11 +94,11 @@ class Ui_MainWindow(object):
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.deviceTree = QTreeWidget(self.devices_tab)
         self.deviceTree.setObjectName(u"deviceTree")
-        sizePolicy = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
-        sizePolicy.setHorizontalStretch(10)
-        sizePolicy.setVerticalStretch(10)
-        sizePolicy.setHeightForWidth(self.deviceTree.sizePolicy().hasHeightForWidth())
-        self.deviceTree.setSizePolicy(sizePolicy)
+        sizePolicy3 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
+        sizePolicy3.setHorizontalStretch(10)
+        sizePolicy3.setVerticalStretch(10)
+        sizePolicy3.setHeightForWidth(self.deviceTree.sizePolicy().hasHeightForWidth())
+        self.deviceTree.setSizePolicy(sizePolicy3)
 
         self.verticalLayout.addWidget(self.deviceTree)
 
@@ -114,12 +140,12 @@ class Ui_MainWindow(object):
         self.scrollArea.setWidgetResizable(True)
         self.scrollAreaWidgetContents = QWidget()
         self.scrollAreaWidgetContents.setObjectName(u"scrollAreaWidgetContents")
-        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 816, 566))
-        sizePolicy1 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred)
-        sizePolicy1.setHorizontalStretch(0)
-        sizePolicy1.setVerticalStretch(0)
-        sizePolicy1.setHeightForWidth(self.scrollAreaWidgetContents.sizePolicy().hasHeightForWidth())
-        self.scrollAreaWidgetContents.setSizePolicy(sizePolicy1)
+        self.scrollAreaWidgetContents.setGeometry(QRect(0, -37, 487, 348))
+        sizePolicy4 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred)
+        sizePolicy4.setHorizontalStretch(0)
+        sizePolicy4.setVerticalStretch(0)
+        sizePolicy4.setHeightForWidth(self.scrollAreaWidgetContents.sizePolicy().hasHeightForWidth())
+        self.scrollAreaWidgetContents.setSizePolicy(sizePolicy4)
         self.formLayout = QFormLayout(self.scrollAreaWidgetContents)
         self.formLayout.setObjectName(u"formLayout")
         self.formLayout.setFieldGrowthPolicy(QFormLayout.AllNonFixedFieldsGrow)
@@ -127,11 +153,11 @@ class Ui_MainWindow(object):
         self.formLayout.setFormAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignVCenter)
         self.label = QLabel(self.scrollAreaWidgetContents)
         self.label.setObjectName(u"label")
-        sizePolicy2 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.MinimumExpanding)
-        sizePolicy2.setHorizontalStretch(0)
-        sizePolicy2.setVerticalStretch(0)
-        sizePolicy2.setHeightForWidth(self.label.sizePolicy().hasHeightForWidth())
-        self.label.setSizePolicy(sizePolicy2)
+        sizePolicy5 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.MinimumExpanding)
+        sizePolicy5.setHorizontalStretch(0)
+        sizePolicy5.setVerticalStretch(0)
+        sizePolicy5.setHeightForWidth(self.label.sizePolicy().hasHeightForWidth())
+        self.label.setSizePolicy(sizePolicy5)
 
         self.formLayout.setWidget(1, QFormLayout.LabelRole, self.label)
 
@@ -144,7 +170,6 @@ class Ui_MainWindow(object):
         self.genericLockInFreqBox.setDecimals(3)
         self.genericLockInFreqBox.setMaximum(10000.000000000000000)
         self.genericLockInFreqBox.setSingleStep(1.000000000000000)
-        self.genericLockInFreqBox.setStepType(QAbstractSpinBox.DefaultStepType)
         self.genericLockInFreqBox.setValue(1.000000000000000)
 
         self.horizontalLayout_3.addWidget(self.genericLockInFreqBox)
@@ -155,11 +180,11 @@ class Ui_MainWindow(object):
         self.genericLockInFreqPrefix.addItem("")
         self.genericLockInFreqPrefix.addItem("")
         self.genericLockInFreqPrefix.setObjectName(u"genericLockInFreqPrefix")
-        sizePolicy3 = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
-        sizePolicy3.setHorizontalStretch(0)
-        sizePolicy3.setVerticalStretch(0)
-        sizePolicy3.setHeightForWidth(self.genericLockInFreqPrefix.sizePolicy().hasHeightForWidth())
-        self.genericLockInFreqPrefix.setSizePolicy(sizePolicy3)
+        sizePolicy6 = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
+        sizePolicy6.setHorizontalStretch(0)
+        sizePolicy6.setVerticalStretch(0)
+        sizePolicy6.setHeightForWidth(self.genericLockInFreqPrefix.sizePolicy().hasHeightForWidth())
+        self.genericLockInFreqPrefix.setSizePolicy(sizePolicy6)
         self.genericLockInFreqPrefix.setMaximumSize(QSize(60, 16777215))
 
         self.horizontalLayout_3.addWidget(self.genericLockInFreqPrefix)
@@ -186,7 +211,6 @@ class Ui_MainWindow(object):
         self.genericLockInAmp.setMinimum(0.005000000000000)
         self.genericLockInAmp.setMaximum(4.999000000000000)
         self.genericLockInAmp.setSingleStep(0.010000000000000)
-        self.genericLockInAmp.setStepType(QAbstractSpinBox.AdaptiveDecimalStepType)
 
         self.formLayout.setWidget(2, QFormLayout.FieldRole, self.genericLockInAmp)
 
@@ -326,7 +350,7 @@ class Ui_MainWindow(object):
         self.scrollArea_2.setWidgetResizable(True)
         self.scrollAreaWidgetContents_2 = QWidget()
         self.scrollAreaWidgetContents_2.setObjectName(u"scrollAreaWidgetContents_2")
-        self.scrollAreaWidgetContents_2.setGeometry(QRect(0, 0, 733, 381))
+        self.scrollAreaWidgetContents_2.setGeometry(QRect(0, 0, 185, 98))
         self.formLayout_2 = QFormLayout(self.scrollAreaWidgetContents_2)
         self.formLayout_2.setObjectName(u"formLayout_2")
         self.label_4 = QLabel(self.scrollAreaWidgetContents_2)
@@ -375,19 +399,23 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_10.addLayout(self.horizontalLayout_4)
 
-        self.settingsLogBox = QPlainTextEdit(self.settingsTab)
-        self.settingsLogBox.setObjectName(u"settingsLogBox")
-        sizePolicy4 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Preferred)
-        sizePolicy4.setHorizontalStretch(0)
-        sizePolicy4.setVerticalStretch(0)
-        sizePolicy4.setHeightForWidth(self.settingsLogBox.sizePolicy().hasHeightForWidth())
-        self.settingsLogBox.setSizePolicy(sizePolicy4)
-
-        self.verticalLayout_10.addWidget(self.settingsLogBox)
-
         self.tabWidget_2.addTab(self.settingsTab, "")
 
         self.verticalLayout_2.addWidget(self.tabWidget_2)
+
+        self.logBox = QPlainTextEdit(self.centralwidget)
+        self.logBox.setObjectName(u"logBox")
+        sizePolicy7 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Preferred)
+        sizePolicy7.setHorizontalStretch(0)
+        sizePolicy7.setVerticalStretch(1)
+        sizePolicy7.setHeightForWidth(self.logBox.sizePolicy().hasHeightForWidth())
+        self.logBox.setSizePolicy(sizePolicy7)
+        self.logBox.setMinimumSize(QSize(0, 0))
+        self.logBox.setMaximumSize(QSize(16777215, 120))
+        self.logBox.setBaseSize(QSize(0, 0))
+        self.logBox.setReadOnly(True)
+
+        self.verticalLayout_2.addWidget(self.logBox)
 
         MainWindow.setCentralWidget(self.centralwidget)
         self.statusbar = QStatusBar(MainWindow)
@@ -406,20 +434,21 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
 
-        __sortingEnabled = self.listWidget.isSortingEnabled()
-        self.listWidget.setSortingEnabled(False)
-        ___qlistwidgetitem = self.listWidget.item(0)
+        __sortingEnabled = self.plotDataList.isSortingEnabled()
+        self.plotDataList.setSortingEnabled(False)
+        ___qlistwidgetitem = self.plotDataList.item(0)
         ___qlistwidgetitem.setText(QCoreApplication.translate("MainWindow", u"Placeholder", None));
-        ___qlistwidgetitem1 = self.listWidget.item(1)
+        ___qlistwidgetitem1 = self.plotDataList.item(1)
         ___qlistwidgetitem1.setText(QCoreApplication.translate("MainWindow", u"For", None));
-        ___qlistwidgetitem2 = self.listWidget.item(2)
+        ___qlistwidgetitem2 = self.plotDataList.item(2)
         ___qlistwidgetitem2.setText(QCoreApplication.translate("MainWindow", u"Plot", None));
-        ___qlistwidgetitem3 = self.listWidget.item(3)
+        ___qlistwidgetitem3 = self.plotDataList.item(3)
         ___qlistwidgetitem3.setText(QCoreApplication.translate("MainWindow", u"Data", None));
-        ___qlistwidgetitem4 = self.listWidget.item(4)
+        ___qlistwidgetitem4 = self.plotDataList.item(4)
         ___qlistwidgetitem4.setText(QCoreApplication.translate("MainWindow", u"Selection", None));
-        self.listWidget.setSortingEnabled(__sortingEnabled)
+        self.plotDataList.setSortingEnabled(__sortingEnabled)
 
+        self.plotRefresh.setText(QCoreApplication.translate("MainWindow", u"PushButton", None))
         self.tabWidget_2.setTabText(self.tabWidget_2.indexOf(self.plot_tab), QCoreApplication.translate("MainWindow", u"Plot viewer", None))
         ___qtreewidgetitem = self.deviceTree.headerItem()
         ___qtreewidgetitem.setText(4, QCoreApplication.translate("MainWindow", u"Address", None));

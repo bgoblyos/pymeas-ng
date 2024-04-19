@@ -1,31 +1,31 @@
 import Devices.Common
+from UI.Prefix import formatPrefix
 
 # Common class for Stanford Research Lock-In Amplifiers
 # Implements several common control commands and r/w operations
 class SRCommon(Devices.Common.CommonInstrument):
     def __init__(self, rm, address):
         super().__init__(rm, address)
+        self.bufferSize = int(self.query("SPTS?"))
+        
+        self.display1list = [
+            "X",
+            "R",
+            "X Noise",
+            "Aux in 1",
+            "Aux in 2"
+        ]
+
+        self.display2list = [
+            "Y",
+            "Theta",
+            "Y Noise",
+            "Aux in 3",
+            "Aux in 4"
+        ]
 
     def clear(self):
         self.writeStr('*CLS;REST')
-
-    # This was taken from the original project
-    # Left in for reference
-    def oldReadLockIn(self, *params):
-        if len(params) > 1:
-            com = 'SNAP?'
-            for param in params:
-                com += self.par_dict[param] + ','
-            com = com[:-1]
-            self.writeStr(com)
-            result_s = self.readValue().split(',')
-            result = []
-            for s in result_s:
-                result.append(float(s))
-            return result
-        else:
-            self.writeStr('OUTP?' + self.par_dict[params[0]])
-            return float(self.readValue())
         
     def readXY(self):
         response = self.query("SNAP? 1,2")
@@ -95,17 +95,66 @@ class SRCommon(Devices.Common.CommonInstrument):
     def pause(self):
         self.writeStr('PAUS')
 
-    def readBuffer(self):
-        self.writeStr('SPTS?')
-        return int(self.read())
+    def readBuffer(self, buffer, firstPoint = 0, numPoints = 0):
+        if numPoints <= 0:
+            numPoints = self.bufferSize - firstPoint
+        
+        if (firstPoint >= self.bufferSize) or (firstPoint < 0):
+            print("Starting index is out of bounds")
+            return []
+        
+        if (firstPoint + numPoints) > self.bufferSize:
+            print("Requested too many points, clamping it.")
+            numPoints = self.bufferSize - firstPoint
 
-    def readBufferValue(self, firstPoint, numberOfPoints):
-        self.writeStr('TRCA? 1,' + str(firstPoint) + ',' + str(numberOfPoints))
-        rawResult = self.readValue()
-        result = []
-        for data in rawResult.split(',')[:-1]:
-            result.append(float(data))
-        return result
+        queryStr = f"TRCB ? {buffer}, {firstPoint}, {numPoints}"
+        return self.queryBinaryFloat(queryStr)
+
+
+    def setDisplay(self, display, value, ratio = 0):
+        self.writeParam("DDEF", f"{display}, {value}, {ratio}")
+
+    def maxSampleFreq(self):
+        tau = self.tauList[self.readTau]
+        maxfreq = 1/tau
+        # Iterate over the list in reverse
+        for i in reversed(range(0, len(self.sampleFreqList))):
+            if self.sampleFreqList[i] < maxfreq:
+                return i
+            
+    def armTimedMeasurement(self, time, chosenFreqIndex):
+        maxFreqIndex = self.maxSampleFreq()
+        maxFreq = self.sampleFreqList[maxFreqIndex]
+        chosenFreq = self.sampleFreqList[chosenFreqIndex]
+
+        if chosenFreq > maxFreq:
+            print(f"{formatPrefix(chosenFreq, "Hz")} is too high,\
+                  clamping it to {formatPrefix(maxFreq, "Hz")}")
+            self.writeParam("SRAT", maxFreqIndex)
+        else:
+            self.writeParam("SRAT", chosenFreqIndex)
+
+        # Read it back from the device just to be sure
+        actualFreq = self.sampleFreqList[self.query("SRAT?")]
+
+        numpoints = round(time * actualFreq)
+        padding = 0
+        if numpoints > self.bufferSize:
+            print("The buffer cannot store every datapoint.")
+            print("The result will be padded with zeroes.")
+            padding = numpoints - self.bufferSize
+            numpoints = self.bufferSize
+
+        # Set to oneshot mode
+        self.writeParam("SEND", 1)
+
+        # Clear buffer
+        self.writeStr("REST")
+
+        print("Lock-in is armed, waiting for trigger")
+        return (numpoints, padding)
+
+
 
     # TODO: Review this
     def freqSweepSetup(self):
@@ -140,57 +189,78 @@ class SR830(SRCommon):
     def __init__(self, rm, address):
         super().__init__(rm, address)
 
-        self.sensDict = {
-            '2 nV' : '0',
-            '5 nV' : '1',
-            '10 nV' : '2',
-            '20 nV' : '3',
-            '50 nV' : '4',
-            '100 nV' : '5',
-            '200 nV' : '6',
-            '500 nV' : '7',
-            '1 uV' : '8',
-            '2 uV' : '9',
-            '5 uV' : '10',
-            '10 uV' : '11',
-            '20 uV' : '12',
-            '50 uV' : '13',
-            '100 uV' : '14',
-            '200 uV' : '15',
-            '500 uV' : '16',
-            '1 mV' : '17',
-            '2 mV' : '18',
-            '5 mV' : '19',
-            '10 mV' : '20',
-            '20 mV' : '21',
-            '50 mV' : '22',
-            '100 mV' : '23',
-            '200 mV' : '24',
-            '500 mV' : '25',
-            '1 V' : '26'
-        }
+        self.sensList = [
+            2e-9,
+            5e-9,
+            10e-9,
+            20e-9,
+            50e-9,
+            100e-9,
+            200e-9,
+            500e-9,
+            1e-6,
+            2e-6,
+            5e-6,
+            10e-6,
+            20e-6,
+            50e-6,
+            100e-6,
+            200e-6,
+            500e-6,
+            1e-3,
+            2e-3,
+            5e-3,
+            10e-3,
+            20e-3,
+            50e-3,
+            100e-3,
+            200e-3,
+            500e-3,
+            1
+        ]
 
-        self.tauDict = {
-            '10 us'  : '0' ,
-            '30 us'  : '1' ,
-            '100 us' : '2' ,
-            '300 us' : '3' ,
-            '1 ms'   : '4' ,
-            '3 ms'   : '5' ,
-            '10 ms'  : '6' ,
-            '30 ms'  : '7' ,
-            '100 ms' : '8' ,
-            '300 ms' : '9' ,
-            '1 s'    : '10',
-            '3 s'    : '11',
-            '10 s'   : '12',
-            '30 s'   : '13',
-            '100 s'  : '14',
-            '300 s'  : '15',
-            '1 ks'   : '16',
-            '3 ks'   : '17',
-            '10 ks'  : '18',
-            '30 ks'  : '19'
-        }
+        # Machine-readable time constant list
+        # Try to migrate to this format for displaying it as well
+        self.tauList = [
+            10e-6,
+            30e-6,
+            100e-6,
+            300e-6,
+            1e-3,
+            3e-3,
+            10e-3,
+            30e-3,
+            100e-3,
+            300e-3,
+            1,
+            3,
+            10,
+            30,
+            100,
+            300,
+            1e3,
+            3e3,
+            10e3,
+            30e3,
+        ]
 
-    model = "SR830"
+        self.sampleFreqList = [
+            62.5e-3,
+            125e-3,
+            250e-3,
+            500e-3,
+            1,
+            2,
+            4,
+            8,
+            16,
+            32,
+            64,
+            128,
+            256,
+            512
+        ]
+
+        self.model = "SR830"
+
+        

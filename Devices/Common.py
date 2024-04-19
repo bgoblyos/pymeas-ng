@@ -1,4 +1,5 @@
 import pyvisa
+import struct
 
 # Common instrument class
 # Handles opening the device with pyvisa
@@ -24,3 +25,23 @@ class CommonInstrument():
     def query(self, param):
         response = self.device.query(param)
         return response
+    
+    # Send a query and read out the raw reponse into a byte array
+    def queryBinary(self, param):
+        # Increse timeout, otherwise the transfer takes too long
+        oldTimeout = self.device.timeout
+        self.device.timeout = 60000 # 1 minute
+
+        self.device.write(param)
+        response = self.device.read_raw() 
+
+        # Reset the timeout
+        self.device.timeout = oldTimeout
+        
+        return response
+    
+    def queryBinaryFloat(self, param):
+        response = self.queryBinary(param)
+        entries = len(response) // 4
+        data = struct.unpack(f"{entries}f", response)
+        return data
