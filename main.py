@@ -1,13 +1,11 @@
 from PySide6.QtWidgets import QMainWindow, QApplication, QStyleFactory
 
 import sys
-import os
 import logging
-from random import uniform
+import argparse
+from pyvisa import ResourceManager
 
 # Import device classes and handlers
-import Devices.Common
-import Devices.LockIn
 import Devices.DeviceManager
 
 # Import pyvisa simulator for debugging
@@ -28,15 +26,30 @@ from Settings.Common import Settings
 # Import GUI logger
 from UI.Logger import QTextEditLogger
 
-from pyvisa import ResourceManager()
+from Misc.CloseInheritance import CloseInheritance
 
 # PyVisa resource manager
 # rm = ResourceManager()
 rm = Devices.Simulator.RMSimulator()
 
-class MainWindow(QMainWindow, Ui_MainWindow, DeviceTree, Settings):
-    def __init__(self):
+parser = argparse.ArgumentParser(
+                    prog='PyMeas-ng',
+                    description='Scientific measurement suite')
+
+# Main GUI class, meant to glue everything together
+# Always inherit CloseInheritance last, as it is meant to
+# close the inheritance graph. It has a dummy __setup__()
+# method and does not call super().__setup__().
+class MainWindow( QMainWindow
+                , Ui_MainWindow
+                , Settings
+                , DeviceTree
+                , CloseInheritance):
+
+    def __init__(self, rm):
         super(MainWindow, self).__init__()
+
+        self.rm = rm
 
         self.setupUi(self)
         
@@ -50,7 +63,7 @@ class MainWindow(QMainWindow, Ui_MainWindow, DeviceTree, Settings):
         
         # Get connected, disconnected and unknown devices
         # using the config file
-        self.devices, self.disconnected, self.unknown = Devices.DeviceManager.readConfig(rm)
+        self.devices, self.disconnected, self.unknown = Devices.DeviceManager.readConfig(self.rm)
         # Devices: nested dict ([type][name]) with objects inside
         # Disconnected: nested dict ([type][name]) with entries in the form of (model, address)
         # Unknown: list of connected, but unconfigured VISA addresses
@@ -72,12 +85,14 @@ class MainWindow(QMainWindow, Ui_MainWindow, DeviceTree, Settings):
         self.graphWidget.plot(xs, ys)
 
 app = QApplication(sys.argv)
+
+
 # Set default style to Fusion (if it exists)
 if "Fusion" in QStyleFactory.keys():
     app.setStyle("Fusion")
 
 
-window = MainWindow()
+window = MainWindow(rm)
 window.show()
 
 #window.displayDeviceTree(devices)

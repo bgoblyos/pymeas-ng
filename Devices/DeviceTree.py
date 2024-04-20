@@ -11,7 +11,6 @@ class DeviceTree():
         
         super(DeviceTree, self).__setup__()
 
-
     def displayDeviceTree(self):
         # Connected devices
         connectedItem = QTreeWidgetItem(self.deviceTree)
