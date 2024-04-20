@@ -28,14 +28,6 @@ from UI.Logger import QTextEditLogger
 
 from Misc.CloseInheritance import CloseInheritance
 
-# PyVisa resource manager
-# rm = ResourceManager()
-rm = Devices.Simulator.RMSimulator()
-
-parser = argparse.ArgumentParser(
-                    prog='PyMeas-ng',
-                    description='Scientific measurement suite')
-
 # Main GUI class, meant to glue everything together
 # Always inherit CloseInheritance last, as it is meant to
 # close the inheritance graph. It has a dummy __setup__()
@@ -46,7 +38,7 @@ class MainWindow( QMainWindow
                 , DeviceTree
                 , CloseInheritance):
 
-    def __init__(self, rm):
+    def __init__(self, rm, loglevel):
         super(MainWindow, self).__init__()
 
         self.rm = rm
@@ -56,7 +48,7 @@ class MainWindow( QMainWindow
         # Set up logging to the logBox
         logTextBox = QTextEditLogger(self.logBox)
         logging.getLogger().addHandler(logTextBox)
-        logging.getLogger().setLevel(logging.DEBUG)
+        logging.getLogger().setLevel(loglevel)
 
         logging.debug("Main window initialized")
         
@@ -87,12 +79,36 @@ class MainWindow( QMainWindow
 app = QApplication(sys.argv)
 
 
-# Set default style to Fusion (if it exists)
-if "Fusion" in QStyleFactory.keys():
+themeOptions = QStyleFactory.keys()
+
+parser = argparse.ArgumentParser(
+                    prog='PyMeas-ng',
+                    description='Scientific measurement suite')
+
+parser.add_argument('-t', '--theme', choices = themeOptions, help = "Application theme")
+parser.add_argument('-s', '--simulate', action = 'store_true', help = "Use simulated pyvisa")
+parser.add_argument('-v', '--verbose', action = 'count', help = 'Verbose mode (set once for info and twice for debug messages', default = 0)
+
+args = parser.parse_args()
+
+if args.simulate:
+    rm = Devices.Simulator.RMSimulator()
+else:
+    rm = ResourceManager()
+
+if args.verbose >= 2:
+    loglevel = logging.DEBUG
+elif args.verbose == 1:
+    loglevel = logging.INFO
+else:
+    loglevel = logging.WARNING
+
+if args.theme != None:
+    app.setStyle(parser.theme)
+elif "Fusion" in themeOptions:
     app.setStyle("Fusion")
 
-
-window = MainWindow(rm)
+window = MainWindow(rm, loglevel)
 window.show()
 
 #window.displayDeviceTree(devices)
