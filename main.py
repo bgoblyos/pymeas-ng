@@ -1,5 +1,4 @@
 from PySide6.QtWidgets import QMainWindow, QApplication, QStyleFactory
-#from PySide6.QtCore import Qt
 
 import sys
 import os
@@ -16,6 +15,8 @@ import Devices.DeviceManager
 import Devices.Simulator
 
 # Import UI file (generated from Qt Designer .ui file)
+# Run `pyside6-uic UI/mainwindow.ui -o UI/Mainwindow.py`
+# after modifying to regenerate the python file
 from UI.Mainwindow import Ui_MainWindow
 
 # Import device tree handler class to inherit
@@ -24,12 +25,13 @@ from Devices.DeviceTree import DeviceTree
 # Import settings handler class to inherit
 from Settings.Common import Settings
 
+# Import GUI logger
 from UI.Logger import QTextEditLogger
 
-import pyvisa
+from pyvisa import ResourceManager()
 
 # PyVisa resource manager
-# rm = pyvisa.ResourceManager()
+# rm = ResourceManager()
 rm = Devices.Simulator.RMSimulator()
 
 class MainWindow(QMainWindow, Ui_MainWindow, DeviceTree, Settings):
@@ -38,11 +40,13 @@ class MainWindow(QMainWindow, Ui_MainWindow, DeviceTree, Settings):
 
         self.setupUi(self)
         
+        # Set up logging to the logBox
         logTextBox = QTextEditLogger(self.logBox)
         logging.getLogger().addHandler(logTextBox)
         logging.getLogger().setLevel(logging.DEBUG)
 
         logging.debug("Main window initialized")
+        
         
         # Get connected, disconnected and unknown devices
         # using the config file
@@ -52,27 +56,15 @@ class MainWindow(QMainWindow, Ui_MainWindow, DeviceTree, Settings):
         # Unknown: list of connected, but unconfigured VISA addresses
 
 
-        self.displayDeviceTree()
-
-        self.constructSettingsTree()
+        # Run the setup for each inherited class
+        super(MainWindow, self).__setup__()
+        
 
         # Placeholder plot
         #self.plot(
         #    [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
         #    [1, 4, 9, 16, 25, 36, 49, 64, 81, 100],
         #)
-
-        # Call the settings handler when the settings device tree selection changes
-        self.deviceSelectionTree.currentItemChanged.connect(self.settingsHandler)
-
-        # Set the default device config page to the placeholder
-        self.settingsStack.setCurrentIndex(0)
-
-        # Set up generic lock-in frequency randomizer button
-        self.genericLockInRandomButton.clicked.connect(self.genericLockInRandomFreq)
-
-        # Set up generic lock-in apply button
-        self.genericLockInApplyButton.clicked.connect(self.genericLockInApply)
 
 
     # Plot the given dataset
@@ -86,7 +78,6 @@ if "Fusion" in QStyleFactory.keys():
 
 
 window = MainWindow()
-
 window.show()
 
 #window.displayDeviceTree(devices)

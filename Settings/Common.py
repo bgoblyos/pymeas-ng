@@ -7,6 +7,20 @@ from Settings.GenericLockIn import GenericLockInSettings
 import logging
 
 class Settings(GenericLockInSettings):
+    # Method for setting up the settings page
+    # Called by main using super
+    def __setup__(self):
+        
+        # Call the settings handler when the settings device tree selection changes
+        self.deviceSelectionTree.currentItemChanged.connect(self.settingsHandler)
+
+        # Set the default device config page to the placeholder
+        self.placeholderSettingsPage()
+
+        self.constructSettingsTree()
+        
+        super(Settings, self).__setup__()
+        
     def placeholderSettingsPage(self):
         self.settingsStack.setCurrentIndex(0)
 

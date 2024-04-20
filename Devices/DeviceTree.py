@@ -3,6 +3,9 @@ from PySide6.QtWidgets import *
 import Devices.DeviceManager
 
 class DeviceTree():
+    def __setup__(self):
+        self.displayDeviceTree()
+
     def displayDeviceTree(self):
         # Connected devices
         connectedItem = QTreeWidgetItem(self.deviceTree)

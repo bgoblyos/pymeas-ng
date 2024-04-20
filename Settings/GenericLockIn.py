@@ -9,6 +9,14 @@ import Devices.DeviceManager
 from Misc.Prefix import formatPrefix
 
 class GenericLockInSettings():
+    def __setup__(self):
+        
+        # Set up generic lock-in frequency randomizer button
+        self.genericLockInRandomButton.clicked.connect(self.genericLockInRandomFreq)
+        # Set up generic lock-in apply button
+        self.genericLockInApplyButton.clicked.connect(self.genericLockInApply)
+
+
     def genericLockInHandler(self):
         device = self.currentSettingsDevice
 
