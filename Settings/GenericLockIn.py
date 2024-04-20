@@ -16,6 +16,9 @@ class GenericLockInSettings():
         # Set up generic lock-in apply button
         self.genericLockInApplyButton.clicked.connect(self.genericLockInApply)
 
+        # This class doesn't inherit anything, but python needs the 
+        # super call to linearize the inheritance graph
+        super(GenericLockInSettings, self).__setup__()
 
     def genericLockInHandler(self):
         device = self.currentSettingsDevice

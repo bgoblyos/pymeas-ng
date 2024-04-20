@@ -2,9 +2,15 @@ from PySide6.QtWidgets import *
 
 import Devices.DeviceManager
 
+import logging
+
 class DeviceTree():
     def __setup__(self):
         self.displayDeviceTree()
+        logging.debug("Completed device tree setup")
+        
+        super(DeviceTree, self).__setup__()
+
 
     def displayDeviceTree(self):
         # Connected devices

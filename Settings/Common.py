@@ -18,6 +18,8 @@ class Settings(GenericLockInSettings):
         self.placeholderSettingsPage()
 
         self.constructSettingsTree()
+
+        logging.debug("Completed Settings setup")
         
         super(Settings, self).__setup__()
         
