@@ -21,7 +21,7 @@ class Settings(GenericLockInSettings):
 
         logging.debug("Completed Settings setup")
         
-        super(Settings, self).__setup__()
+        GenericLockInSettings.__setup__(self)
         
     def placeholderSettingsPage(self):
         self.settingsStack.setCurrentIndex(0)

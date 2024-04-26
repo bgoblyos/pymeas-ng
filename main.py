@@ -26,8 +26,6 @@ from Settings.Common import Settings
 # Import GUI logger
 from UI.Logger import QTextEditLogger
 
-from Misc.CloseInheritance import CloseInheritance
-
 # Main GUI class, meant to glue everything together
 # Always inherit CloseInheritance last, as it is meant to
 # close the inheritance graph. It has a dummy __setup__()
@@ -35,8 +33,7 @@ from Misc.CloseInheritance import CloseInheritance
 class MainWindow( QMainWindow
                 , Ui_MainWindow
                 , Settings
-                , DeviceTree
-                , CloseInheritance):
+                , DeviceTree ):
 
     def __init__(self, rm, loglevel):
         super(MainWindow, self).__init__()
@@ -62,7 +59,8 @@ class MainWindow( QMainWindow
 
 
         # Run the setup for each inherited class
-        super(MainWindow, self).__setup__()
+        DeviceTree.__setup__(self)
+        Settings.__setup__(self)
         
 
         # Placeholder plot

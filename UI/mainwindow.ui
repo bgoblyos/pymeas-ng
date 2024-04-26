@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>774</width>
-    <height>517</height>
+    <width>709</width>
+    <height>591</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -21,7 +21,7 @@
        <enum>QTabWidget::North</enum>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>3</number>
       </property>
       <widget class="QWidget" name="plot_tab">
        <attribute name="title">
@@ -180,8 +180,8 @@
                   <rect>
                    <x>0</x>
                    <y>0</y>
-                   <width>497</width>
-                   <height>462</height>
+                   <width>422</width>
+                   <height>348</height>
                   </rect>
                  </property>
                  <property name="sizePolicy">
@@ -475,8 +475,8 @@
                   <rect>
                    <x>0</x>
                    <y>0</y>
-                   <width>226</width>
-                   <height>112</height>
+                   <width>185</width>
+                   <height>98</height>
                   </rect>
                  </property>
                  <layout class="QFormLayout" name="formLayout_2">
@@ -573,7 +573,7 @@
         <item>
          <widget class="QStackedWidget" name="stackedWidget">
           <property name="currentIndex">
-           <number>0</number>
+           <number>1</number>
           </property>
           <widget class="QWidget" name="expPlaceholder">
            <layout class="QHBoxLayout" name="horizontalLayout_10">
@@ -604,15 +604,22 @@
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>159</width>
-                 <height>88</height>
+                 <width>491</width>
+                 <height>346</height>
                 </rect>
                </property>
-               <layout class="QFormLayout" name="formLayout_3">
-                <item row="0" column="0">
-                 <widget class="QLabel" name="label_16">
+               <layout class="QGridLayout" name="gridLayout">
+                <item row="2" column="1">
+                 <layout class="QHBoxLayout" name="horizontalLayout_11">
+                  <item>
+                   <widget class="QDoubleSpinBox" name="doubleSpinBox"/>
+                  </item>
+                 </layout>
+                </item>
+                <item row="0" column="2">
+                 <widget class="QLabel" name="label_17">
                   <property name="text">
-                   <string>Sweeper</string>
+                   <string>Lock-in</string>
                   </property>
                  </widget>
                 </item>
@@ -626,24 +633,21 @@
                   </property>
                  </widget>
                 </item>
-                <item row="1" column="0">
-                 <widget class="QLabel" name="label_17">
+                <item row="0" column="0">
+                 <widget class="QLabel" name="label_16">
                   <property name="text">
-                   <string>Lock-in</string>
+                   <string>Sweeper</string>
                   </property>
                  </widget>
                 </item>
-                <item row="1" column="1">
-                 <widget class="QComboBox" name="comboBox_2">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
+                <item row="2" column="0">
+                 <widget class="QLabel" name="label_19">
+                  <property name="text">
+                   <string>Start freq.</string>
                   </property>
                  </widget>
                 </item>
-                <item row="2" column="1">
+                <item row="4" column="1">
                  <spacer name="verticalSpacer_2">
                   <property name="orientation">
                    <enum>Qt::Vertical</enum>
@@ -655,6 +659,40 @@
                    </size>
                   </property>
                  </spacer>
+                </item>
+                <item row="3" column="0">
+                 <widget class="QLabel" name="label_18">
+                  <property name="text">
+                   <string>Sweep time</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="3">
+                 <widget class="QComboBox" name="comboBox_2">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                 </widget>
+                </item>
+                <item row="2" column="2">
+                 <widget class="QLabel" name="label_20">
+                  <property name="text">
+                   <string>End freq.</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="2" column="3">
+                 <widget class="QDoubleSpinBox" name="doubleSpinBox_2"/>
+                </item>
+                <item row="3" column="2">
+                 <widget class="QLabel" name="label_21">
+                  <property name="text">
+                   <string>Sample freq.</string>
+                  </property>
+                 </widget>
                 </item>
                </layout>
               </widget>

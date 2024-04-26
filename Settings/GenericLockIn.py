@@ -15,8 +15,6 @@ class GenericLockInSettings():
         self.genericLockInRandomButton.clicked.connect(self.genericLockInRandomFreq)
         # Set up generic lock-in apply button
         self.genericLockInApplyButton.clicked.connect(self.genericLockInApply)
-
-        super(GenericLockInSettings, self).__setup__()
     
     def genericLockInHandler(self):
         device = self.currentSettingsDevice
