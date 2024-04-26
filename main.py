@@ -23,6 +23,9 @@ from Devices.DeviceTree import DeviceTree
 # Import settings handler class to inherit
 from Settings.Common import Settings
 
+# Import experiment handler class
+from Experiments.Common import Experiments
+
 # Import GUI logger
 from UI.Logger import QTextEditLogger
 
@@ -33,7 +36,8 @@ from UI.Logger import QTextEditLogger
 class MainWindow( QMainWindow
                 , Ui_MainWindow
                 , Settings
-                , DeviceTree ):
+                , DeviceTree
+                , Experiments ):
 
     def __init__(self, rm, loglevel):
         super(MainWindow, self).__init__()
@@ -61,6 +65,7 @@ class MainWindow( QMainWindow
         # Run the setup for each inherited class
         DeviceTree.__setup__(self)
         Settings.__setup__(self)
+        Experiments.__setup__(self)
         
 
         # Placeholder plot

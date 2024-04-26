@@ -1,6 +1,8 @@
 import Devices.Common
 from Misc.Prefix import formatPrefix
 
+import logging
+
 # Common class for Stanford Research Lock-In Amplifiers
 # Implements several common control commands and r/w operations
 class SRCommon(Devices.Common.CommonInstrument):
@@ -76,6 +78,9 @@ class SRCommon(Devices.Common.CommonInstrument):
     def sampleRate(self, state):
         self.writeParam('SRAT ', state)
 
+    def readSampleRate(self):
+        return int(self.query('SRAT?'))
+
     def aux(self, channel, value):
         if float(value) > -10.5 and float(value) < 10.5:
             self.writeStr('AUXV '+ channel + ',' + value)
@@ -115,7 +120,7 @@ class SRCommon(Devices.Common.CommonInstrument):
         self.writeParam("DDEF", f"{display}, {value}, {ratio}")
 
     def maxSampleRate(self):
-        tau = self.tauList[self.readTau]
+        tau = self.tauList[self.readTau()]
         maxfreq = 1/tau
         # Iterate over the list in reverse
         for i in reversed(range(0, len(self.sampleFreqList))):
@@ -131,19 +136,19 @@ class SRCommon(Devices.Common.CommonInstrument):
         chosenFreq = self.sampleFreqList[chosenFreqIndex]
 
         if chosenFreq > maxFreq:
-            print(f"{formatPrefix(chosenFreq, 'Hz')} is too high, clamping it to {formatPrefix(maxFreq, 'Hz')}")
+            logging.warning(f"{formatPrefix(chosenFreq, 'Hz')} is too high, clamping it to {formatPrefix(maxFreq, 'Hz')}")
             self.writeParam("SRAT", maxFreqIndex)
         else:
             self.writeParam("SRAT", chosenFreqIndex)
 
         # Read it back from the device just to be sure
-        actualFreq = self.sampleFreqList[self.query("SRAT?")]
+        actualFreq = self.sampleFreqList[self.readSampleRate()]
 
         numpoints = round(time * actualFreq)
         padding = 0
         if numpoints > self.bufferSize:
-            print("The buffer cannot store every datapoint.")
-            print("The result will be padded with zeroes.")
+            logging.warning("The buffer cannot store every datapoint.")
+            logging.warning("The result will be padded with zeroes.")
             padding = numpoints - self.bufferSize
             numpoints = self.bufferSize
 
@@ -153,7 +158,7 @@ class SRCommon(Devices.Common.CommonInstrument):
         # Clear buffer
         self.writeStr("REST")
 
-        print("Lock-in is armed, waiting for trigger")
+        logging.info("Lock-in is armed, waiting for trigger")
         return (numpoints, padding)
 
 

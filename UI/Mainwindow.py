@@ -16,11 +16,12 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QComboBox, QDoubleSpinBox, QFormLayout,
-    QHBoxLayout, QHeaderView, QLabel, QListWidget,
-    QListWidgetItem, QMainWindow, QPlainTextEdit, QPushButton,
-    QRadioButton, QScrollArea, QSizePolicy, QSpacerItem,
-    QStackedWidget, QStatusBar, QTabWidget, QTreeWidget,
-    QTreeWidgetItem, QVBoxLayout, QWidget)
+    QGridLayout, QHBoxLayout, QHeaderView, QLabel,
+    QListWidget, QListWidgetItem, QMainWindow, QPlainTextEdit,
+    QProgressBar, QPushButton, QRadioButton, QScrollArea,
+    QSizePolicy, QSpacerItem, QStackedWidget, QStatusBar,
+    QTabWidget, QTreeWidget, QTreeWidgetItem, QVBoxLayout,
+    QWidget)
 
 from pyqtgraph import PlotWidget
 
@@ -28,7 +29,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(774, 517)
+        MainWindow.resize(709, 591)
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.verticalLayout_2 = QVBoxLayout(self.centralwidget)
@@ -129,7 +130,7 @@ class Ui_MainWindow(object):
         self.scrollArea.setWidgetResizable(True)
         self.scrollAreaWidgetContents = QWidget()
         self.scrollAreaWidgetContents.setObjectName(u"scrollAreaWidgetContents")
-        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 497, 462))
+        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 422, 348))
         sizePolicy2 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred)
         sizePolicy2.setHorizontalStretch(0)
         sizePolicy2.setVerticalStretch(0)
@@ -339,7 +340,7 @@ class Ui_MainWindow(object):
         self.scrollArea_2.setWidgetResizable(True)
         self.scrollAreaWidgetContents_2 = QWidget()
         self.scrollAreaWidgetContents_2.setObjectName(u"scrollAreaWidgetContents_2")
-        self.scrollAreaWidgetContents_2.setGeometry(QRect(0, 0, 226, 112))
+        self.scrollAreaWidgetContents_2.setGeometry(QRect(0, 0, 185, 98))
         self.formLayout_2 = QFormLayout(self.scrollAreaWidgetContents_2)
         self.formLayout_2.setObjectName(u"formLayout_2")
         self.label_4 = QLabel(self.scrollAreaWidgetContents_2)
@@ -393,21 +394,21 @@ class Ui_MainWindow(object):
         self.tab.setObjectName(u"tab")
         self.horizontalLayout_5 = QHBoxLayout(self.tab)
         self.horizontalLayout_5.setObjectName(u"horizontalLayout_5")
-        self.listWidget = QListWidget(self.tab)
-        QListWidgetItem(self.listWidget)
-        self.listWidget.setObjectName(u"listWidget")
+        self.expList = QListWidget(self.tab)
+        QListWidgetItem(self.expList)
+        self.expList.setObjectName(u"expList")
         sizePolicy5 = QSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
         sizePolicy5.setHorizontalStretch(0)
         sizePolicy5.setVerticalStretch(0)
-        sizePolicy5.setHeightForWidth(self.listWidget.sizePolicy().hasHeightForWidth())
-        self.listWidget.setSizePolicy(sizePolicy5)
-        self.listWidget.setMinimumSize(QSize(150, 0))
-        self.listWidget.setMaximumSize(QSize(150, 16777215))
+        sizePolicy5.setHeightForWidth(self.expList.sizePolicy().hasHeightForWidth())
+        self.expList.setSizePolicy(sizePolicy5)
+        self.expList.setMinimumSize(QSize(150, 0))
+        self.expList.setMaximumSize(QSize(150, 16777215))
 
-        self.horizontalLayout_5.addWidget(self.listWidget)
+        self.horizontalLayout_5.addWidget(self.expList)
 
-        self.stackedWidget = QStackedWidget(self.tab)
-        self.stackedWidget.setObjectName(u"stackedWidget")
+        self.expStack = QStackedWidget(self.tab)
+        self.expStack.setObjectName(u"expStack")
         self.expPlaceholder = QWidget()
         self.expPlaceholder.setObjectName(u"expPlaceholder")
         self.horizontalLayout_10 = QHBoxLayout(self.expPlaceholder)
@@ -418,7 +419,7 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_10.addWidget(self.label_15)
 
-        self.stackedWidget.addWidget(self.expPlaceholder)
+        self.expStack.addWidget(self.expPlaceholder)
         self.expSweepAndLockIn = QWidget()
         self.expSweepAndLockIn.setObjectName(u"expSweepAndLockIn")
         self.verticalLayout_4 = QVBoxLayout(self.expSweepAndLockIn)
@@ -429,52 +430,175 @@ class Ui_MainWindow(object):
         self.scrollArea_3.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignVCenter)
         self.scrollAreaWidgetContents_3 = QWidget()
         self.scrollAreaWidgetContents_3.setObjectName(u"scrollAreaWidgetContents_3")
-        self.scrollAreaWidgetContents_3.setGeometry(QRect(0, 0, 159, 88))
-        self.formLayout_3 = QFormLayout(self.scrollAreaWidgetContents_3)
-        self.formLayout_3.setObjectName(u"formLayout_3")
-        self.label_16 = QLabel(self.scrollAreaWidgetContents_3)
-        self.label_16.setObjectName(u"label_16")
+        self.scrollAreaWidgetContents_3.setGeometry(QRect(0, 0, 491, 319))
+        self.gridLayout = QGridLayout(self.scrollAreaWidgetContents_3)
+        self.gridLayout.setObjectName(u"gridLayout")
+        self.sweepAndLockTau = QComboBox(self.scrollAreaWidgetContents_3)
+        self.sweepAndLockTau.setObjectName(u"sweepAndLockTau")
 
-        self.formLayout_3.setWidget(0, QFormLayout.LabelRole, self.label_16)
+        self.gridLayout.addWidget(self.sweepAndLockTau, 2, 3, 1, 1)
 
-        self.comboBox = QComboBox(self.scrollAreaWidgetContents_3)
-        self.comboBox.setObjectName(u"comboBox")
-        sizePolicy6 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
-        sizePolicy6.setHorizontalStretch(0)
-        sizePolicy6.setVerticalStretch(0)
-        sizePolicy6.setHeightForWidth(self.comboBox.sizePolicy().hasHeightForWidth())
-        self.comboBox.setSizePolicy(sizePolicy6)
+        self.sweepAndLockDataPointsLabel = QLabel(self.scrollAreaWidgetContents_3)
+        self.sweepAndLockDataPointsLabel.setObjectName(u"sweepAndLockDataPointsLabel")
 
-        self.formLayout_3.setWidget(0, QFormLayout.FieldRole, self.comboBox)
+        self.gridLayout.addWidget(self.sweepAndLockDataPointsLabel, 9, 3, 1, 1)
+
+        self.sweepAndLockMaxTimeLabel = QLabel(self.scrollAreaWidgetContents_3)
+        self.sweepAndLockMaxTimeLabel.setObjectName(u"sweepAndLockMaxTimeLabel")
+
+        self.gridLayout.addWidget(self.sweepAndLockMaxTimeLabel, 9, 1, 1, 1)
+
+        self.label_26 = QLabel(self.scrollAreaWidgetContents_3)
+        self.label_26.setObjectName(u"label_26")
+
+        self.gridLayout.addWidget(self.label_26, 2, 2, 1, 1)
+
+        self.sweepAndLockSens = QComboBox(self.scrollAreaWidgetContents_3)
+        self.sweepAndLockSens.setObjectName(u"sweepAndLockSens")
+
+        self.gridLayout.addWidget(self.sweepAndLockSens, 2, 1, 1, 1)
+
+        self.sweepAndLockSampleFreq = QComboBox(self.scrollAreaWidgetContents_3)
+        self.sweepAndLockSampleFreq.setObjectName(u"sweepAndLockSampleFreq")
+
+        self.gridLayout.addWidget(self.sweepAndLockSampleFreq, 7, 3, 1, 1)
+
+        self.sweepAndLockEndFreq = QDoubleSpinBox(self.scrollAreaWidgetContents_3)
+        self.sweepAndLockEndFreq.setObjectName(u"sweepAndLockEndFreq")
+
+        self.gridLayout.addWidget(self.sweepAndLockEndFreq, 6, 3, 1, 1)
+
+        self.label_21 = QLabel(self.scrollAreaWidgetContents_3)
+        self.label_21.setObjectName(u"label_21")
+
+        self.gridLayout.addWidget(self.label_21, 7, 2, 1, 1)
+
+        self.verticalSpacer_3 = QSpacerItem(20, 5, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
+
+        self.gridLayout.addItem(self.verticalSpacer_3, 1, 0, 1, 1)
+
+        self.label_23 = QLabel(self.scrollAreaWidgetContents_3)
+        self.label_23.setObjectName(u"label_23")
+
+        self.gridLayout.addWidget(self.label_23, 2, 0, 1, 1)
+
+        self.sweepAndLockSweepTime = QDoubleSpinBox(self.scrollAreaWidgetContents_3)
+        self.sweepAndLockSweepTime.setObjectName(u"sweepAndLockSweepTime")
+
+        self.gridLayout.addWidget(self.sweepAndLockSweepTime, 7, 1, 1, 1)
 
         self.label_17 = QLabel(self.scrollAreaWidgetContents_3)
         self.label_17.setObjectName(u"label_17")
 
-        self.formLayout_3.setWidget(1, QFormLayout.LabelRole, self.label_17)
+        self.gridLayout.addWidget(self.label_17, 0, 2, 1, 1)
 
-        self.comboBox_2 = QComboBox(self.scrollAreaWidgetContents_3)
-        self.comboBox_2.setObjectName(u"comboBox_2")
-        sizePolicy6.setHeightForWidth(self.comboBox_2.sizePolicy().hasHeightForWidth())
-        self.comboBox_2.setSizePolicy(sizePolicy6)
+        self.sweepAndLockSelectSweeper = QComboBox(self.scrollAreaWidgetContents_3)
+        self.sweepAndLockSelectSweeper.setObjectName(u"sweepAndLockSelectSweeper")
+        sizePolicy6 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
+        sizePolicy6.setHorizontalStretch(0)
+        sizePolicy6.setVerticalStretch(0)
+        sizePolicy6.setHeightForWidth(self.sweepAndLockSelectSweeper.sizePolicy().hasHeightForWidth())
+        self.sweepAndLockSelectSweeper.setSizePolicy(sizePolicy6)
+        self.sweepAndLockSelectSweeper.setEditable(False)
 
-        self.formLayout_3.setWidget(1, QFormLayout.FieldRole, self.comboBox_2)
+        self.gridLayout.addWidget(self.sweepAndLockSelectSweeper, 0, 1, 1, 1)
+
+        self.label_20 = QLabel(self.scrollAreaWidgetContents_3)
+        self.label_20.setObjectName(u"label_20")
+
+        self.gridLayout.addWidget(self.label_20, 6, 2, 1, 1)
+
+        self.label_16 = QLabel(self.scrollAreaWidgetContents_3)
+        self.label_16.setObjectName(u"label_16")
+
+        self.gridLayout.addWidget(self.label_16, 0, 0, 1, 1)
+
+        self.label_19 = QLabel(self.scrollAreaWidgetContents_3)
+        self.label_19.setObjectName(u"label_19")
+
+        self.gridLayout.addWidget(self.label_19, 6, 0, 1, 1)
 
         self.verticalSpacer_2 = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
 
-        self.formLayout_3.setItem(2, QFormLayout.FieldRole, self.verticalSpacer_2)
+        self.gridLayout.addItem(self.verticalSpacer_2, 10, 1, 1, 1)
+
+        self.label_18 = QLabel(self.scrollAreaWidgetContents_3)
+        self.label_18.setObjectName(u"label_18")
+
+        self.gridLayout.addWidget(self.label_18, 7, 0, 1, 1)
+
+        self.sweepAndLockSelectLockIn = QComboBox(self.scrollAreaWidgetContents_3)
+        self.sweepAndLockSelectLockIn.setObjectName(u"sweepAndLockSelectLockIn")
+        sizePolicy6.setHeightForWidth(self.sweepAndLockSelectLockIn.sizePolicy().hasHeightForWidth())
+        self.sweepAndLockSelectLockIn.setSizePolicy(sizePolicy6)
+
+        self.gridLayout.addWidget(self.sweepAndLockSelectLockIn, 0, 3, 1, 1)
+
+        self.label_22 = QLabel(self.scrollAreaWidgetContents_3)
+        self.label_22.setObjectName(u"label_22")
+
+        self.gridLayout.addWidget(self.label_22, 9, 0, 1, 1)
+
+        self.sweepAndLockStartFreq = QDoubleSpinBox(self.scrollAreaWidgetContents_3)
+        self.sweepAndLockStartFreq.setObjectName(u"sweepAndLockStartFreq")
+
+        self.gridLayout.addWidget(self.sweepAndLockStartFreq, 6, 1, 1, 1)
+
+        self.label_24 = QLabel(self.scrollAreaWidgetContents_3)
+        self.label_24.setObjectName(u"label_24")
+
+        self.gridLayout.addWidget(self.label_24, 9, 2, 1, 1)
+
+        self.sweepAndLockRandom = QPushButton(self.scrollAreaWidgetContents_3)
+        self.sweepAndLockRandom.setObjectName(u"sweepAndLockRandom")
+
+        self.gridLayout.addWidget(self.sweepAndLockRandom, 3, 3, 1, 1)
+
+        self.verticalSpacer_4 = QSpacerItem(20, 5, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
+
+        self.gridLayout.addItem(self.verticalSpacer_4, 4, 0, 1, 1)
+
+        self.sweepAndLockFreq = QDoubleSpinBox(self.scrollAreaWidgetContents_3)
+        self.sweepAndLockFreq.setObjectName(u"sweepAndLockFreq")
+
+        self.gridLayout.addWidget(self.sweepAndLockFreq, 3, 1, 1, 1)
+
+        self.label_25 = QLabel(self.scrollAreaWidgetContents_3)
+        self.label_25.setObjectName(u"label_25")
+
+        self.gridLayout.addWidget(self.label_25, 3, 0, 1, 1)
+
+        self.label_27 = QLabel(self.scrollAreaWidgetContents_3)
+        self.label_27.setObjectName(u"label_27")
+
+        self.gridLayout.addWidget(self.label_27, 5, 0, 1, 1)
+
+        self.sweepAndLockPower = QDoubleSpinBox(self.scrollAreaWidgetContents_3)
+        self.sweepAndLockPower.setObjectName(u"sweepAndLockPower")
+
+        self.gridLayout.addWidget(self.sweepAndLockPower, 5, 1, 1, 1)
 
         self.scrollArea_3.setWidget(self.scrollAreaWidgetContents_3)
 
         self.verticalLayout_4.addWidget(self.scrollArea_3)
 
-        self.pushButton_2 = QPushButton(self.expSweepAndLockIn)
-        self.pushButton_2.setObjectName(u"pushButton_2")
+        self.sweepAndLockStart = QPushButton(self.expSweepAndLockIn)
+        self.sweepAndLockStart.setObjectName(u"sweepAndLockStart")
 
-        self.verticalLayout_4.addWidget(self.pushButton_2)
+        self.verticalLayout_4.addWidget(self.sweepAndLockStart)
 
-        self.stackedWidget.addWidget(self.expSweepAndLockIn)
+        self.sweepAndLockProgress = QProgressBar(self.expSweepAndLockIn)
+        self.sweepAndLockProgress.setObjectName(u"sweepAndLockProgress")
+        self.sweepAndLockProgress.setMaximum(100)
+        self.sweepAndLockProgress.setValue(3)
+        self.sweepAndLockProgress.setTextVisible(False)
+        self.sweepAndLockProgress.setInvertedAppearance(False)
 
-        self.horizontalLayout_5.addWidget(self.stackedWidget)
+        self.verticalLayout_4.addWidget(self.sweepAndLockProgress)
+
+        self.expStack.addWidget(self.expSweepAndLockIn)
+
+        self.horizontalLayout_5.addWidget(self.expStack)
 
         self.tabWidget_2.addTab(self.tab, "")
 
@@ -501,9 +625,9 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
 
-        self.tabWidget_2.setCurrentIndex(0)
+        self.tabWidget_2.setCurrentIndex(3)
         self.settingsStack.setCurrentIndex(1)
-        self.stackedWidget.setCurrentIndex(0)
+        self.expStack.setCurrentIndex(1)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -561,16 +685,33 @@ class Ui_MainWindow(object):
         self.pushButton.setText(QCoreApplication.translate("MainWindow", u"PushButton", None))
         self.tabWidget_2.setTabText(self.tabWidget_2.indexOf(self.settingsTab), QCoreApplication.translate("MainWindow", u"Instrument settings", None))
 
-        __sortingEnabled = self.listWidget.isSortingEnabled()
-        self.listWidget.setSortingEnabled(False)
-        ___qlistwidgetitem = self.listWidget.item(0)
+        __sortingEnabled = self.expList.isSortingEnabled()
+        self.expList.setSortingEnabled(False)
+        ___qlistwidgetitem = self.expList.item(0)
         ___qlistwidgetitem.setText(QCoreApplication.translate("MainWindow", u"Sweep and Lock-in", None));
-        self.listWidget.setSortingEnabled(__sortingEnabled)
+        self.expList.setSortingEnabled(__sortingEnabled)
 
-        self.label_15.setText(QCoreApplication.translate("MainWindow", u"Select experiment", None))
-        self.label_16.setText(QCoreApplication.translate("MainWindow", u"Sweeper", None))
+        self.label_15.setText(QCoreApplication.translate("MainWindow", u"Please select an experiment.", None))
+        self.sweepAndLockDataPointsLabel.setText(QCoreApplication.translate("MainWindow", u"N/A", None))
+        self.sweepAndLockMaxTimeLabel.setText(QCoreApplication.translate("MainWindow", u"N/A", None))
+        self.label_26.setText(QCoreApplication.translate("MainWindow", u"Time const.", None))
+        self.label_21.setText(QCoreApplication.translate("MainWindow", u"Sample freq.", None))
+        self.label_23.setText(QCoreApplication.translate("MainWindow", u"Sensitivity", None))
         self.label_17.setText(QCoreApplication.translate("MainWindow", u"Lock-in", None))
-        self.pushButton_2.setText(QCoreApplication.translate("MainWindow", u"PushButton", None))
+        self.sweepAndLockSelectSweeper.setCurrentText("")
+        self.label_20.setText(QCoreApplication.translate("MainWindow", u"End freq.", None))
+        self.label_16.setText(QCoreApplication.translate("MainWindow", u"Sweeper", None))
+        self.label_19.setText(QCoreApplication.translate("MainWindow", u"Start freq.", None))
+        self.label_18.setText(QCoreApplication.translate("MainWindow", u"Sweep time", None))
+#if QT_CONFIG(tooltip)
+        self.label_22.setToolTip(QCoreApplication.translate("MainWindow", u"<html><head/><body><p>Maximum amount of time that can be recorded to the internal memory of the lock-in.</p><p>Anything over this limit will be padded with zeroes.</p></body></html>", None))
+#endif // QT_CONFIG(tooltip)
+        self.label_22.setText(QCoreApplication.translate("MainWindow", u"Max time:", None))
+        self.label_24.setText(QCoreApplication.translate("MainWindow", u"Data points", None))
+        self.sweepAndLockRandom.setText(QCoreApplication.translate("MainWindow", u"Random", None))
+        self.label_25.setText(QCoreApplication.translate("MainWindow", u"Lock-in freq.", None))
+        self.label_27.setText(QCoreApplication.translate("MainWindow", u"Power", None))
+        self.sweepAndLockStart.setText(QCoreApplication.translate("MainWindow", u"Start measurement", None))
         self.tabWidget_2.setTabText(self.tabWidget_2.indexOf(self.tab), QCoreApplication.translate("MainWindow", u"Experiments", None))
     # retranslateUi
 
