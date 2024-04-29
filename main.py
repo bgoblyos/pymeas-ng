@@ -74,10 +74,15 @@ class MainWindow( QMainWindow
         #    [1, 4, 9, 16, 25, 36, 49, 64, 81, 100],
         #)
 
+        self.plotClearButton.clicked.connect(self.clearPlot)
+
 
     # Plot the given dataset
     def plot(self, xs, ys):
         self.graphWidget.plot(xs, ys)
+
+    def clearPlot(self):
+        self.graphWidget.clear()
 
 app = QApplication(sys.argv)
 

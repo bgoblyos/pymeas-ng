@@ -2,6 +2,7 @@ import pyvisa
 import struct
 import logging
 
+
 # Common instrument class
 # Handles opening the device with pyvisa
 # and performs read/writes operations
@@ -46,4 +47,4 @@ class CommonInstrument():
         entries = len(response) // 4
         data = struct.unpack(f"{entries}f", response)
         logging.debug(f"Read {entries} floats from device")
-        return data
+        return list(data)

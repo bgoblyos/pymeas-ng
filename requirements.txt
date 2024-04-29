@@ -2,3 +2,4 @@ pyvisa
 pyyaml
 pyqtgraph
 pyside6
+numpy

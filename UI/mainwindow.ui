@@ -43,6 +43,13 @@
           <item>
            <layout class="QHBoxLayout" name="horizontalLayout_2">
             <item>
+             <widget class="QPushButton" name="plotClearButton">
+              <property name="text">
+               <string>Clear</string>
+              </property>
+             </widget>
+            </item>
+            <item>
              <spacer name="horizontalSpacer">
               <property name="orientation">
                <enum>Qt::Horizontal</enum>
@@ -605,22 +612,52 @@
                  <x>0</x>
                  <y>0</y>
                  <width>491</width>
-                 <height>319</height>
+                 <height>292</height>
                 </rect>
                </property>
                <layout class="QGridLayout" name="gridLayout">
+                <item row="5" column="1">
+                 <widget class="QDoubleSpinBox" name="sweepAndLockPower">
+                  <property name="suffix">
+                   <string> dBm</string>
+                  </property>
+                  <property name="minimum">
+                   <double>-80.000000000000000</double>
+                  </property>
+                  <property name="maximum">
+                   <double>20.000000000000000</double>
+                  </property>
+                 </widget>
+                </item>
+                <item row="3" column="0">
+                 <widget class="QLabel" name="label_25">
+                  <property name="text">
+                   <string>Lock-in freq.</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="5" column="0">
+                 <widget class="QLabel" name="label_27">
+                  <property name="text">
+                   <string>Power</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="7" column="3">
+                 <widget class="QComboBox" name="sweepAndLockSampleFreq"/>
+                </item>
                 <item row="2" column="3">
                  <widget class="QComboBox" name="sweepAndLockTau"/>
                 </item>
-                <item row="9" column="3">
-                 <widget class="QLabel" name="sweepAndLockDataPointsLabel">
+                <item row="9" column="1">
+                 <widget class="QLabel" name="sweepAndLockMaxTimeLabel">
                   <property name="text">
                    <string>N/A</string>
                   </property>
                  </widget>
                 </item>
-                <item row="9" column="1">
-                 <widget class="QLabel" name="sweepAndLockMaxTimeLabel">
+                <item row="9" column="3">
+                 <widget class="QLabel" name="sweepAndLockDataPointsLabel">
                   <property name="text">
                    <string>N/A</string>
                   </property>
@@ -636,13 +673,17 @@
                 <item row="2" column="1">
                  <widget class="QComboBox" name="sweepAndLockSens"/>
                 </item>
-                <item row="7" column="3">
-                 <widget class="QComboBox" name="sweepAndLockSampleFreq"/>
+                <item row="7" column="2">
+                 <widget class="QLabel" name="label_21">
+                  <property name="text">
+                   <string>Sample freq.</string>
+                  </property>
+                 </widget>
                 </item>
                 <item row="6" column="3">
                  <widget class="QDoubleSpinBox" name="sweepAndLockEndFreq">
                   <property name="suffix">
-                   <string>GHz</string>
+                   <string> GHz</string>
                   </property>
                   <property name="decimals">
                    <number>6</number>
@@ -652,13 +693,6 @@
                   </property>
                   <property name="maximum">
                    <double>20.000000000000000</double>
-                  </property>
-                 </widget>
-                </item>
-                <item row="7" column="2">
-                 <widget class="QLabel" name="label_21">
-                  <property name="text">
-                   <string>Sample freq.</string>
                   </property>
                  </widget>
                 </item>
@@ -678,6 +712,9 @@
                   </property>
                  </spacer>
                 </item>
+                <item row="7" column="1">
+                 <widget class="QDoubleSpinBox" name="sweepAndLockSweepTime"/>
+                </item>
                 <item row="2" column="0">
                  <widget class="QLabel" name="label_23">
                   <property name="text">
@@ -685,13 +722,31 @@
                   </property>
                  </widget>
                 </item>
-                <item row="7" column="1">
-                 <widget class="QDoubleSpinBox" name="sweepAndLockSweepTime"/>
+                <item row="0" column="0">
+                 <widget class="QLabel" name="label_16">
+                  <property name="text">
+                   <string>Sweeper</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="6" column="0">
+                 <widget class="QLabel" name="label_19">
+                  <property name="text">
+                   <string>Start freq.</string>
+                  </property>
+                 </widget>
                 </item>
                 <item row="0" column="2">
                  <widget class="QLabel" name="label_17">
                   <property name="text">
                    <string>Lock-in</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="6" column="2">
+                 <widget class="QLabel" name="label_20">
+                  <property name="text">
+                   <string>End freq.</string>
                   </property>
                  </widget>
                 </item>
@@ -711,40 +766,6 @@
                   </property>
                  </widget>
                 </item>
-                <item row="6" column="2">
-                 <widget class="QLabel" name="label_20">
-                  <property name="text">
-                   <string>End freq.</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="0" column="0">
-                 <widget class="QLabel" name="label_16">
-                  <property name="text">
-                   <string>Sweeper</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="6" column="0">
-                 <widget class="QLabel" name="label_19">
-                  <property name="text">
-                   <string>Start freq.</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="10" column="1">
-                 <spacer name="verticalSpacer_2">
-                  <property name="orientation">
-                   <enum>Qt::Vertical</enum>
-                  </property>
-                  <property name="sizeHint" stdset="0">
-                   <size>
-                    <width>20</width>
-                    <height>40</height>
-                   </size>
-                  </property>
-                 </spacer>
-                </item>
                 <item row="7" column="0">
                  <widget class="QLabel" name="label_18">
                   <property name="text">
@@ -759,16 +780,6 @@
                     <horstretch>0</horstretch>
                     <verstretch>0</verstretch>
                    </sizepolicy>
-                  </property>
-                 </widget>
-                </item>
-                <item row="9" column="0">
-                 <widget class="QLabel" name="label_22">
-                  <property name="toolTip">
-                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Maximum amount of time that can be recorded to the internal memory of the lock-in.&lt;/p&gt;&lt;p&gt;Anything over this limit will be padded with zeroes.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                  </property>
-                  <property name="text">
-                   <string>Max time:</string>
                   </property>
                  </widget>
                 </item>
@@ -791,10 +802,26 @@
                   </property>
                  </widget>
                 </item>
-                <item row="9" column="2">
-                 <widget class="QLabel" name="label_24">
+                <item row="11" column="1">
+                 <spacer name="verticalSpacer_2">
+                  <property name="orientation">
+                   <enum>Qt::Vertical</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>20</width>
+                    <height>40</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+                <item row="9" column="0">
+                 <widget class="QLabel" name="label_22">
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Maximum amount of time that can be recorded to the internal memory of the lock-in.&lt;/p&gt;&lt;p&gt;Anything over this limit will be padded with zeroes.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
                   <property name="text">
-                   <string>Data points</string>
+                   <string>Max time:</string>
                   </property>
                  </widget>
                 </item>
@@ -802,6 +829,20 @@
                  <widget class="QPushButton" name="sweepAndLockRandom">
                   <property name="text">
                    <string>Random</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="9" column="2">
+                 <widget class="QLabel" name="label_24">
+                  <property name="text">
+                   <string>Data points</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="3" column="1">
+                 <widget class="QDoubleSpinBox" name="sweepAndLockFreq">
+                  <property name="maximum">
+                   <double>1000.000000000000000</double>
                   </property>
                  </widget>
                 </item>
@@ -821,25 +862,22 @@
                   </property>
                  </spacer>
                 </item>
-                <item row="3" column="1">
-                 <widget class="QDoubleSpinBox" name="sweepAndLockFreq"/>
-                </item>
-                <item row="3" column="0">
-                 <widget class="QLabel" name="label_25">
+                <item row="10" column="0">
+                 <widget class="QLabel" name="label_28">
                   <property name="text">
-                   <string>Lock-in freq.</string>
+                   <string>Measurements</string>
                   </property>
                  </widget>
                 </item>
-                <item row="5" column="0">
-                 <widget class="QLabel" name="label_27">
-                  <property name="text">
-                   <string>Power</string>
+                <item row="10" column="1">
+                 <widget class="QSpinBox" name="sweepAndLockNumRuns">
+                  <property name="minimum">
+                   <number>1</number>
+                  </property>
+                  <property name="displayIntegerBase">
+                   <number>10</number>
                   </property>
                  </widget>
-                </item>
-                <item row="5" column="1">
-                 <widget class="QDoubleSpinBox" name="sweepAndLockPower"/>
                 </item>
                </layout>
               </widget>
@@ -864,6 +902,16 @@
                <bool>false</bool>
               </property>
               <property name="invertedAppearance">
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QProgressBar" name="sweepAndLockTotalProgress">
+              <property name="value">
+               <number>24</number>
+              </property>
+              <property name="textVisible">
                <bool>false</bool>
               </property>
              </widget>

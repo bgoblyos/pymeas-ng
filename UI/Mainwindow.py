@@ -19,9 +19,9 @@ from PySide6.QtWidgets import (QApplication, QComboBox, QDoubleSpinBox, QFormLay
     QGridLayout, QHBoxLayout, QHeaderView, QLabel,
     QListWidget, QListWidgetItem, QMainWindow, QPlainTextEdit,
     QProgressBar, QPushButton, QRadioButton, QScrollArea,
-    QSizePolicy, QSpacerItem, QStackedWidget, QStatusBar,
-    QTabWidget, QTreeWidget, QTreeWidgetItem, QVBoxLayout,
-    QWidget)
+    QSizePolicy, QSpacerItem, QSpinBox, QStackedWidget,
+    QStatusBar, QTabWidget, QTreeWidget, QTreeWidgetItem,
+    QVBoxLayout, QWidget)
 
 from pyqtgraph import PlotWidget
 
@@ -55,6 +55,11 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_2 = QHBoxLayout()
         self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
+        self.plotClearButton = QPushButton(self.plot_tab)
+        self.plotClearButton.setObjectName(u"plotClearButton")
+
+        self.horizontalLayout_2.addWidget(self.plotClearButton)
+
         self.horizontalSpacer = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
 
         self.horizontalLayout_2.addItem(self.horizontalSpacer)
@@ -430,23 +435,45 @@ class Ui_MainWindow(object):
         self.scrollArea_3.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignVCenter)
         self.scrollAreaWidgetContents_3 = QWidget()
         self.scrollAreaWidgetContents_3.setObjectName(u"scrollAreaWidgetContents_3")
-        self.scrollAreaWidgetContents_3.setGeometry(QRect(0, 0, 491, 319))
+        self.scrollAreaWidgetContents_3.setGeometry(QRect(0, 0, 491, 292))
         self.gridLayout = QGridLayout(self.scrollAreaWidgetContents_3)
         self.gridLayout.setObjectName(u"gridLayout")
+        self.sweepAndLockPower = QDoubleSpinBox(self.scrollAreaWidgetContents_3)
+        self.sweepAndLockPower.setObjectName(u"sweepAndLockPower")
+        self.sweepAndLockPower.setMinimum(-80.000000000000000)
+        self.sweepAndLockPower.setMaximum(20.000000000000000)
+
+        self.gridLayout.addWidget(self.sweepAndLockPower, 5, 1, 1, 1)
+
+        self.label_25 = QLabel(self.scrollAreaWidgetContents_3)
+        self.label_25.setObjectName(u"label_25")
+
+        self.gridLayout.addWidget(self.label_25, 3, 0, 1, 1)
+
+        self.label_27 = QLabel(self.scrollAreaWidgetContents_3)
+        self.label_27.setObjectName(u"label_27")
+
+        self.gridLayout.addWidget(self.label_27, 5, 0, 1, 1)
+
+        self.sweepAndLockSampleFreq = QComboBox(self.scrollAreaWidgetContents_3)
+        self.sweepAndLockSampleFreq.setObjectName(u"sweepAndLockSampleFreq")
+
+        self.gridLayout.addWidget(self.sweepAndLockSampleFreq, 7, 3, 1, 1)
+
         self.sweepAndLockTau = QComboBox(self.scrollAreaWidgetContents_3)
         self.sweepAndLockTau.setObjectName(u"sweepAndLockTau")
 
         self.gridLayout.addWidget(self.sweepAndLockTau, 2, 3, 1, 1)
 
-        self.sweepAndLockDataPointsLabel = QLabel(self.scrollAreaWidgetContents_3)
-        self.sweepAndLockDataPointsLabel.setObjectName(u"sweepAndLockDataPointsLabel")
-
-        self.gridLayout.addWidget(self.sweepAndLockDataPointsLabel, 9, 3, 1, 1)
-
         self.sweepAndLockMaxTimeLabel = QLabel(self.scrollAreaWidgetContents_3)
         self.sweepAndLockMaxTimeLabel.setObjectName(u"sweepAndLockMaxTimeLabel")
 
         self.gridLayout.addWidget(self.sweepAndLockMaxTimeLabel, 9, 1, 1, 1)
+
+        self.sweepAndLockDataPointsLabel = QLabel(self.scrollAreaWidgetContents_3)
+        self.sweepAndLockDataPointsLabel.setObjectName(u"sweepAndLockDataPointsLabel")
+
+        self.gridLayout.addWidget(self.sweepAndLockDataPointsLabel, 9, 3, 1, 1)
 
         self.label_26 = QLabel(self.scrollAreaWidgetContents_3)
         self.label_26.setObjectName(u"label_26")
@@ -458,55 +485,32 @@ class Ui_MainWindow(object):
 
         self.gridLayout.addWidget(self.sweepAndLockSens, 2, 1, 1, 1)
 
-        self.sweepAndLockSampleFreq = QComboBox(self.scrollAreaWidgetContents_3)
-        self.sweepAndLockSampleFreq.setObjectName(u"sweepAndLockSampleFreq")
-
-        self.gridLayout.addWidget(self.sweepAndLockSampleFreq, 7, 3, 1, 1)
-
-        self.sweepAndLockEndFreq = QDoubleSpinBox(self.scrollAreaWidgetContents_3)
-        self.sweepAndLockEndFreq.setObjectName(u"sweepAndLockEndFreq")
-
-        self.gridLayout.addWidget(self.sweepAndLockEndFreq, 6, 3, 1, 1)
-
         self.label_21 = QLabel(self.scrollAreaWidgetContents_3)
         self.label_21.setObjectName(u"label_21")
 
         self.gridLayout.addWidget(self.label_21, 7, 2, 1, 1)
 
+        self.sweepAndLockEndFreq = QDoubleSpinBox(self.scrollAreaWidgetContents_3)
+        self.sweepAndLockEndFreq.setObjectName(u"sweepAndLockEndFreq")
+        self.sweepAndLockEndFreq.setDecimals(6)
+        self.sweepAndLockEndFreq.setMinimum(2.000000000000000)
+        self.sweepAndLockEndFreq.setMaximum(20.000000000000000)
+
+        self.gridLayout.addWidget(self.sweepAndLockEndFreq, 6, 3, 1, 1)
+
         self.verticalSpacer_3 = QSpacerItem(20, 5, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
 
         self.gridLayout.addItem(self.verticalSpacer_3, 1, 0, 1, 1)
-
-        self.label_23 = QLabel(self.scrollAreaWidgetContents_3)
-        self.label_23.setObjectName(u"label_23")
-
-        self.gridLayout.addWidget(self.label_23, 2, 0, 1, 1)
 
         self.sweepAndLockSweepTime = QDoubleSpinBox(self.scrollAreaWidgetContents_3)
         self.sweepAndLockSweepTime.setObjectName(u"sweepAndLockSweepTime")
 
         self.gridLayout.addWidget(self.sweepAndLockSweepTime, 7, 1, 1, 1)
 
-        self.label_17 = QLabel(self.scrollAreaWidgetContents_3)
-        self.label_17.setObjectName(u"label_17")
+        self.label_23 = QLabel(self.scrollAreaWidgetContents_3)
+        self.label_23.setObjectName(u"label_23")
 
-        self.gridLayout.addWidget(self.label_17, 0, 2, 1, 1)
-
-        self.sweepAndLockSelectSweeper = QComboBox(self.scrollAreaWidgetContents_3)
-        self.sweepAndLockSelectSweeper.setObjectName(u"sweepAndLockSelectSweeper")
-        sizePolicy6 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
-        sizePolicy6.setHorizontalStretch(0)
-        sizePolicy6.setVerticalStretch(0)
-        sizePolicy6.setHeightForWidth(self.sweepAndLockSelectSweeper.sizePolicy().hasHeightForWidth())
-        self.sweepAndLockSelectSweeper.setSizePolicy(sizePolicy6)
-        self.sweepAndLockSelectSweeper.setEditable(False)
-
-        self.gridLayout.addWidget(self.sweepAndLockSelectSweeper, 0, 1, 1, 1)
-
-        self.label_20 = QLabel(self.scrollAreaWidgetContents_3)
-        self.label_20.setObjectName(u"label_20")
-
-        self.gridLayout.addWidget(self.label_20, 6, 2, 1, 1)
+        self.gridLayout.addWidget(self.label_23, 2, 0, 1, 1)
 
         self.label_16 = QLabel(self.scrollAreaWidgetContents_3)
         self.label_16.setObjectName(u"label_16")
@@ -518,9 +522,26 @@ class Ui_MainWindow(object):
 
         self.gridLayout.addWidget(self.label_19, 6, 0, 1, 1)
 
-        self.verticalSpacer_2 = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
+        self.label_17 = QLabel(self.scrollAreaWidgetContents_3)
+        self.label_17.setObjectName(u"label_17")
 
-        self.gridLayout.addItem(self.verticalSpacer_2, 10, 1, 1, 1)
+        self.gridLayout.addWidget(self.label_17, 0, 2, 1, 1)
+
+        self.label_20 = QLabel(self.scrollAreaWidgetContents_3)
+        self.label_20.setObjectName(u"label_20")
+
+        self.gridLayout.addWidget(self.label_20, 6, 2, 1, 1)
+
+        self.sweepAndLockSelectSweeper = QComboBox(self.scrollAreaWidgetContents_3)
+        self.sweepAndLockSelectSweeper.setObjectName(u"sweepAndLockSelectSweeper")
+        sizePolicy6 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
+        sizePolicy6.setHorizontalStretch(0)
+        sizePolicy6.setVerticalStretch(0)
+        sizePolicy6.setHeightForWidth(self.sweepAndLockSelectSweeper.sizePolicy().hasHeightForWidth())
+        self.sweepAndLockSelectSweeper.setSizePolicy(sizePolicy6)
+        self.sweepAndLockSelectSweeper.setEditable(False)
+
+        self.gridLayout.addWidget(self.sweepAndLockSelectSweeper, 0, 1, 1, 1)
 
         self.label_18 = QLabel(self.scrollAreaWidgetContents_3)
         self.label_18.setObjectName(u"label_18")
@@ -534,49 +555,55 @@ class Ui_MainWindow(object):
 
         self.gridLayout.addWidget(self.sweepAndLockSelectLockIn, 0, 3, 1, 1)
 
+        self.sweepAndLockStartFreq = QDoubleSpinBox(self.scrollAreaWidgetContents_3)
+        self.sweepAndLockStartFreq.setObjectName(u"sweepAndLockStartFreq")
+        self.sweepAndLockStartFreq.setDecimals(6)
+        self.sweepAndLockStartFreq.setMinimum(2.000000000000000)
+        self.sweepAndLockStartFreq.setMaximum(20.000000000000000)
+        self.sweepAndLockStartFreq.setValue(2.000000000000000)
+
+        self.gridLayout.addWidget(self.sweepAndLockStartFreq, 6, 1, 1, 1)
+
+        self.verticalSpacer_2 = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
+
+        self.gridLayout.addItem(self.verticalSpacer_2, 11, 1, 1, 1)
+
         self.label_22 = QLabel(self.scrollAreaWidgetContents_3)
         self.label_22.setObjectName(u"label_22")
 
         self.gridLayout.addWidget(self.label_22, 9, 0, 1, 1)
-
-        self.sweepAndLockStartFreq = QDoubleSpinBox(self.scrollAreaWidgetContents_3)
-        self.sweepAndLockStartFreq.setObjectName(u"sweepAndLockStartFreq")
-
-        self.gridLayout.addWidget(self.sweepAndLockStartFreq, 6, 1, 1, 1)
-
-        self.label_24 = QLabel(self.scrollAreaWidgetContents_3)
-        self.label_24.setObjectName(u"label_24")
-
-        self.gridLayout.addWidget(self.label_24, 9, 2, 1, 1)
 
         self.sweepAndLockRandom = QPushButton(self.scrollAreaWidgetContents_3)
         self.sweepAndLockRandom.setObjectName(u"sweepAndLockRandom")
 
         self.gridLayout.addWidget(self.sweepAndLockRandom, 3, 3, 1, 1)
 
+        self.label_24 = QLabel(self.scrollAreaWidgetContents_3)
+        self.label_24.setObjectName(u"label_24")
+
+        self.gridLayout.addWidget(self.label_24, 9, 2, 1, 1)
+
+        self.sweepAndLockFreq = QDoubleSpinBox(self.scrollAreaWidgetContents_3)
+        self.sweepAndLockFreq.setObjectName(u"sweepAndLockFreq")
+        self.sweepAndLockFreq.setMaximum(1000.000000000000000)
+
+        self.gridLayout.addWidget(self.sweepAndLockFreq, 3, 1, 1, 1)
+
         self.verticalSpacer_4 = QSpacerItem(20, 5, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
 
         self.gridLayout.addItem(self.verticalSpacer_4, 4, 0, 1, 1)
 
-        self.sweepAndLockFreq = QDoubleSpinBox(self.scrollAreaWidgetContents_3)
-        self.sweepAndLockFreq.setObjectName(u"sweepAndLockFreq")
+        self.label_28 = QLabel(self.scrollAreaWidgetContents_3)
+        self.label_28.setObjectName(u"label_28")
 
-        self.gridLayout.addWidget(self.sweepAndLockFreq, 3, 1, 1, 1)
+        self.gridLayout.addWidget(self.label_28, 10, 0, 1, 1)
 
-        self.label_25 = QLabel(self.scrollAreaWidgetContents_3)
-        self.label_25.setObjectName(u"label_25")
+        self.sweepAndLockNumRuns = QSpinBox(self.scrollAreaWidgetContents_3)
+        self.sweepAndLockNumRuns.setObjectName(u"sweepAndLockNumRuns")
+        self.sweepAndLockNumRuns.setMinimum(1)
+        self.sweepAndLockNumRuns.setDisplayIntegerBase(10)
 
-        self.gridLayout.addWidget(self.label_25, 3, 0, 1, 1)
-
-        self.label_27 = QLabel(self.scrollAreaWidgetContents_3)
-        self.label_27.setObjectName(u"label_27")
-
-        self.gridLayout.addWidget(self.label_27, 5, 0, 1, 1)
-
-        self.sweepAndLockPower = QDoubleSpinBox(self.scrollAreaWidgetContents_3)
-        self.sweepAndLockPower.setObjectName(u"sweepAndLockPower")
-
-        self.gridLayout.addWidget(self.sweepAndLockPower, 5, 1, 1, 1)
+        self.gridLayout.addWidget(self.sweepAndLockNumRuns, 10, 1, 1, 1)
 
         self.scrollArea_3.setWidget(self.scrollAreaWidgetContents_3)
 
@@ -595,6 +622,13 @@ class Ui_MainWindow(object):
         self.sweepAndLockProgress.setInvertedAppearance(False)
 
         self.verticalLayout_4.addWidget(self.sweepAndLockProgress)
+
+        self.sweepAndLockTotalProgress = QProgressBar(self.expSweepAndLockIn)
+        self.sweepAndLockTotalProgress.setObjectName(u"sweepAndLockTotalProgress")
+        self.sweepAndLockTotalProgress.setValue(24)
+        self.sweepAndLockTotalProgress.setTextVisible(False)
+
+        self.verticalLayout_4.addWidget(self.sweepAndLockTotalProgress)
 
         self.expStack.addWidget(self.expSweepAndLockIn)
 
@@ -635,6 +669,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
+        self.plotClearButton.setText(QCoreApplication.translate("MainWindow", u"Clear", None))
 #if QT_CONFIG(tooltip)
         self.quickSaveButton.setToolTip(QCoreApplication.translate("MainWindow", u"<html><head/><body><p>Save data to current directory.</p><p>The filename is the current timestamp.</p></body></html>", None))
 #endif // QT_CONFIG(tooltip)
@@ -692,25 +727,29 @@ class Ui_MainWindow(object):
         self.expList.setSortingEnabled(__sortingEnabled)
 
         self.label_15.setText(QCoreApplication.translate("MainWindow", u"Please select an experiment.", None))
-        self.sweepAndLockDataPointsLabel.setText(QCoreApplication.translate("MainWindow", u"N/A", None))
+        self.sweepAndLockPower.setSuffix(QCoreApplication.translate("MainWindow", u" dBm", None))
+        self.label_25.setText(QCoreApplication.translate("MainWindow", u"Lock-in freq.", None))
+        self.label_27.setText(QCoreApplication.translate("MainWindow", u"Power", None))
         self.sweepAndLockMaxTimeLabel.setText(QCoreApplication.translate("MainWindow", u"N/A", None))
+        self.sweepAndLockDataPointsLabel.setText(QCoreApplication.translate("MainWindow", u"N/A", None))
         self.label_26.setText(QCoreApplication.translate("MainWindow", u"Time const.", None))
         self.label_21.setText(QCoreApplication.translate("MainWindow", u"Sample freq.", None))
+        self.sweepAndLockEndFreq.setSuffix(QCoreApplication.translate("MainWindow", u" GHz", None))
         self.label_23.setText(QCoreApplication.translate("MainWindow", u"Sensitivity", None))
-        self.label_17.setText(QCoreApplication.translate("MainWindow", u"Lock-in", None))
-        self.sweepAndLockSelectSweeper.setCurrentText("")
-        self.label_20.setText(QCoreApplication.translate("MainWindow", u"End freq.", None))
         self.label_16.setText(QCoreApplication.translate("MainWindow", u"Sweeper", None))
         self.label_19.setText(QCoreApplication.translate("MainWindow", u"Start freq.", None))
+        self.label_17.setText(QCoreApplication.translate("MainWindow", u"Lock-in", None))
+        self.label_20.setText(QCoreApplication.translate("MainWindow", u"End freq.", None))
+        self.sweepAndLockSelectSweeper.setCurrentText("")
         self.label_18.setText(QCoreApplication.translate("MainWindow", u"Sweep time", None))
+        self.sweepAndLockStartFreq.setSuffix(QCoreApplication.translate("MainWindow", u" GHz", None))
 #if QT_CONFIG(tooltip)
         self.label_22.setToolTip(QCoreApplication.translate("MainWindow", u"<html><head/><body><p>Maximum amount of time that can be recorded to the internal memory of the lock-in.</p><p>Anything over this limit will be padded with zeroes.</p></body></html>", None))
 #endif // QT_CONFIG(tooltip)
         self.label_22.setText(QCoreApplication.translate("MainWindow", u"Max time:", None))
-        self.label_24.setText(QCoreApplication.translate("MainWindow", u"Data points", None))
         self.sweepAndLockRandom.setText(QCoreApplication.translate("MainWindow", u"Random", None))
-        self.label_25.setText(QCoreApplication.translate("MainWindow", u"Lock-in freq.", None))
-        self.label_27.setText(QCoreApplication.translate("MainWindow", u"Power", None))
+        self.label_24.setText(QCoreApplication.translate("MainWindow", u"Data points", None))
+        self.label_28.setText(QCoreApplication.translate("MainWindow", u"Measurements", None))
         self.sweepAndLockStart.setText(QCoreApplication.translate("MainWindow", u"Start measurement", None))
         self.tabWidget_2.setTabText(self.tabWidget_2.indexOf(self.tab), QCoreApplication.translate("MainWindow", u"Experiments", None))
     # retranslateUi

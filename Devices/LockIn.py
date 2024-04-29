@@ -8,7 +8,6 @@ import logging
 class SRCommon(Devices.Common.CommonInstrument):
     def __init__(self, rm, address):
         super().__init__(rm, address)
-        self.bufferSize = int(self.query("SPTS?"))
         
         self.display1list = [
             "X",
@@ -195,6 +194,7 @@ class SRCommon(Devices.Common.CommonInstrument):
 class SR830(SRCommon):
     def __init__(self, rm, address):
         super().__init__(rm, address)
+        self.bufferSize = 16383
 
         self.sensList = [
             2e-9,
