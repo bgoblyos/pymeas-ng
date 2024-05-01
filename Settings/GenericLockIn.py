@@ -8,19 +8,21 @@ import Devices.DeviceManager
 
 from Misc.Prefix import formatPrefix
 
-class GenericLockInSettings():
-    def __setup__(self):
-        
+class GenericLockIn():
+    def __init__(self, ui):
+
+        self.ui = ui
+
         # Set up generic lock-in frequency randomizer button
-        self.genericLockInRandomButton.clicked.connect(self.genericLockInRandomFreq)
+        self.ui.genericLockInRandomButton.clicked.connect(self.randomFreq)
         # Set up generic lock-in apply button
-        self.genericLockInApplyButton.clicked.connect(self.genericLockInApply)
-    
-    def genericLockInHandler(self):
-        device = self.currentSettingsDevice
+        self.ui.genericLockInApplyButton.clicked.connect(self.apply)
+
+    def selected(self, device):
+        self.device = device
 
         # Switch to the correct widget layer
-        self.settingsStack.setCurrentIndex(1)
+        self.ui.settingsStack.setCurrentIndex(1)
 
         # Set up frequency field
         freq = device.readFreq()
@@ -37,57 +39,55 @@ class GenericLockInSettings():
             index = 1
             freq /= 1e3
 
-        self.genericLockInFreqPrefix.setCurrentIndex(index)
-        self.genericLockInFreqBox.setValue(freq)
+        self.ui.genericLockInFreqPrefix.setCurrentIndex(index)
+        self.ui.genericLockInFreqBox.setValue(freq)
 
         # Read in amplitude
-        amp = device.readAmp()
-        self.genericLockInAmp.setValue(amp)
+        amp = self.device.readAmp()
+        self.ui.genericLockInAmp.setValue(amp)
 
         # Read in phase
-        phase = device.readPhase()
-        self.genericLockInPhase.setValue(phase)
+        phase = self.device.readPhase()
+        self.ui.genericLockInPhase.setValue(phase)
 
         # Set up Tau combo box
-        self.genericLockInTau.clear()
-        for tau in device.tauList:
-            self.genericLockInTau.addItem(formatPrefix(tau, 's'))
+        self.ui.genericLockInTau.clear()
+        for tau in self.device.tauList:
+            self.ui.genericLockInTau.addItem(formatPrefix(tau, 's'))
 
-        currentTau = device.readTau()
-        self.genericLockInTau.setCurrentIndex(currentTau)
+        currentTau = self.device.readTau()
+        self.ui.genericLockInTau.setCurrentIndex(currentTau)
 
         # Set up Sensitivity combo box
-        self.genericLockInSens.clear()
-        for sens in device.sensList:
-            self.genericLockInSens.addItem(formatPrefix(sens, 'V'))
+        self.ui.genericLockInSens.clear()
+        for sens in self.device.sensList:
+            self.ui.genericLockInSens.addItem(formatPrefix(sens, 'V'))
 
-        currentSens = device.readSens()
-        self.genericLockInSens.setCurrentIndex(currentSens)
+        currentSens = self.device.readSens()
+        self.ui.genericLockInSens.setCurrentIndex(currentSens)
 
     # Randomize frequency
-    def genericLockInRandomFreq(self):
+    def randomFreq(self):
         randFreq = uniform(1, 1000)
-        self.genericLockInFreqBox.setValue(randFreq)
+        self.ui.genericLockInFreqBox.setValue(randFreq)
 
     # Apply settings
-    def genericLockInApply(self):
-        # We saved the device object in the menu handler
-        device = self.currentSettingsDevice
+    def apply(self):
 
-        freqVal = self.genericLockInFreqBox.value()
-        freqPrefix = 3 * self.genericLockInFreqPrefix.currentIndex()
+        freqVal = self.ui.genericLockInFreqBox.value()
+        freqPrefix = 3 * self.ui.genericLockInFreqPrefix.currentIndex()
         freq = freqVal * 10**freqPrefix
-        device.setFreq(freq)
+        self.device.setFreq(freq)
 
-        amp = self.genericLockInAmp.value()
-        device.setAmp(amp)
+        amp = self.ui.genericLockInAmp.value()
+        self.device.setAmp(amp)
 
-        phase = self.genericLockInPhase.value()
-        device.setPhase(phase)
+        phase = self.ui.genericLockInPhase.value()
+        self.device.setPhase(phase)
 
-        tau = self.genericLockInTau.currentIndex()
-        device.setTau(tau)
+        tau = self.ui.genericLockInTau.currentIndex()
+        self.device.setTau(tau)
 
-        sens = self.genericLockInSens.currentIndex()
-        device.setSens(sens)
+        sens = self.ui.genericLockInSens.currentIndex()
+        self.device.setSens(sens)
 

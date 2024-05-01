@@ -14,202 +14,233 @@ from time import sleep
 from Misc.Prefix import formatPrefix
 
 class SweepAndLockIn():
-    def __setup__(self):
-        self.sweepAndLockStart.clicked.connect(self.sweepAndLockInStart)
-        self.sweepAndLockInTimer = QTimer()
-        self.sweepAndLockInTimer.setInterval(500)
-        self.sweepAndLockInTimer.timeout.connect(self.sweepAndLockInUpdateProgress)
-        self.sweepAndLockProgress.setValue(0)
-        self.sweepAndLockTotalProgress.setValue(0)
+    def __init__(self, ui, devices):
 
+        self.ui = ui
+        self.devices = devices
+
+        # Connect start button
+        self.ui.sweepAndLockStart.clicked.connect(self.prepare)
+
+        # Set up timer for progress bar
+        # (and for waiting until the sweep is done)
+        self.timer = QTimer()
+        self.timer.setInterval(500)
+        self.timer.timeout.connect(self.updateProgress)
+
+        # Reset progress bars
+        self.ui.sweepAndLockProgress.setValue(0)
+        self.ui.sweepAndLockTotalProgress.setValue(0)
+
+        # Add devices to selection box
         for sweeper in self.devices["sweeper"]:
-            self.sweepAndLockSelectSweeper.addItem(sweeper)
+            self.ui.sweepAndLockSelectSweeper.addItem(sweeper)
         for lockin in self.devices["lockin"]:
-            self.sweepAndLockSelectLockIn.addItem(lockin)
+            self.ui.sweepAndLockSelectLockIn.addItem(lockin)
 
-        self.sweepAndLockSelectLockIn.currentIndexChanged.connect(self.sweepAndLockInResetLockIn)
-        self.sweepAndLockSelectSweeper.currentIndexChanged.connect(self.sweepAndLockInResetSweeper)
+        # Reset selections
+        self.ui.sweepAndLockSelectLockIn.setCurrentIndex(0)
+        self.ui.sweepAndLockSelectSweeper.setCurrentIndex(0)
 
-        self.sweepAndLockSelectLockIn.setCurrentIndex(0)
-        self.sweepAndLockSelectSweeper.setCurrentIndex(0)
+        # Read back instrument settings when the selection is changed
+        self.ui.sweepAndLockSelectLockIn.currentIndexChanged.connect(self.resetLockIn)
+        self.ui.sweepAndLockSelectSweeper.currentIndexChanged.connect(self.resetSweeper)
 
-        # Recalculate data point estimates
-        self.sweepAndLockSweepTime.valueChanged.connect(self.sweepAndLockInUpdateTime)
-        self.sweepAndLockSampleFreq.currentIndexChanged.connect(self.sweepAndLockInUpdateTime)
+        # Recalculate data point estimates when settings change
+        self.ui.sweepAndLockSweepTime.valueChanged.connect(self.updateTime)
+        self.ui.sweepAndLockSampleFreq.currentIndexChanged.connect(self.updateTime)
 
-        
-    def sweepAndLockInStart(self):
+
+    def prepare(self):
         logging.debug("Started Sweep and Lock-in measurement")
         # Sweeper setup
-        sweeper = self.sweepAndLockInCurrentSweeper
+        sweepTime = self.ui.sweepAndLockSweepTime.value()
+        startFreq = self.ui.sweepAndLockStartFreq.value()
+        endFreq = self.ui.sweepAndLockEndFreq.value()
 
-        sweepTime = self.sweepAndLockSweepTime.value()
-        startFreq = self.sweepAndLockStartFreq.value()
-        endFreq = self.sweepAndLockEndFreq.value()
-
-        sweeper.setupSweep(startFreq, endFreq, sweepTime)
+        self.sweeper.setupSweep(startFreq, endFreq, sweepTime)
         # Update sweep time in case it got clamped
         sweepTime = sweeper.readSweepTime()
 
-        sweeper.setPowerLevel(self.sweepAndLockPower.value())
-        sweeper.setContSweep(False)
+        # Set power level and turn off continous sweep
+        self.sweeper.setPowerLevel(self.sweepAndLockPower.value())
+        self.sweeper.setContSweep(False)
 
         # Lock-in setup
-        lockin = self.sweepAndLockInCurrentLockIn
+        freq = self.ui.sweepAndLockFreq.value()
+        self.lockin.setFreq(freq)
 
-        freq = self.sweepAndLockFreq.value()
-        lockin.setFreq(freq)
+        tau = self.ui.sweepAndLockTau.currentIndex()
+        self.lockin.setTau(tau)
 
-        tau = self.sweepAndLockTau.currentIndex()
-        lockin.setTau(tau)
+        sens = self.ui.sweepAndLockSens.currentIndex()
+        self.lockin.setSens(sens)
 
-        sens = self.sweepAndLockSens.currentIndex()
-        lockin.setSens(sens)
+        self.totalRuns = self.ui.sweepAndLockNumRuns.value()
+        self.currentRun = 1
 
-        self.sweepAndLockInNumRuns = self.sweepAndLockNumRuns.value()
-        self.sweepAndLockInCurrentRun = 1
+        self.data1 = array([])
+        self.data2 = array([])
 
-        self.sweepAndLockInData = array([])
+        # Reset total progress bar
+        self.ui.sweepAndLockTotalProgress.setRange(0, self.sweepAndLockInNumRuns)
+        self.ui.sweepAndLockTotalProgress.setValue(0)
 
-        self.sweepAndLockTotalProgress.setRange(0, self.sweepAndLockInNumRuns)
-        self.sweepAndLockTotalProgress.setValue(0)
+        self.startRun()
 
-        self.sweepAndLockInStartRun()
+    def startRun(self):
 
-    def sweepAndLockInStartRun(self):
-        sweeper = self.sweepAndLockInCurrentSweeper
-        lockin = self.sweepAndLockInCurrentLockIn
-
-        sweepTime = sweeper.readSweepTime()
-        sampleFreq = self.sweepAndLockSampleFreq.currentIndex()
-        (self.sweepAndLockInNumPoints, self.sweepAndLockInPadding) = lockin.armTimedMeasurement(sweepTime, sampleFreq)
+        sweepTime = self.sweeper.readSweepTime()
+        sampleFreq = self.ui.sweepAndLockSampleFreq.currentIndex()
+        (self.numPoints, self.padding) = self.lockin.armTimedMeasurement(sweepTime, sampleFreq)
 
 
-        self.sweepAndLockInTotalSteps = 2*(ceil(sweepTime) + 1)
-        self.sweepAndLockInStepCounter = 0
+        self.totalSteps = 2*(ceil(sweepTime) + 1)
+        self.currentStep = 0
 
-        self.sweepAndLockProgress.setRange(0, self.sweepAndLockInTotalSteps)
-        self.sweepAndLockProgress.setValue(0)
+        # Reset progress bar
+        self.ui.sweepAndLockProgress.setRange(0, self.totalSteps)
+        self.ui.sweepAndLockProgress.setValue(0)
 
         # Start sweep
         sweeper.powerOn()
         sweeper.startSweep()
 
-        self.sweepAndLockInTimer.start()
-        #self.sweepAndLockInUpdateProgress()
+        self.timer.start()
 
-    def sweepAndLockInUpdateProgress(self):
-        if self.sweepAndLockInStepCounter >= self.sweepAndLockInTotalSteps:
-            self.sweepAndLockInComplete()
+    def updateProgress(self):
+        # Check if the run is completed
+        if self.currentStep >= self.totalSteps:
+            self.completeRun()
         else:
-            self.sweepAndLockInStepCounter += 1
-            self.sweepAndLockProgress.setValue(self.sweepAndLockInStepCounter)
+            # Increment counter and progress bar
+            self.currentStep += 1
+            self.ui.sweepAndLockProgress.setValue(self.currentStep)
 
 
-    def sweepAndLockInComplete(self):
-        self.sweepAndLockInTimer.stop()
+    def completeRun(self):
+
+        # Stop the timer so updateProgress stops running
+        self.timer.stop()
         logging.info("Sweep completed, extracting data...")
-        pbar = self.sweepAndLockProgress
+
+        # Set progress bar to indeterminate
+        pbar = self.ui.sweepAndLockProgress
         pbar.setRange(0, 0)
         pbar.setValue(0)
 
         # Disable sweeper output
-        self.sweepAndLockInCurrentSweeper.powerOff()
+        self.sweeper.powerOff()
 
-        # Copy data and plot it
-        lockin = self.sweepAndLockInCurrentLockIn
-        sweeper = self.sweepAndLockInCurrentSweeper
+        # Pause lock-in to stop data collection
+        self.lockin.pause()
 
-        lockin.pause()
-        data = array(lockin.readBuffer(1, 0, self.sweepAndLockInNumPoints))
+        # Extract both datasets
+        data1 = array(lockin.readBuffer(1, 0, self.numPoints))
+        data2 = array(lockin.readBuffer(2, 0, self.numPoints))
+
+        # Pad the data if necessary
         padding = zeros(self.sweepAndLockInPadding)
-        data = concatenate((data, padding))
+        data1 = concatenate((data1, padding))
+        data2 = concatenate((data2, padding))
         logging.info("Data extracted")
-        if len(self.sweepAndLockInData) == 0:
-            self.sweepAndLockInData = data
-        else:
-            self.sweepAndLockInData += data
 
+
+        if len(self.data1) == 0 or len(self.data2):
+            # If there's no data yet, overwrite the variables
+            # with our new data
+            self.data1 = data1
+            self.data2 = data2
+        else:
+            # If there's already data, we add our new data to it
+            # elementwise
+            self.data1 += data1
+            self.data2 += data2
+
+        # Set progress bar to full
         pbar.setRange(0, 1)
         pbar.setValue(1)
 
-        self.sweepAndLockTotalProgress.setValue(self.sweepAndLockInCurrentRun)
+        # Update the total progress
+        self.ui.sweepAndLockTotalProgress.setValue(self.currentRun)
 
-        if self.sweepAndLockInNumRuns == self.sweepAndLockInCurrentRun:
+        if self.numRuns <= self.currentRun:
             # Normalize data
             self.sweepAndLockInData /= self.sweepAndLockInNumRuns
-        
-            start, end, _ = sweeper.readSweepParams()
-            freqs = linspace(start, end, len(self.sweepAndLockInData))
-            self.plot(freqs, self.sweepAndLockInData)
+
+            # Read back sweep parameters from the instrument
+            start, end, _ = self.sweeper.readSweepParams()
+            freqs = linspace(start, end, len(self.data1))
+
+            # TODO: implement with an object passed on from main.py
+            # Plot the resulting data
+            #self.plot(freqs, self.sweepAndLockInData)
         else:
-            self.sweepAndLockInCurrentRun += 1
-            self.sweepAndLockInStartRun()
-            
+            self.currentRun += 1
+            self.startRun()
 
-    def sweepAndLockInHandler(self):
-        self.expStack.setCurrentIndex(1)
-        self.sweepAndLockInResetLockIn()
-        self.sweepAndLockInResetSweeper()
 
-    def sweepAndLockInResetSweeper(self):
-        self.sweepAndLockInCurrentSweeper = self.devices["sweeper"][self.sweepAndLockSelectSweeper.currentText()]
-        sweeper = self.sweepAndLockInCurrentSweeper
+    def selected(self):
+        self.ui.expStack.setCurrentIndex(1)
+        self.resetLockIn()
+        self.resetSweeper()
+
+    def resetSweeper(self):
+        self.sweeper = self.devices["sweeper"][self.ui.sweepAndLockSelectSweeper.currentText()]
+
         # Power
-        currentPower = sweeper.readPowerLevel()
-        self.sweepAndLockPower.setValue(currentPower)
-        self.sweepAndLockPower.setRange(*sweeper.powerRange)
+        currentPower = self.sweeper.readPowerLevel()
+        self.ui.sweepAndLockPower.setValue(currentPower)
+        self.ui.sweepAndLockPower.setRange(*self.sweeper.powerRange)
 
         # Sweep limits
-        start, end, time = sweeper.readSweepParams()
-        self.sweepAndLockStartFreq.setValue(start)
-        self.sweepAndLockEndFreq.setValue(end)
-        self.sweepAndLockSweepTime.setValue(time)
+        start, end, time = self.sweeper.readSweepParams()
+        self.ui.sweepAndLockStartFreq.setValue(start)
+        self.ui.sweepAndLockEndFreq.setValue(end)
+        self.ui.sweepAndLockSweepTime.setValue(time)
 
-        self.sweepAndLockStartFreq.setRange(*sweeper.freqRange)
-        self.sweepAndLockEndFreq.setRange(*sweeper.freqRange)
-        self.sweepAndLockSweepTime.setRange(*sweeper.timeRange)
+        self.ui.sweepAndLockStartFreq.setRange(*self.sweeper.freqRange)
+        self.ui.sweepAndLockEndFreq.setRange(*self.sweeper.freqRange)
+        self.ui.sweepAndLockSweepTime.setRange(*self.sweeper.timeRange)
 
-        self.sweepAndLockInUpdateTime()
-        
-    def sweepAndLockInResetLockIn(self):
-        self.sweepAndLockInCurrentLockIn = self.devices["lockin"][self.sweepAndLockSelectLockIn.currentText()]
-        lockin = self.sweepAndLockInCurrentLockIn
+        self.updateTime()
 
-        self.sweepAndLockSens.clear()
-        for sens in lockin.sensList:
-            self.sweepAndLockSens.addItem(formatPrefix(sens, 'V'))
+    def resetLockIn(self):
+        self.lockin = self.devices["lockin"][self.ui.sweepAndLockSelectLockIn.currentText()]
 
-        currentSens = lockin.readSens()
-        self.sweepAndLockSens.setCurrentIndex(currentSens)
+        self.ui.sweepAndLockSens.clear()
+        for sens in self.lockin.sensList:
+            self.ui.sweepAndLockSens.addItem(formatPrefix(sens, 'V'))
 
-        self.sweepAndLockTau.clear()
-        for tau in lockin.tauList:
-            self.sweepAndLockTau.addItem(formatPrefix(tau, 's'))
+        currentSens = self.lockin.readSens()
+        self.ui.sweepAndLockSens.setCurrentIndex(currentSens)
 
-        currentTau = lockin.readTau()
-        self.sweepAndLockTau.setCurrentIndex(currentTau)
+        self.ui.sweepAndLockTau.clear()
+        for tau in self.lockin.tauList:
+            self.ui.sweepAndLockTau.addItem(formatPrefix(tau, 's'))
 
-        self.sweepAndLockSampleFreq.clear()
-        for sample in lockin.sampleFreqList:
-            self.sweepAndLockSampleFreq.addItem(formatPrefix(sample, 'Hz'))
+        currentTau = self.lockin.readTau()
+        self.ui.sweepAndLockTau.setCurrentIndex(currentTau)
 
-        currentSampleFreq = self.sweepAndLockInCurrentLockIn.readSampleRate()
-        self.sweepAndLockSampleFreq.setCurrentIndex(currentSampleFreq)
+        self.ui.sweepAndLockSampleFreq.clear()
+        for sample in self.lockin.sampleFreqList:
+            self.ui.sweepAndLockSampleFreq.addItem(formatPrefix(sample, 'Hz'))
 
-        currentFreq = lockin.readFreq()
-        self.sweepAndLockFreq.setValue(currentFreq)
-        
-    def sweepAndLockInUpdateTime(self):
+        currentSampleFreq = self.lockin.readSampleRate()
+        self.ui.sweepAndLockSampleFreq.setCurrentIndex(currentSampleFreq)
+
+        currentFreq = self.lockin.readFreq()
+        self.ui.sweepAndLockFreq.setValue(currentFreq)
+
+    def updateTime(self):
         logging.debug("Time estimations should be updated now")
-        sampleFreqIndex = self.sweepAndLockSampleFreq.currentIndex()
-        sampleFreq = self.sweepAndLockInCurrentLockIn.sampleFreqList[sampleFreqIndex]
-        maxBins = self.sweepAndLockInCurrentLockIn.bufferSize
-        sweepTime = self.sweepAndLockSweepTime.value()
+        sampleFreqIndex = self.ui.sweepAndLockSampleFreq.currentIndex()
+        sampleFreq = self.lockin.sampleFreqList[sampleFreqIndex]
+        maxBins = self.lockin.bufferSize
+        sweepTime = self.ui.sweepAndLockSweepTime.value()
 
-        logging.debug(maxBins)
         points = round(sweepTime*sampleFreq)
         maxTime = round(maxBins/sampleFreq)
 
-        self.sweepAndLockMaxTimeLabel.setText(f"{maxTime} s")
-        self.sweepAndLockDataPointsLabel.setText(f"{points} ({maxBins} max)")
+        self.ui.sweepAndLockMaxTimeLabel.setText(f"{maxTime} s")
+        self.ui.sweepAndLockDataPointsLabel.setText(f"{points} ({maxBins} max)")

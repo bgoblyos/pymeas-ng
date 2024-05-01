@@ -33,27 +33,23 @@ from UI.Logger import QTextEditLogger
 # Always inherit CloseInheritance last, as it is meant to
 # close the inheritance graph. It has a dummy __setup__()
 # method and does not call super().__setup__().
-class MainWindow( QMainWindow
-                , Ui_MainWindow
-                , Settings
-                , DeviceTree
-                , Experiments ):
+class MainWindow(QMainWindow):
 
     def __init__(self, rm, loglevel):
         super(MainWindow, self).__init__()
 
-        self.rm = rm
+        self.ui = Ui_MainWindow()
+        self.ui.setupUi(self)
 
-        self.setupUi(self)
-        
         # Set up logging to the logBox
-        logTextBox = QTextEditLogger(self.logBox)
+        logTextBox = QTextEditLogger(self.ui.logBox)
         logging.getLogger().addHandler(logTextBox)
         logging.getLogger().setLevel(loglevel)
 
         logging.debug("Main window initialized")
-        
-        
+
+        self.rm = rm
+
         # Get connected, disconnected and unknown devices
         # using the config file
         self.devices, self.disconnected, self.unknown = Devices.DeviceManager.readConfig(self.rm)
@@ -63,26 +59,20 @@ class MainWindow( QMainWindow
 
 
         # Run the setup for each inherited class
-        DeviceTree.__setup__(self)
-        Settings.__setup__(self)
-        Experiments.__setup__(self)
-        
+        self.deviceTree = DeviceTree(self.ui, self.devices, self.disconnected, self.unknown)
+        self.settings = Settings(self.ui, self.devices)
+        self.experiments = Experiments(self.ui, self.devices)
 
-        # Placeholder plot
-        #self.plot(
-        #    [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-        #    [1, 4, 9, 16, 25, 36, 49, 64, 81, 100],
-        #)
-
-        self.plotClearButton.clicked.connect(self.clearPlot)
+        # TODO: Move plotting to separate class 
+        self.ui.plotClearButton.clicked.connect(self.clearPlot)
 
 
     # Plot the given dataset
     def plot(self, xs, ys):
-        self.graphWidget.plot(xs, ys)
+        self.ui.graphWidget.plot(xs, ys)
 
     def clearPlot(self):
-        self.graphWidget.clear()
+        self.ui.graphWidget.clear()
 
 app = QApplication(sys.argv)
 
@@ -115,6 +105,8 @@ if args.theme != None:
     app.setStyle(parser.theme)
 elif "Fusion" in themeOptions:
     app.setStyle("Fusion")
+
+
 
 window = MainWindow(rm, loglevel)
 window.show()

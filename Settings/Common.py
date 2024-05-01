@@ -2,34 +2,36 @@ from PySide6.QtWidgets import *
 from PySide6.QtCore import Qt
 
 import Devices.DeviceManager
-from Settings.GenericLockIn import GenericLockInSettings
+from Settings.GenericLockIn import GenericLockIn
 
 import logging
 
-class Settings(GenericLockInSettings):
+class Settings():
     # Method for setting up the settings page
     # Called by main using super
-    def __setup__(self):
-        
+    def __init__(self, ui, devices):
+
+        self.ui = ui
+        self.devices = devices
+        self.genericLockIn = GenericLockIn(self.ui)
+
         # Call the settings handler when the settings device tree selection changes
-        self.deviceSelectionTree.currentItemChanged.connect(self.settingsHandler)
+        self.ui.deviceSelectionTree.currentItemChanged.connect(self.selectionChanged)
 
         # Set the default device config page to the placeholder
-        self.placeholderSettingsPage()
+        self.placeholderPage()
 
         self.constructSettingsTree()
 
         logging.debug("Completed Settings setup")
-        
-        GenericLockInSettings.__setup__(self)
-        
-    def placeholderSettingsPage(self):
-        self.settingsStack.setCurrentIndex(0)
+
+    def placeholderPage(self):
+        self.ui.settingsStack.setCurrentIndex(0)
 
     # Construct the settings device tree
     def constructSettingsTree(self):
         for deviceType in self.devices:
-            typeItem = QTreeWidgetItem(self.deviceSelectionTree)
+            typeItem = QTreeWidgetItem(self.ui.deviceSelectionTree)
             typeItem.setText(0, Devices.DeviceManager.types[deviceType])
             typeItem.setExpanded(True)
             typeItem.setFlags(typeItem.flags() & ~Qt.ItemIsSelectable)
@@ -38,8 +40,8 @@ class Settings(GenericLockInSettings):
                 entry = QTreeWidgetItem(typeItem)
                 entry.setText(0, name)
 
-    def settingsHandler(self):
-        currItem = self.deviceSelectionTree.currentItem()
+    def selectionChanged(self):
+        currItem = self.ui.deviceSelectionTree.currentItem()
 
         # Do nothing if a top-level item is selected
         # This shouldn't be necessary, but for some reason
@@ -56,9 +58,6 @@ class Settings(GenericLockInSettings):
 
         device = self.devices[deviceType][deviceName]
 
-        # We need to save the device so the apply handler can access it
-        self.currentSettingsDevice = device
-
         match device.model:
             case "placeholder":
                 print("This is where device-specific handlers go")
@@ -66,11 +65,11 @@ class Settings(GenericLockInSettings):
 
         match deviceType:
             case "lockin":
-                self.genericLockInHandler()
+                self.genericLockIn.selected(device)
                 return
 
         # Set the device config page to the placeholder if no handler is found
-        self.placeholderSettingsPage()
+        self.placeholderPage()
         print("Selected device does not have a settings handler")
 
 

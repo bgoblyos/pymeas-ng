@@ -5,13 +5,17 @@ import Devices.DeviceManager
 import logging
 
 class DeviceTree():
-    def __setup__(self):
+    def __init__(self, ui, devices, disconnected, unknown):
+        self.ui = ui
+        self.devices = devices
+        self.disconnected = disconnected
+        self.unknown = unknown
         self.displayDeviceTree()
         logging.debug("Completed device tree setup")
 
     def displayDeviceTree(self):
         # Connected devices
-        connectedItem = QTreeWidgetItem(self.deviceTree)
+        connectedItem = QTreeWidgetItem(self.ui.deviceTree)
         connectedItem.setText(0, "Connected")
         connectedItem.setExpanded(True)
         # Every device category becomes a top-level foldable item
@@ -28,7 +32,7 @@ class DeviceTree():
                 #modelItem.addChild(entry)
 
         # Disconnected, but configured devices
-        disconnectedItem = QTreeWidgetItem(self.deviceTree)
+        disconnectedItem = QTreeWidgetItem(self.ui.deviceTree)
         disconnectedItem.setText(0, "Disconnected")
         disconnectedItem.setExpanded(True)
         # Every device category becomes a top-level foldable item
@@ -36,7 +40,7 @@ class DeviceTree():
             modelItem = QTreeWidgetItem(disconnectedItem)
             modelItem.setText(1, Devices.DeviceManager.types[deviceType])
             modelItem.setExpanded(True)
-            # Each item in a given categrory is added to the list
+            # Each item in a given category is added to the list
             for name in self.disconnected[deviceType]:
                 entry = QTreeWidgetItem(modelItem)
                 entry.setText(2, name)
@@ -44,7 +48,7 @@ class DeviceTree():
                 entry.setText(4, self.disconnected[deviceType][name][1]) # Address
                 #modelItem.addChild(entry)
 
-        unknownItem = QTreeWidgetItem(self.deviceTree)
+        unknownItem = QTreeWidgetItem(self.ui.deviceTree)
         unknownItem.setText(0, "Unknown")
         unknownItem.setExpanded(True)
         for address in self.unknown:
@@ -54,6 +58,6 @@ class DeviceTree():
             entry.setText(3, "N/A")
             entry.setText(4, address)
 
-        self.deviceTree.resizeColumnToContents(0)
-        self.deviceTree.resizeColumnToContents(1)
+        self.ui.deviceTree.resizeColumnToContents(0)
+        self.ui.deviceTree.resizeColumnToContents(1)
 
