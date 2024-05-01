@@ -6,15 +6,16 @@ import logging
 
 class Experiments():
 
-    def __init__(self, ui, devices):
+    def __init__(self, ui, devices, plotter):
 
         self.ui = ui
         self.devices = devices
+        self.plotter = plotter
 
         self.ui.expList.currentItemChanged.connect(self.selectionChanged)
         self.placeholder()
 
-        self.sweepAndLockIn = SweepAndLockIn(self.ui, self.devices)
+        self.sweepAndLockIn = SweepAndLockIn(self.ui, self.devices, self.plotter)
 
     def selectionChanged(self):
         currItem = self.ui.expList.currentItem().text()

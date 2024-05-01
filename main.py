@@ -17,14 +17,17 @@ import Devices.Simulator
 # after modifying to regenerate the python file
 from UI.Mainwindow import Ui_MainWindow
 
-# Import device tree handler class to inherit
+# Import device tree handler class
 from Devices.DeviceTree import DeviceTree
 
-# Import settings handler class to inherit
+# Import settings handler class
 from Settings.Common import Settings
 
 # Import experiment handler class
 from Experiments.Common import Experiments
+
+# Import plotter class
+from UI.Plotter import Plotter
 
 # Import GUI logger
 from UI.Logger import QTextEditLogger
@@ -59,9 +62,10 @@ class MainWindow(QMainWindow):
 
 
         # Run the setup for each inherited class
+        self.plotter = Plotter(self.ui)
         self.deviceTree = DeviceTree(self.ui, self.devices, self.disconnected, self.unknown)
-        self.settings = Settings(self.ui, self.devices)
-        self.experiments = Experiments(self.ui, self.devices)
+        self.settings = Settings(self.ui, self.devices, self.plotter)
+        self.experiments = Experiments(self.ui, self.devices, self.plotter)
 
         # TODO: Move plotting to separate class 
         self.ui.plotClearButton.clicked.connect(self.clearPlot)
@@ -85,12 +89,13 @@ parser = argparse.ArgumentParser(
 
 parser.add_argument('-t', '--theme', choices = themeOptions, help = "Application theme")
 parser.add_argument('-s', '--simulate', action = 'store_true', help = "Use simulated pyvisa")
+parser.add_argument('-i', '--interactive', action = 'store_true', help = "Enable interactive simulation")
 parser.add_argument('-v', '--verbose', action = 'count', help = 'Verbose mode (set once for info and twice for debug messages', default = 0)
 
 args = parser.parse_args()
 
 if args.simulate:
-    rm = Devices.Simulator.RMSimulator()
+    rm = Devices.Simulator.RMSimulator(args.interactive)
 else:
     rm = ResourceManager()
 

@@ -9,7 +9,7 @@ import logging
 class Settings():
     # Method for setting up the settings page
     # Called by main using super
-    def __init__(self, ui, devices):
+    def __init__(self, ui, devices, plotter):
 
         self.ui = ui
         self.devices = devices

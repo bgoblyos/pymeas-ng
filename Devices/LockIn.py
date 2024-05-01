@@ -8,7 +8,7 @@ import logging
 class SRCommon(Devices.Common.CommonInstrument):
     def __init__(self, rm, address):
         super().__init__(rm, address)
-        
+
         self.display1list = [
             "X",
             "R",
@@ -27,7 +27,7 @@ class SRCommon(Devices.Common.CommonInstrument):
 
     def clear(self):
         self.writeStr('*CLS;REST')
-        
+
     def readXY(self):
         response = self.query("SNAP? 1,2")
         responseList = response.split(',')
@@ -102,11 +102,11 @@ class SRCommon(Devices.Common.CommonInstrument):
     def readBuffer(self, buffer, firstPoint = 0, numPoints = 0):
         if numPoints <= 0:
             numPoints = self.bufferSize - firstPoint
-        
+
         if (firstPoint >= self.bufferSize) or (firstPoint < 0):
             print("Starting index is out of bounds")
             return []
-        
+
         if (firstPoint + numPoints) > self.bufferSize:
             print("Requested too many points, clamping it.")
             numPoints = self.bufferSize - firstPoint
@@ -125,10 +125,10 @@ class SRCommon(Devices.Common.CommonInstrument):
         for i in reversed(range(0, len(self.sampleFreqList))):
             if self.sampleFreqList[i] < maxfreq:
                 return i
-        
+
         print("No appropriate sample rate found, setting it to the lowest available.")
         return 0
-            
+
     def armTimedMeasurement(self, time, chosenFreqIndex):
         maxFreqIndex = self.maxSampleRate()
         maxFreq = self.sampleFreqList[maxFreqIndex]

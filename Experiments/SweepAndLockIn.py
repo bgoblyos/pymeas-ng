@@ -14,10 +14,11 @@ from time import sleep
 from Misc.Prefix import formatPrefix
 
 class SweepAndLockIn():
-    def __init__(self, ui, devices):
+    def __init__(self, ui, devices, plotter):
 
         self.ui = ui
         self.devices = devices
+        self.plotter = plotter
 
         # Connect start button
         self.ui.sweepAndLockStart.clicked.connect(self.prepare)
@@ -59,11 +60,14 @@ class SweepAndLockIn():
         endFreq = self.ui.sweepAndLockEndFreq.value()
 
         self.sweeper.setupSweep(startFreq, endFreq, sweepTime)
+
         # Update sweep time in case it got clamped
-        sweepTime = sweeper.readSweepTime()
+        # From here on, we can use this value, as it's not changed
+        # until the end of the measurement
+        self.sweepTime = self.sweeper.readSweepTime()
 
         # Set power level and turn off continous sweep
-        self.sweeper.setPowerLevel(self.sweepAndLockPower.value())
+        self.sweeper.setPowerLevel(self.ui.sweepAndLockPower.value())
         self.sweeper.setContSweep(False)
 
         # Lock-in setup
@@ -82,29 +86,31 @@ class SweepAndLockIn():
         self.data1 = array([])
         self.data2 = array([])
 
+        self.curve1 = self.plotter.emptyPlot("r")
+        self.curve2 = self.plotter.emptyPlot("g")
+
         # Reset total progress bar
-        self.ui.sweepAndLockTotalProgress.setRange(0, self.sweepAndLockInNumRuns)
+        self.ui.sweepAndLockTotalProgress.setRange(0, self.totalRuns)
         self.ui.sweepAndLockTotalProgress.setValue(0)
+
+        # Set total step count per run
+        self.totalSteps = 2*(ceil(self.sweepTime) + 1)
 
         self.startRun()
 
     def startRun(self):
 
-        sweepTime = self.sweeper.readSweepTime()
         sampleFreq = self.ui.sweepAndLockSampleFreq.currentIndex()
-        (self.numPoints, self.padding) = self.lockin.armTimedMeasurement(sweepTime, sampleFreq)
+        (self.numPoints, self.padding) = self.lockin.armTimedMeasurement(self.sweepTime, sampleFreq)
 
-
-        self.totalSteps = 2*(ceil(sweepTime) + 1)
-        self.currentStep = 0
-
-        # Reset progress bar
+        # Reset progress bar and step counter
         self.ui.sweepAndLockProgress.setRange(0, self.totalSteps)
         self.ui.sweepAndLockProgress.setValue(0)
+        self.currentStep = 0
 
         # Start sweep
-        sweeper.powerOn()
-        sweeper.startSweep()
+        self.sweeper.powerOn()
+        self.sweeper.startSweep()
 
         self.timer.start()
 
@@ -136,26 +142,41 @@ class SweepAndLockIn():
         self.lockin.pause()
 
         # Extract both datasets
-        data1 = array(lockin.readBuffer(1, 0, self.numPoints))
-        data2 = array(lockin.readBuffer(2, 0, self.numPoints))
+        data1 = array(self.lockin.readBuffer(1, 0, self.numPoints))
+        data2 = array(self.lockin.readBuffer(2, 0, self.numPoints))
 
         # Pad the data if necessary
-        padding = zeros(self.sweepAndLockInPadding)
+        padding = zeros(self.padding)
         data1 = concatenate((data1, padding))
         data2 = concatenate((data2, padding))
         logging.info("Data extracted")
 
 
-        if len(self.data1) == 0 or len(self.data2):
-            # If there's no data yet, overwrite the variables
-            # with our new data
+        if self.currentRun == 1:
+            # If it's the first run, save our new data
             self.data1 = data1
             self.data2 = data2
+
+            # Read back sweep parameters from the instrument
+            start, end, _ = self.sweeper.readSweepParams()
+            freqs = linspace(start, end, len(self.data1))
+
+            # Plot the first set of data 
+            self.curve1.setData(freqs, self.data1)
+            self.curve2.setData(freqs, self.data2)
+
         else:
             # If there's already data, we add our new data to it
             # elementwise
             self.data1 += data1
             self.data2 += data2
+
+            normalized1 = self.data1 / self.currentRun
+            normalized2 = self.data2 / self.currentRun
+
+            # We update the y axis data with our new average
+            self.curve1.setData(normalized1)
+            self.curve2.setData(normalized2)
 
         # Set progress bar to full
         pbar.setRange(0, 1)
@@ -164,18 +185,8 @@ class SweepAndLockIn():
         # Update the total progress
         self.ui.sweepAndLockTotalProgress.setValue(self.currentRun)
 
-        if self.numRuns <= self.currentRun:
-            # Normalize data
-            self.sweepAndLockInData /= self.sweepAndLockInNumRuns
-
-            # Read back sweep parameters from the instrument
-            start, end, _ = self.sweeper.readSweepParams()
-            freqs = linspace(start, end, len(self.data1))
-
-            # TODO: implement with an object passed on from main.py
-            # Plot the resulting data
-            #self.plot(freqs, self.sweepAndLockInData)
-        else:
+        # Run again if we're not done yet
+        if self.totalRuns > self.currentRun:
             self.currentRun += 1
             self.startRun()
 
@@ -231,6 +242,8 @@ class SweepAndLockIn():
 
         currentFreq = self.lockin.readFreq()
         self.ui.sweepAndLockFreq.setValue(currentFreq)
+
+        self.updateTime()
 
     def updateTime(self):
         logging.debug("Time estimations should be updated now")
