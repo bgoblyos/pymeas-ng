@@ -102,6 +102,7 @@ class SweepAndLockIn():
 
         sampleFreq = self.ui.sweepAndLockSampleFreq.currentIndex()
         (self.numPoints, self.padding) = self.lockin.armTimedMeasurement(self.sweepTime, sampleFreq)
+        logging.debug(f"{self.numPoints} points will be measured")
 
         # Reset progress bar and step counter
         self.ui.sweepAndLockProgress.setRange(0, self.totalSteps)
@@ -142,8 +143,11 @@ class SweepAndLockIn():
         self.lockin.pause()
 
         # Extract both datasets
+        logging.debug(f"{self.numPoints} points will be extracted")
         data1 = array(self.lockin.readBuffer(1, 0, self.numPoints))
+        logging.debug(f"Register 1 extracted")
         data2 = array(self.lockin.readBuffer(2, 0, self.numPoints))
+        logging.debug(f"Register 2 extracted")
 
         # Pad the data if necessary
         padding = zeros(self.padding)

@@ -29,11 +29,11 @@ class Plotter():
             logging.debug(f"Created {self.quickSaveDir}")
 
         # Placeholder
-        xs = np.linspace(0, 4*np.pi, 1000)
-        y1s = np.cos(xs)
-        y2s = np.cos(2*xs)
-        self.plot(xs, y1s, pen = "r", name = "Dataset 1")
-        self.plot(xs, y2s, pen = "g", name = "Dataset 2")
+        #xs = np.linspace(0, 4*np.pi, 1000)
+        #y1s = np.cos(xs)
+        #y2s = np.cos(2*xs)
+        #self.plot(xs, y1s, pen = "r", name = "Dataset 1")
+        #self.plot(xs, y2s, pen = "g", name = "Dataset 2")
 
 
     def clear(self):
