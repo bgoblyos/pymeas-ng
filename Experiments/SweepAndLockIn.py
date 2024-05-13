@@ -140,7 +140,8 @@ class SweepAndLockIn():
         # Disable sweeper output
         self.sweeper.powerOff()
 
-        # Pause lock-in to stop data collection
+        # Pause lock-in and stop sweeper to stop data collection
+        #self.sweeper.stopSweep()
         self.lockin.pause()
 
         # Extract both datasets
@@ -165,11 +166,11 @@ class SweepAndLockIn():
 
             # Read back sweep parameters from the instrument
             start, end, _ = self.sweeper.readSweepParams()
-            freqs = linspace(start, end, len(self.data1))
+            self.freqs = linspace(start, end, len(self.data1))
 
             # Plot the first set of data 
-            self.curve1.setData(freqs, self.data1)
-            self.curve2.setData(freqs, self.data2)
+            self.curve1.setData(self.freqs, self.data1)
+            self.curve2.setData(self.freqs, self.data2)
 
         else:
             # If there's already data, we add our new data to it
@@ -181,8 +182,8 @@ class SweepAndLockIn():
             normalized2 = self.data2 / self.currentRun
 
             # We update the y axis data with our new average
-            self.curve1.setData(normalized1)
-            self.curve2.setData(normalized2)
+            self.curve1.setData(self.freqs, normalized1)
+            self.curve2.setData(self.freqs, normalized2)
 
         # Set progress bar to full
         pbar.setRange(0, 1)

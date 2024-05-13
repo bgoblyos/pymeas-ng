@@ -54,7 +54,9 @@ class HP83751A(SweeperCommon):
             self.writeStr("INIT:CONT OFF")
 
     def startSweep(self):
-        #self.writeStr("INIT:IMM")
-        self.writeStr("*TRG")
+        self.writeStr("INIT:IMM;*TRG")
+
+    def stopSweep(self):
+        self.writeStr("ABORT")
 
     model = "HP83751A"
