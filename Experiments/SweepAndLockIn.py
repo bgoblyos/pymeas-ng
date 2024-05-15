@@ -110,7 +110,7 @@ class SweepAndLockIn():
         self.currentStep = 0
 
         # Start sweep
-        logging.debug(f"Sweeper state: {self.sweeper.query("*OPC?")}")
+        logging.debug(f"Sweeper state: {self.sweeper.query('*OPC?')}")
         self.sweeper.powerOn()
         self.sweeper.startSweep()
 
@@ -146,7 +146,7 @@ class SweepAndLockIn():
 
         # Extract both datasets
         logging.debug(f"{self.numPoints} points will be extracted")
-        logging.debug(f"The buffer contains {self.lockin.query("SPTS?")}")
+        logging.debug(f"The buffer contains {self.lockin.query('SPTS?')}")
         data1 = array(self.lockin.readBuffer(1, 0, self.numPoints))
         logging.debug(f"Register 1 extracted")
         data2 = array(self.lockin.readBuffer(2, 0, self.numPoints))
@@ -253,14 +253,12 @@ class SweepAndLockIn():
         self.updateTime()
 
     def updateTime(self):
-        logging.debug("Time estimations should be updated now")
+        logging.debug("Expected data points updated")
         sampleFreqIndex = self.ui.sweepAndLockSampleFreq.currentIndex()
         sampleFreq = self.lockin.sampleFreqList[sampleFreqIndex]
         maxBins = self.lockin.bufferSize
         sweepTime = self.ui.sweepAndLockSweepTime.value()
 
         points = round(sweepTime*sampleFreq)
-        maxTime = round(maxBins/sampleFreq)
 
-        self.ui.sweepAndLockMaxTimeLabel.setText(f"{maxTime} s")
         self.ui.sweepAndLockDataPointsLabel.setText(f"{points} ({maxBins} max)")

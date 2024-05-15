@@ -21,7 +21,7 @@
        <enum>QTabWidget::North</enum>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>3</number>
       </property>
       <widget class="QWidget" name="plot_tab">
        <attribute name="title">
@@ -187,8 +187,8 @@
                   <rect>
                    <x>0</x>
                    <y>0</y>
-                   <width>584</width>
-                   <height>439</height>
+                   <width>577</width>
+                   <height>462</height>
                   </rect>
                  </property>
                  <property name="sizePolicy">
@@ -482,8 +482,8 @@
                   <rect>
                    <x>0</x>
                    <y>0</y>
-                   <width>185</width>
-                   <height>98</height>
+                   <width>226</width>
+                   <height>112</height>
                   </rect>
                  </property>
                  <layout class="QFormLayout" name="formLayout_2">
@@ -585,7 +585,7 @@
         <item>
          <widget class="QStackedWidget" name="expStack">
           <property name="currentIndex">
-           <number>2</number>
+           <number>1</number>
           </property>
           <widget class="QWidget" name="expPlaceholder">
            <layout class="QHBoxLayout" name="horizontalLayout_10">
@@ -616,19 +616,236 @@
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>581</width>
-                 <height>301</height>
+                 <width>650</width>
+                 <height>429</height>
                 </rect>
                </property>
                <layout class="QGridLayout" name="gridLayout">
-                <item row="1" column="2">
-                 <widget class="Line" name="line_7">
+                <item row="8" column="1">
+                 <widget class="QDoubleSpinBox" name="sweepAndLockPower">
+                  <property name="suffix">
+                   <string> dBm</string>
+                  </property>
+                  <property name="minimum">
+                   <double>-80.000000000000000</double>
+                  </property>
+                  <property name="maximum">
+                   <double>20.000000000000000</double>
+                  </property>
+                 </widget>
+                </item>
+                <item row="13" column="0">
+                 <widget class="QLabel" name="label_28">
+                  <property name="text">
+                   <string>Measurements</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="6" column="0">
+                 <widget class="QLabel" name="label_16">
+                  <property name="text">
+                   <string>Sweeper</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="3" column="1">
+                 <widget class="QDoubleSpinBox" name="sweepAndLockFreq">
+                  <property name="suffix">
+                   <string> Hz</string>
+                  </property>
+                  <property name="decimals">
+                   <number>1</number>
+                  </property>
+                  <property name="maximum">
+                   <double>100000.000000000000000</double>
+                  </property>
+                 </widget>
+                </item>
+                <item row="13" column="2">
+                 <widget class="QLabel" name="label_24">
+                  <property name="text">
+                   <string>Data points</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="11" column="0">
+                 <widget class="Line" name="line_12">
                   <property name="orientation">
                    <enum>Qt::Horizontal</enum>
                   </property>
                  </widget>
                 </item>
-                <item row="6" column="3">
+                <item row="1" column="0">
+                 <widget class="QLabel" name="label_17">
+                  <property name="text">
+                   <string>Lock-in</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="13" column="3">
+                 <widget class="QLabel" name="sweepAndLockDataPointsLabel">
+                  <property name="text">
+                   <string>N/A</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="2" column="3">
+                 <widget class="QComboBox" name="sweepAndLockTau"/>
+                </item>
+                <item row="3" column="3">
+                 <widget class="QComboBox" name="sweepAndLockSampleFreq"/>
+                </item>
+                <item row="1" column="1">
+                 <widget class="QComboBox" name="sweepAndLockSelectLockIn">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="2">
+                 <widget class="QLabel" name="label_29">
+                  <property name="text">
+                   <string>Displays</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="5" column="2">
+                 <widget class="Line" name="line_4">
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                 </widget>
+                </item>
+                <item row="5" column="3">
+                 <widget class="Line" name="line_2">
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                 </widget>
+                </item>
+                <item row="2" column="0">
+                 <widget class="QLabel" name="label_23">
+                  <property name="text">
+                   <string>Sensitivity</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="5" column="1">
+                 <widget class="Line" name="line">
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                 </widget>
+                </item>
+                <item row="8" column="3">
+                 <widget class="QDoubleSpinBox" name="sweepAndLockSweepTime">
+                  <property name="prefix">
+                   <string/>
+                  </property>
+                  <property name="suffix">
+                   <string> s</string>
+                  </property>
+                  <property name="decimals">
+                   <number>3</number>
+                  </property>
+                 </widget>
+                </item>
+                <item row="2" column="2">
+                 <widget class="QLabel" name="label_26">
+                  <property name="text">
+                   <string>Time const.</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="11" column="1">
+                 <widget class="Line" name="line_9">
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                 </widget>
+                </item>
+                <item row="14" column="0">
+                 <spacer name="verticalSpacer_2">
+                  <property name="orientation">
+                   <enum>Qt::Vertical</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>20</width>
+                    <height>40</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+                <item row="13" column="1">
+                 <widget class="QSpinBox" name="sweepAndLockNumRuns">
+                  <property name="minimum">
+                   <number>1</number>
+                  </property>
+                  <property name="displayIntegerBase">
+                   <number>10</number>
+                  </property>
+                 </widget>
+                </item>
+                <item row="7" column="2">
+                 <widget class="QLabel" name="label_20">
+                  <property name="text">
+                   <string>End freq.</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="3">
+                 <widget class="QComboBox" name="comboBox">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <item>
+                   <property name="text">
+                    <string>Cartesian (X-Y)</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Polar (R-θ)</string>
+                   </property>
+                  </item>
+                 </widget>
+                </item>
+                <item row="8" column="2">
+                 <widget class="QLabel" name="label_18">
+                  <property name="text">
+                   <string>Sweep time</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="11" column="3">
+                 <widget class="Line" name="line_10">
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                 </widget>
+                </item>
+                <item row="3" column="0">
+                 <widget class="QLabel" name="label_25">
+                  <property name="text">
+                   <string>Lock-in freq.</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="7" column="0">
+                 <widget class="QLabel" name="label_19">
+                  <property name="text">
+                   <string>Start freq.</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="7" column="3">
                  <widget class="QDoubleSpinBox" name="sweepAndLockEndFreq">
                   <property name="suffix">
                    <string> GHz</string>
@@ -644,10 +861,33 @@
                   </property>
                  </widget>
                 </item>
-                <item row="6" column="0">
-                 <widget class="QLabel" name="label_19">
+                <item row="8" column="0">
+                 <widget class="QLabel" name="label_27">
                   <property name="text">
-                   <string>Start freq.</string>
+                   <string>Power</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="6" column="1">
+                 <widget class="QComboBox" name="sweepAndLockSelectSweeper">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="editable">
+                   <bool>false</bool>
+                  </property>
+                  <property name="currentText">
+                   <string/>
+                  </property>
+                 </widget>
+                </item>
+                <item row="11" column="2">
+                 <widget class="Line" name="line_11">
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
                   </property>
                  </widget>
                 </item>
@@ -658,14 +898,14 @@
                   </property>
                  </widget>
                 </item>
-                <item row="5" column="1">
-                 <widget class="Line" name="line">
+                <item row="5" column="0">
+                 <widget class="Line" name="line_3">
                   <property name="orientation">
                    <enum>Qt::Horizontal</enum>
                   </property>
                  </widget>
                 </item>
-                <item row="6" column="1">
+                <item row="7" column="1">
                  <widget class="QDoubleSpinBox" name="sweepAndLockStartFreq">
                   <property name="suffix">
                    <string> GHz</string>
@@ -684,304 +924,8 @@
                   </property>
                  </widget>
                 </item>
-                <item row="10" column="1">
-                 <widget class="Line" name="line_9">
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
-                  </property>
-                 </widget>
-                </item>
                 <item row="2" column="1">
                  <widget class="QComboBox" name="sweepAndLockSens"/>
-                </item>
-                <item row="0" column="1">
-                 <widget class="QComboBox" name="sweepAndLockSelectSweeper">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="editable">
-                   <bool>false</bool>
-                  </property>
-                  <property name="currentText">
-                   <string/>
-                  </property>
-                 </widget>
-                </item>
-                <item row="10" column="2">
-                 <widget class="Line" name="line_11">
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
-                  </property>
-                 </widget>
-                </item>
-                <item row="1" column="3">
-                 <widget class="Line" name="line_8">
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
-                  </property>
-                 </widget>
-                </item>
-                <item row="10" column="0">
-                 <widget class="Line" name="line_12">
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
-                  </property>
-                 </widget>
-                </item>
-                <item row="0" column="2">
-                 <widget class="QLabel" name="label_17">
-                  <property name="text">
-                   <string>Lock-in</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="7" column="2">
-                 <widget class="QLabel" name="label_18">
-                  <property name="text">
-                   <string>Sweep time</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="7" column="3">
-                 <widget class="QDoubleSpinBox" name="sweepAndLockSweepTime">
-                  <property name="prefix">
-                   <string/>
-                  </property>
-                  <property name="suffix">
-                   <string> s</string>
-                  </property>
-                  <property name="decimals">
-                   <number>3</number>
-                  </property>
-                 </widget>
-                </item>
-                <item row="14" column="3">
-                 <widget class="QLabel" name="sweepAndLockDataPointsLabel">
-                  <property name="text">
-                   <string>N/A</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="0" column="3">
-                 <widget class="QComboBox" name="sweepAndLockSelectLockIn">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                 </widget>
-                </item>
-                <item row="13" column="2">
-                 <widget class="Line" name="line_14">
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
-                  </property>
-                 </widget>
-                </item>
-                <item row="5" column="3">
-                 <widget class="Line" name="line_2">
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
-                  </property>
-                 </widget>
-                </item>
-                <item row="5" column="2">
-                 <widget class="Line" name="line_4">
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
-                  </property>
-                 </widget>
-                </item>
-                <item row="14" column="0">
-                 <widget class="QLabel" name="label_22">
-                  <property name="toolTip">
-                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Maximum amount of time that can be recorded to the internal memory of the lock-in.&lt;/p&gt;&lt;p&gt;Anything over this limit will be padded with zeroes.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                  </property>
-                  <property name="text">
-                   <string>Max time:</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="7" column="1">
-                 <widget class="QDoubleSpinBox" name="sweepAndLockPower">
-                  <property name="suffix">
-                   <string> dBm</string>
-                  </property>
-                  <property name="minimum">
-                   <double>-80.000000000000000</double>
-                  </property>
-                  <property name="maximum">
-                   <double>20.000000000000000</double>
-                  </property>
-                 </widget>
-                </item>
-                <item row="2" column="2">
-                 <widget class="QLabel" name="label_26">
-                  <property name="text">
-                   <string>Time const.</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="12" column="3">
-                 <widget class="QComboBox" name="comboBox"/>
-                </item>
-                <item row="2" column="0">
-                 <widget class="QLabel" name="label_23">
-                  <property name="text">
-                   <string>Sensitivity</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="10" column="3">
-                 <widget class="Line" name="line_10">
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
-                  </property>
-                 </widget>
-                </item>
-                <item row="3" column="1">
-                 <widget class="QDoubleSpinBox" name="sweepAndLockFreq">
-                  <property name="suffix">
-                   <string> Hz</string>
-                  </property>
-                  <property name="decimals">
-                   <number>1</number>
-                  </property>
-                  <property name="maximum">
-                   <double>100000.000000000000000</double>
-                  </property>
-                 </widget>
-                </item>
-                <item row="1" column="0">
-                 <widget class="Line" name="line_5">
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
-                  </property>
-                 </widget>
-                </item>
-                <item row="14" column="2">
-                 <widget class="QLabel" name="label_24">
-                  <property name="text">
-                   <string>Data points</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="12" column="1">
-                 <widget class="QSpinBox" name="sweepAndLockNumRuns">
-                  <property name="minimum">
-                   <number>1</number>
-                  </property>
-                  <property name="displayIntegerBase">
-                   <number>10</number>
-                  </property>
-                 </widget>
-                </item>
-                <item row="2" column="3">
-                 <widget class="QComboBox" name="sweepAndLockTau"/>
-                </item>
-                <item row="5" column="0">
-                 <widget class="Line" name="line_3">
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
-                  </property>
-                 </widget>
-                </item>
-                <item row="7" column="0">
-                 <widget class="QLabel" name="label_27">
-                  <property name="text">
-                   <string>Power</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="12" column="2">
-                 <widget class="QLabel" name="label_29">
-                  <property name="text">
-                   <string>Displays</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="3" column="3">
-                 <widget class="QComboBox" name="sweepAndLockSampleFreq"/>
-                </item>
-                <item row="14" column="1">
-                 <widget class="QLabel" name="sweepAndLockMaxTimeLabel">
-                  <property name="text">
-                   <string>N/A</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="13" column="1">
-                 <widget class="Line" name="line_13">
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
-                  </property>
-                 </widget>
-                </item>
-                <item row="15" column="0">
-                 <spacer name="verticalSpacer_2">
-                  <property name="orientation">
-                   <enum>Qt::Vertical</enum>
-                  </property>
-                  <property name="sizeHint" stdset="0">
-                   <size>
-                    <width>20</width>
-                    <height>40</height>
-                   </size>
-                  </property>
-                 </spacer>
-                </item>
-                <item row="1" column="1">
-                 <widget class="Line" name="line_6">
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
-                  </property>
-                 </widget>
-                </item>
-                <item row="3" column="0">
-                 <widget class="QLabel" name="label_25">
-                  <property name="text">
-                   <string>Lock-in freq.</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="12" column="0">
-                 <widget class="QLabel" name="label_28">
-                  <property name="text">
-                   <string>Measurements</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="0" column="0">
-                 <widget class="QLabel" name="label_16">
-                  <property name="text">
-                   <string>Sweeper</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="6" column="2">
-                 <widget class="QLabel" name="label_20">
-                  <property name="text">
-                   <string>End freq.</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="13" column="3">
-                 <widget class="Line" name="line_15">
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
-                  </property>
-                 </widget>
-                </item>
-                <item row="13" column="0">
-                 <widget class="Line" name="line_16">
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
-                  </property>
-                 </widget>
                 </item>
                </layout>
               </widget>
@@ -1034,8 +978,8 @@
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>636</width>
-                 <height>420</height>
+                 <width>650</width>
+                 <height>429</height>
                 </rect>
                </property>
                <layout class="QGridLayout" name="gridLayout_2">

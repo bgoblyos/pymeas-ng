@@ -87,6 +87,14 @@ class SRCommon(Devices.Common.CommonInstrument):
     def display(self, channel, value, ratio):
         self.writeStr('DDEF ' + channel + ',' + value + ',' + ratio)
 
+    def readDisplay(self, channel):
+        self.query(f"DDEF ? {channel}")
+        # TODO implement separating the values into a tuple
+
+    def readBinNum(self):
+        res = self.query('SPTS?')
+        return int(res)
+
     def harmDet(self, value):
         self.writeParam('HARM', value)
 
@@ -99,17 +107,24 @@ class SRCommon(Devices.Common.CommonInstrument):
     def pause(self):
         self.writeStr('PAUS')
 
+    # TODO: test this with actual hardware
     def readBuffer(self, buffer, firstPoint = 0, numPoints = 0):
-        if numPoints <= 0:
-            numPoints = self.bufferSize - firstPoint
+        bufferSize = self.readBinNum()
 
-        if (firstPoint >= self.bufferSize) or (firstPoint < 0):
-            print("Starting index is out of bounds")
+        if bufferSize == 0:
+            logging.warning("The lock-in buffer is empty, nothing could be retrieved.")
             return []
 
-        if (firstPoint + numPoints) > self.bufferSize:
-            print("Requested too many points, clamping it.")
-            numPoints = self.bufferSize - firstPoint
+        if numPoints <= 0:
+            numPoints = bufferSize - firstPoint
+
+        if (firstPoint >= bufferSize) or (firstPoint < 0):
+            logging.warning(f"Starting index is out of bounds (requested index {firstPoint} from {bufferSize} elements)")
+            return []
+
+        if (firstPoint + numPoints) > bufferSize:
+            logging.info("Requested too many points, clamping it.")
+            numPoints = bufferSize - firstPoint
 
         queryStr = f"TRCB ? {buffer}, {firstPoint}, {numPoints}"
         return self.queryBinaryFloat(queryStr)
