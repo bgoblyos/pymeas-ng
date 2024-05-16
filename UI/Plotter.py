@@ -60,7 +60,7 @@ class Plotter():
         logging.info(f"File successfully saved as {fileName}")
 
     def quickSave(self):
-        timestamp = datetime.datetime.now().astimezone().isoformat()
+        timestamp = datetime.datetime.now().astimezone().strftime('%Y-%m-%d%Z%H-%M-%S.%f')
         fileName = f"{timestamp}.csv"
         filePath = os.path.join(self.quickSaveDir, fileName)
 
