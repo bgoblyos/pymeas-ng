@@ -9,11 +9,15 @@ from PySide6.QtWidgets import QFileDialog
 import numpy as np
 
 from pyqtgraph.exporters import CSVExporter
+from pyqtgraph import ImageItem
+from pyqtgraph.Qt import QtGui
 
 class Plotter():
     def __init__(self, ui):
 
         self.plt = ui.graphWidget
+        self.imageItem = None
+        self.colorBar = None
         self.clear()
 
         ui.plotClearButton.clicked.connect(self.clear)
@@ -28,22 +32,39 @@ class Plotter():
             os.makedirs(self.quickSaveDir)
             logging.debug(f"Created {self.quickSaveDir}")
 
-        # Placeholder
-        #xs = np.linspace(0, 4*np.pi, 1000)
-        #y1s = np.cos(xs)
-        #y2s = np.cos(2*xs)
-        #self.plot(xs, y1s, pen = "r", name = "Dataset 1")
-        #self.plot(xs, y2s, pen = "g", name = "Dataset 2")
 
+        self.heatmap(np.random.rand(100,100))
 
     def clear(self):
         self.plt.clear()
+
+        if self.colorBar != None:
+            self.colorBar.clear()
+            self.colorBar.hideAxis('right')
+            self.colorBar = None
 
     def plot(self, xs, ys, pen = None, name = None):
         return self.plt.plot(xs, ys, pen=pen, name=name)
 
     def emptyPlot(self, pen="w"):
         return self.plt.plot(pen=pen)
+
+    def heatmap(self, data, xrange = (0, 1), yrange = (0, 1), cmap = "viridis"):
+        self.clear()
+        self.plt.plot()
+
+        img = ImageItem(data)
+
+        xscale = (xrange[1] - xrange[0])/data.shape[0]
+        yscale = (yrange[1] - yrange[0])/data.shape[1]
+        tr = QtGui.QTransform()
+        tr.scale(xscale, yscale)
+        tr.translate(xrange[0]/xscale, yrange[0]/yscale)
+
+        img.setTransform(tr)
+
+        self.plt.addItem(img)
+        self.colorBar = self.plt.addColorBar(img, colorMap = cmap)
 
     def saveAs(self):
         fileName = QFileDialog.getSaveFileName(None, "Save plot data as",
