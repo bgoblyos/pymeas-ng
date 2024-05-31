@@ -16,3 +16,8 @@ devices:
     gpib:
       address: 11
       bus: 0
+  - name: "IT6431"
+    type: "psu"
+    model: "IT6400"
+    usb:
+      string: "USB0::0x2EC7::0x6431::800626011777710004::INSTR"

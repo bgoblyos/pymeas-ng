@@ -17,6 +17,8 @@ class ODMRWaterfall():
             self.ui.ODMRWaterfallSweeperSelection.addItem(sweeper)
         for lockin in self.devices["lockin"]:
             self.ui.ODMRWaterfallLockInSelection.addItem(lockin)
+        for psu in self.devices["psu"]:
+            self.ui.ODMRWaterfallPSUSelection.addItem(psu)
 
         # Connect start button
         self.ui.ODMRWaterfallStart.clicked.connect(self.prepare)
@@ -56,7 +58,7 @@ class ODMRWaterfall():
         # Read back instrument settings
         self.resetLockIn()
         self.resetSweeper()
-        #self.resetPSU()
+        self.resetPSU()
 
     def displayToggleChanged(self):
         if self.ui.ODMRWaterfallDisplay1Radio.isChecked():
@@ -100,11 +102,16 @@ class ODMRWaterfall():
         sens = self.ui.ODMRWaterfallLockInSens.currentIndex()
         self.lockin.setSens(sens)
 
+        # Read in PSU settings
         self.startCurrent = self.ui.ODMRWaterfallStartCurrent.value()
         self.endCurrent = self.ui.ODMRWaterfallEndCurrent.value()
         self.currentSteps = self.ui.ODMRWaterfallPowerSteps.value()
         self.currentCounter = 0
         self.currents = np.linspace(self.startCurrent, self.endCurrent, self.currentSteps)
+
+        # Enable power supply output and set first current
+        self.psu.setCurrent(self.startCurrent)
+        self.psu.enableOutput()
 
         # Reset total progress bar
         self.ui.ODMRWaterfallTotalProgress.setRange(0, self.currentSteps)
@@ -116,7 +123,11 @@ class ODMRWaterfall():
         self.startSweep()
 
     def startSweep(self):
+        # Set up power supply
+        self.actualCurrent = self.currents[self.currentCounter]
+        self.psu.setCurrent(self.actualCurrent)
 
+        # Set up lock-in
         sampleFreq = self.ui.ODMRWaterfallLockInSampleRate.currentIndex()
         (self.numPoints, self.padding) = self.lockin.armTimedMeasurement(self.sweepTime, sampleFreq)
         self.totalPoints = self.numPoints + self.padding
@@ -126,9 +137,6 @@ class ODMRWaterfall():
         self.ui.ODMRWaterfallSweepProgress.setRange(0, self.sweepSteps)
         self.ui.ODMRWaterfallSweepProgress.setValue(0)
         self.sweepCounter = 0
-
-        self.actualCurrent = self.currents[self.currentCounter]
-        # TODO: actually change the PSU current
 
         # Start sweep
         logging.debug(f"Sweeper state: {self.sweeper.query('*OPC?')}")
@@ -206,6 +214,11 @@ class ODMRWaterfall():
         # Run again if we're not done yet
         if self.currentSteps > self.currentCounter:
             self.startSweep()
+        else:
+            # Else, turn off the power supply
+            self.psu.disableOutput()
+            # And inform the user
+            logging.info("Measurement completed")
 
     def resetSweeper(self):
         self.sweeper = self.devices["sweeper"][self.ui.ODMRWaterfallSweeperSelection.currentText()]
@@ -257,8 +270,15 @@ class ODMRWaterfall():
         self.updateEstimates()
 
     def resetPSU(self):
-        #self.lockin = self.devices["lockin"][self.ui.ODMRWaterfallPSUSelection.currentText()]
-        logging.debug("PSU reset called")
+        self.psu = self.devices["psu"][self.ui.ODMRWaterfallPSUSelection.currentText()]
+
+        # TODO: Set current and voltage limits
+
+        current = self.psu.getCurrent()
+        self.ui.ODMRWaterfallEndCurrent.setValue(current)
+
+        voltage = self.psu.getVoltage()
+        self.ui.ODMRWaterfallVoltage.setValue(voltage)
 
     def updateEstimates(self):
         sampleFreqIndex = self.ui.ODMRWaterfallLockInSampleRate.currentIndex()

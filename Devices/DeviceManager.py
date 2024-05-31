@@ -2,7 +2,9 @@ import yaml
 from os.path import isfile
 import Devices.LockIn
 import Devices.Sweeper
+import Devices.PowerSupply
 import copy
+import logging
 
 def invertDict(inDict):
     outDict = {}
@@ -20,25 +22,21 @@ models = {
     },
     "sweeper": {
         "hp83751a": Devices.Sweeper.HP83751A
+    },
+    "psu": {
+        "it6400": Devices.PowerSupply.IT6400
     }
-
 }
 
 types = {
     "lockin": "Lock-in amplifier",
-    "sweeper": "Sweeper"
+    "sweeper": "Sweeper",
+    "psu": "Power supply"
 }
 
 # Converts pretty user-facing name back into the
-# internally used one. This could be replaced with a function
-# of "types" if it grows too large
+# internally used one.
 typesInverted = invertDict(types)
-
-# Template dictionary for devices
-"""template = {
-    "lockin": {},
-    "sweeper": {}
-}"""
 
 template = {}
 for deviceType in types:
@@ -113,10 +111,10 @@ def readConfig(rm):
             print(f"No model entry found for {name}, skipping to next device.")
             continue
 
+        # Process adresses
+        address = None
+        
         # Process GPIB field
-        # This can be retrofitted to work with other connection types as well,
-        # we just need to go over each field, construct the address if possible,
-        # and abort when no address is specified at all
         if "gpib" in device:
             if "string" in device["gpib"]:
                 address = device["gpib"]["string"]
@@ -137,8 +135,17 @@ def readConfig(rm):
                 print("Either an address string (string:) or a device number (address:) must be specified.")
                 continue
 
-        else:
-            print(f"No GPIB entry found for {name}, skipping to next device.")
+        # Process 
+        if "usb" in device:
+            if "string" in device["usb"]:
+                address = device["usb"]["string"]
+            else:
+                logging.warning(f"USB entry incomplete for {name}.")
+                continue
+
+        # Check if we have an address
+        if address is None:
+            logging.warning(f"Device {name} has no VISA address specified.")
             continue
 
         # Check if device is connected
