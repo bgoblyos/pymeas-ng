@@ -16,8 +16,8 @@ class Plotter():
     def __init__(self, ui):
 
         self.plt = ui.graphWidget
-        self.imageItem = None
         self.colorBar = None
+        self.heatmapData = None
         self.clear()
 
         ui.plotClearButton.clicked.connect(self.clear)
@@ -37,6 +37,7 @@ class Plotter():
 
     def clear(self):
         self.plt.clear()
+        self.heatmapData = None
 
         if self.colorBar != None:
             self.colorBar.clear()
@@ -53,6 +54,7 @@ class Plotter():
         self.clear()
         self.plt.plot()
 
+        self.heatmapData = data
         img = ImageItem(data)
 
         xscale = (xrange[1] - xrange[0])/data.shape[0]
@@ -76,16 +78,21 @@ class Plotter():
         if fileName.split('.')[-1].lower() != "csv":
             fileName += ".csv"
 
-        exp = CSVExporter(self.plt.plotItem)
-        exp.export(fileName)
-        logging.info(f"File successfully saved as {fileName}")
+        self.exportPlot(fileName)
 
     def quickSave(self):
         timestamp = datetime.datetime.now().astimezone().strftime('%Y-%m-%d%Z%H-%M-%S.%f')
         fileName = f"{timestamp}.csv"
         filePath = os.path.join(self.quickSaveDir, fileName)
+        self.exportPlot(filePath)
 
-        exp = CSVExporter(self.plt.plotItem)
-        exp.export(filePath)
+        
+
+    def exportPlot(self, filePath):
+        if self.heatmapData is None:
+            exp = CSVExporter(self.plt.plotItem)
+            exp.export(filePath)
+        else:
+            np.savetxt(filePath, self.heatmapData, delimiter=",")
+
         logging.info(f"File successfully saved as {filePath}")
-
