@@ -86,8 +86,6 @@ class Plotter():
         filePath = os.path.join(self.quickSaveDir, fileName)
         self.exportPlot(filePath)
 
-        
-
     def exportPlot(self, filePath):
         if self.heatmapData is None:
             exp = CSVExporter(self.plt.plotItem)
@@ -96,3 +94,7 @@ class Plotter():
             np.savetxt(filePath, self.heatmapData, delimiter=",")
 
         logging.info(f"File successfully saved as {filePath}")
+
+    def setLabels(self, title = None, xlabel = None, ylabel = None):
+        self.plt.setTitle(title)
+        self.plt.setLabels(bottom=xlabel, left=ylabel)
