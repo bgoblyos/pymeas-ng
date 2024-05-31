@@ -698,7 +698,7 @@ class Ui_MainWindow(object):
         self.scrollArea_4.setWidgetResizable(True)
         self.scrollAreaWidgetContents_4 = QWidget()
         self.scrollAreaWidgetContents_4.setObjectName(u"scrollAreaWidgetContents_4")
-        self.scrollAreaWidgetContents_4.setGeometry(QRect(0, 0, 631, 476))
+        self.scrollAreaWidgetContents_4.setGeometry(QRect(0, -52, 631, 476))
         self.gridLayout_2 = QGridLayout(self.scrollAreaWidgetContents_4)
         self.gridLayout_2.setObjectName(u"gridLayout_2")
         self.label_41 = QLabel(self.scrollAreaWidgetContents_4)
@@ -847,10 +847,10 @@ class Ui_MainWindow(object):
 
         self.gridLayout_2.addWidget(self.ODMRWaterfallStartCurrent, 10, 1, 1, 1)
 
-        self.label_48 = QLabel(self.scrollAreaWidgetContents_4)
-        self.label_48.setObjectName(u"label_48")
+        self.ODMRWaterfallTotalResolutionLabel = QLabel(self.scrollAreaWidgetContents_4)
+        self.ODMRWaterfallTotalResolutionLabel.setObjectName(u"ODMRWaterfallTotalResolutionLabel")
 
-        self.gridLayout_2.addWidget(self.label_48, 13, 3, 1, 1)
+        self.gridLayout_2.addWidget(self.ODMRWaterfallTotalResolutionLabel, 13, 3, 1, 1)
 
         self.verticalSpacer_3 = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
 
@@ -868,10 +868,10 @@ class Ui_MainWindow(object):
 
         self.gridLayout_2.addWidget(self.ODMRWaterfallSweepEnd, 6, 3, 1, 1)
 
-        self.label_47 = QLabel(self.scrollAreaWidgetContents_4)
-        self.label_47.setObjectName(u"label_47")
+        self.ODMRWaterfallSweepResolutionLabel = QLabel(self.scrollAreaWidgetContents_4)
+        self.ODMRWaterfallSweepResolutionLabel.setObjectName(u"ODMRWaterfallSweepResolutionLabel")
 
-        self.gridLayout_2.addWidget(self.label_47, 13, 1, 1, 1)
+        self.gridLayout_2.addWidget(self.ODMRWaterfallSweepResolutionLabel, 13, 1, 1, 1)
 
         self.label_31 = QLabel(self.scrollAreaWidgetContents_4)
         self.label_31.setObjectName(u"label_31")
@@ -1148,8 +1148,8 @@ class Ui_MainWindow(object):
         self.label_45.setText(QCoreApplication.translate("MainWindow", u"Points/sweep", None))
         self.label_39.setText(QCoreApplication.translate("MainWindow", u"End freq.", None))
         self.label_40.setText(QCoreApplication.translate("MainWindow", u"Power Supply", None))
-        self.label_48.setText(QCoreApplication.translate("MainWindow", u"N/A", None))
-        self.label_47.setText(QCoreApplication.translate("MainWindow", u"N/A", None))
+        self.ODMRWaterfallTotalResolutionLabel.setText(QCoreApplication.translate("MainWindow", u"N/A", None))
+        self.ODMRWaterfallSweepResolutionLabel.setText(QCoreApplication.translate("MainWindow", u"N/A", None))
         self.label_31.setText(QCoreApplication.translate("MainWindow", u"Lock-in", None))
         self.label_43.setText(QCoreApplication.translate("MainWindow", u"End current", None))
         self.label_32.setText(QCoreApplication.translate("MainWindow", u"Sweeper", None))
