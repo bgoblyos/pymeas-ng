@@ -977,7 +977,7 @@
                <property name="geometry">
                 <rect>
                  <x>0</x>
-                 <y>0</y>
+                 <y>-52</y>
                  <width>631</width>
                  <height>476</height>
                 </rect>
@@ -1026,10 +1026,10 @@
                  </widget>
                 </item>
                 <item row="5" column="1">
-                 <widget class="QComboBox" name="comboBox_3"/>
+                 <widget class="QComboBox" name="ODMRWaterfallSweeperSelection"/>
                 </item>
                 <item row="7" column="3">
-                 <widget class="QDoubleSpinBox" name="doubleSpinBox_4"/>
+                 <widget class="QDoubleSpinBox" name="ODMRWaterfallSweepTime"/>
                 </item>
                 <item row="12" column="3">
                  <widget class="Line" name="line_28">
@@ -1053,7 +1053,7 @@
                  </widget>
                 </item>
                 <item row="1" column="3">
-                 <widget class="QComboBox" name="comboBox_6">
+                 <widget class="QComboBox" name="ODMRWaterfallLockInTau">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                     <horstretch>0</horstretch>
@@ -1063,7 +1063,7 @@
                  </widget>
                 </item>
                 <item row="1" column="1">
-                 <widget class="QComboBox" name="comboBox_4"/>
+                 <widget class="QComboBox" name="ODMRWaterfallLockInSens"/>
                 </item>
                 <item row="6" column="0">
                  <widget class="QLabel" name="label_36">
@@ -1115,7 +1115,7 @@
                  </widget>
                 </item>
                 <item row="9" column="1">
-                 <widget class="QComboBox" name="comboBox_8"/>
+                 <widget class="QComboBox" name="ODMRWaterfallPSUSelection"/>
                 </item>
                 <item row="13" column="0">
                  <widget class="QLabel" name="label_45">
@@ -1125,7 +1125,7 @@
                  </widget>
                 </item>
                 <item row="10" column="3">
-                 <widget class="QDoubleSpinBox" name="doubleSpinBox_7"/>
+                 <widget class="QDoubleSpinBox" name="ODMRWaterfallEndCurrent"/>
                 </item>
                 <item row="6" column="2">
                  <widget class="QLabel" name="label_39">
@@ -1133,9 +1133,6 @@
                    <string>End freq.</string>
                   </property>
                  </widget>
-                </item>
-                <item row="2" column="1">
-                 <widget class="QComboBox" name="comboBox_5"/>
                 </item>
                 <item row="9" column="0">
                  <widget class="QLabel" name="label_40">
@@ -1145,12 +1142,12 @@
                  </widget>
                 </item>
                 <item row="10" column="1">
-                 <widget class="QDoubleSpinBox" name="doubleSpinBox_5"/>
+                 <widget class="QDoubleSpinBox" name="ODMRWaterfallStartCurrent"/>
                 </item>
                 <item row="13" column="3">
                  <widget class="QLabel" name="label_48">
                   <property name="text">
-                   <string>TextLabel</string>
+                   <string>N/A</string>
                   </property>
                  </widget>
                 </item>
@@ -1175,12 +1172,12 @@
                  </widget>
                 </item>
                 <item row="6" column="3">
-                 <widget class="QDoubleSpinBox" name="doubleSpinBox_3"/>
+                 <widget class="QDoubleSpinBox" name="ODMRWaterfallSweepEnd"/>
                 </item>
                 <item row="13" column="1">
                  <widget class="QLabel" name="label_47">
                   <property name="text">
-                   <string>TextLabel</string>
+                   <string>N/A</string>
                   </property>
                  </widget>
                 </item>
@@ -1206,7 +1203,7 @@
                  </widget>
                 </item>
                 <item row="7" column="1">
-                 <widget class="QDoubleSpinBox" name="doubleSpinBox_2"/>
+                 <widget class="QDoubleSpinBox" name="ODMRWaterfallSweepPower"/>
                 </item>
                 <item row="10" column="2">
                  <widget class="QLabel" name="label_43">
@@ -1230,7 +1227,7 @@
                  </widget>
                 </item>
                 <item row="11" column="1">
-                 <widget class="QSpinBox" name="spinBox">
+                 <widget class="QSpinBox" name="ODMRWaterfallPowerSteps">
                   <property name="minimum">
                    <number>1</number>
                   </property>
@@ -1247,7 +1244,7 @@
                  </widget>
                 </item>
                 <item row="6" column="1">
-                 <widget class="QDoubleSpinBox" name="doubleSpinBox"/>
+                 <widget class="QDoubleSpinBox" name="ODMRWaterfallSweepStart"/>
                 </item>
                 <item row="1" column="0">
                  <widget class="QLabel" name="label_30">
@@ -1257,7 +1254,7 @@
                  </widget>
                 </item>
                 <item row="0" column="1">
-                 <widget class="QComboBox" name="comboBox_2">
+                 <widget class="QComboBox" name="ODMRWaterfallLockInSelection">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
                     <horstretch>0</horstretch>
@@ -1267,7 +1264,7 @@
                  </widget>
                 </item>
                 <item row="2" column="3">
-                 <widget class="QComboBox" name="comboBox_7"/>
+                 <widget class="QComboBox" name="ODMRWaterfallLockInSampleRate"/>
                 </item>
                 <item row="4" column="0">
                  <widget class="Line" name="line_17">
@@ -1277,12 +1274,15 @@
                  </widget>
                 </item>
                 <item row="11" column="3">
-                 <widget class="QDoubleSpinBox" name="doubleSpinBox_8"/>
+                 <widget class="QDoubleSpinBox" name="ODMRWaterfallVoltage"/>
                 </item>
                 <item row="3" column="0">
                  <widget class="QRadioButton" name="ODMRWaterfallDisp1Radio">
                   <property name="text">
                    <string>Display &amp;1</string>
+                  </property>
+                  <property name="checked">
+                   <bool>true</bool>
                   </property>
                  </widget>
                 </item>
@@ -1299,6 +1299,19 @@
                 <item row="3" column="3">
                  <widget class="QComboBox" name="ODMRWaterfallDisplay2"/>
                 </item>
+                <item row="2" column="1">
+                 <widget class="QDoubleSpinBox" name="ODMRWaterfallLockInFreq">
+                  <property name="suffix">
+                   <string> Hz</string>
+                  </property>
+                  <property name="maximum">
+                   <double>10000.000000000000000</double>
+                  </property>
+                  <property name="stepType">
+                   <enum>QAbstractSpinBox::StepType::AdaptiveDecimalStepType</enum>
+                  </property>
+                 </widget>
+                </item>
                </layout>
               </widget>
              </widget>
@@ -1311,16 +1324,37 @@
              </widget>
             </item>
             <item>
-             <widget class="QProgressBar" name="progressBar">
+             <widget class="QProgressBar" name="ODMRWaterfallSweepProgress">
               <property name="value">
                <number>24</number>
+              </property>
+              <property name="textVisible">
+               <bool>false</bool>
+              </property>
+              <property name="invertedAppearance">
+               <bool>false</bool>
+              </property>
+              <property name="textDirection">
+               <enum>QProgressBar::Direction::TopToBottom</enum>
+              </property>
+              <property name="format">
+               <string>Sweep: %p%</string>
               </property>
              </widget>
             </item>
             <item>
-             <widget class="QProgressBar" name="progressBar_2">
+             <widget class="QProgressBar" name="ODMRWaterfallTotalProgress">
               <property name="value">
                <number>24</number>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
+              </property>
+              <property name="textVisible">
+               <bool>false</bool>
+              </property>
+              <property name="format">
+               <string>%p%</string>
               </property>
              </widget>
             </item>

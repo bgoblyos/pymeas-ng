@@ -15,13 +15,13 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QComboBox, QDoubleSpinBox, QFormLayout,
-    QFrame, QGridLayout, QHBoxLayout, QHeaderView,
-    QLabel, QListWidget, QListWidgetItem, QMainWindow,
-    QPlainTextEdit, QProgressBar, QPushButton, QRadioButton,
-    QScrollArea, QSizePolicy, QSpacerItem, QSpinBox,
-    QStackedWidget, QStatusBar, QTabWidget, QTreeWidget,
-    QTreeWidgetItem, QVBoxLayout, QWidget)
+from PySide6.QtWidgets import (QAbstractSpinBox, QApplication, QComboBox, QDoubleSpinBox,
+    QFormLayout, QFrame, QGridLayout, QHBoxLayout,
+    QHeaderView, QLabel, QListWidget, QListWidgetItem,
+    QMainWindow, QPlainTextEdit, QProgressBar, QPushButton,
+    QRadioButton, QScrollArea, QSizePolicy, QSpacerItem,
+    QSpinBox, QStackedWidget, QStatusBar, QTabWidget,
+    QTreeWidget, QTreeWidgetItem, QVBoxLayout, QWidget)
 
 from pyqtgraph import PlotWidget
 
@@ -698,7 +698,7 @@ class Ui_MainWindow(object):
         self.scrollArea_4.setWidgetResizable(True)
         self.scrollAreaWidgetContents_4 = QWidget()
         self.scrollAreaWidgetContents_4.setObjectName(u"scrollAreaWidgetContents_4")
-        self.scrollAreaWidgetContents_4.setGeometry(QRect(0, 0, 631, 476))
+        self.scrollAreaWidgetContents_4.setGeometry(QRect(0, -52, 631, 476))
         self.gridLayout_2 = QGridLayout(self.scrollAreaWidgetContents_4)
         self.gridLayout_2.setObjectName(u"gridLayout_2")
         self.label_41 = QLabel(self.scrollAreaWidgetContents_4)
@@ -737,15 +737,15 @@ class Ui_MainWindow(object):
 
         self.gridLayout_2.addWidget(self.label_33, 2, 0, 1, 1)
 
-        self.comboBox_3 = QComboBox(self.scrollAreaWidgetContents_4)
-        self.comboBox_3.setObjectName(u"comboBox_3")
+        self.ODMRWaterfallSweeperSelection = QComboBox(self.scrollAreaWidgetContents_4)
+        self.ODMRWaterfallSweeperSelection.setObjectName(u"ODMRWaterfallSweeperSelection")
 
-        self.gridLayout_2.addWidget(self.comboBox_3, 5, 1, 1, 1)
+        self.gridLayout_2.addWidget(self.ODMRWaterfallSweeperSelection, 5, 1, 1, 1)
 
-        self.doubleSpinBox_4 = QDoubleSpinBox(self.scrollAreaWidgetContents_4)
-        self.doubleSpinBox_4.setObjectName(u"doubleSpinBox_4")
+        self.ODMRWaterfallSweepTime = QDoubleSpinBox(self.scrollAreaWidgetContents_4)
+        self.ODMRWaterfallSweepTime.setObjectName(u"ODMRWaterfallSweepTime")
 
-        self.gridLayout_2.addWidget(self.doubleSpinBox_4, 7, 3, 1, 1)
+        self.gridLayout_2.addWidget(self.ODMRWaterfallSweepTime, 7, 3, 1, 1)
 
         self.line_28 = QFrame(self.scrollAreaWidgetContents_4)
         self.line_28.setObjectName(u"line_28")
@@ -764,17 +764,17 @@ class Ui_MainWindow(object):
 
         self.gridLayout_2.addWidget(self.label_38, 7, 2, 1, 1)
 
-        self.comboBox_6 = QComboBox(self.scrollAreaWidgetContents_4)
-        self.comboBox_6.setObjectName(u"comboBox_6")
-        sizePolicy6.setHeightForWidth(self.comboBox_6.sizePolicy().hasHeightForWidth())
-        self.comboBox_6.setSizePolicy(sizePolicy6)
+        self.ODMRWaterfallLockInTau = QComboBox(self.scrollAreaWidgetContents_4)
+        self.ODMRWaterfallLockInTau.setObjectName(u"ODMRWaterfallLockInTau")
+        sizePolicy6.setHeightForWidth(self.ODMRWaterfallLockInTau.sizePolicy().hasHeightForWidth())
+        self.ODMRWaterfallLockInTau.setSizePolicy(sizePolicy6)
 
-        self.gridLayout_2.addWidget(self.comboBox_6, 1, 3, 1, 1)
+        self.gridLayout_2.addWidget(self.ODMRWaterfallLockInTau, 1, 3, 1, 1)
 
-        self.comboBox_4 = QComboBox(self.scrollAreaWidgetContents_4)
-        self.comboBox_4.setObjectName(u"comboBox_4")
+        self.ODMRWaterfallLockInSens = QComboBox(self.scrollAreaWidgetContents_4)
+        self.ODMRWaterfallLockInSens.setObjectName(u"ODMRWaterfallLockInSens")
 
-        self.gridLayout_2.addWidget(self.comboBox_4, 1, 1, 1, 1)
+        self.gridLayout_2.addWidget(self.ODMRWaterfallLockInSens, 1, 1, 1, 1)
 
         self.label_36 = QLabel(self.scrollAreaWidgetContents_4)
         self.label_36.setObjectName(u"label_36")
@@ -817,40 +817,35 @@ class Ui_MainWindow(object):
 
         self.gridLayout_2.addWidget(self.label_37, 7, 0, 1, 1)
 
-        self.comboBox_8 = QComboBox(self.scrollAreaWidgetContents_4)
-        self.comboBox_8.setObjectName(u"comboBox_8")
+        self.ODMRWaterfallPSUSelection = QComboBox(self.scrollAreaWidgetContents_4)
+        self.ODMRWaterfallPSUSelection.setObjectName(u"ODMRWaterfallPSUSelection")
 
-        self.gridLayout_2.addWidget(self.comboBox_8, 9, 1, 1, 1)
+        self.gridLayout_2.addWidget(self.ODMRWaterfallPSUSelection, 9, 1, 1, 1)
 
         self.label_45 = QLabel(self.scrollAreaWidgetContents_4)
         self.label_45.setObjectName(u"label_45")
 
         self.gridLayout_2.addWidget(self.label_45, 13, 0, 1, 1)
 
-        self.doubleSpinBox_7 = QDoubleSpinBox(self.scrollAreaWidgetContents_4)
-        self.doubleSpinBox_7.setObjectName(u"doubleSpinBox_7")
+        self.ODMRWaterfallEndCurrent = QDoubleSpinBox(self.scrollAreaWidgetContents_4)
+        self.ODMRWaterfallEndCurrent.setObjectName(u"ODMRWaterfallEndCurrent")
 
-        self.gridLayout_2.addWidget(self.doubleSpinBox_7, 10, 3, 1, 1)
+        self.gridLayout_2.addWidget(self.ODMRWaterfallEndCurrent, 10, 3, 1, 1)
 
         self.label_39 = QLabel(self.scrollAreaWidgetContents_4)
         self.label_39.setObjectName(u"label_39")
 
         self.gridLayout_2.addWidget(self.label_39, 6, 2, 1, 1)
 
-        self.comboBox_5 = QComboBox(self.scrollAreaWidgetContents_4)
-        self.comboBox_5.setObjectName(u"comboBox_5")
-
-        self.gridLayout_2.addWidget(self.comboBox_5, 2, 1, 1, 1)
-
         self.label_40 = QLabel(self.scrollAreaWidgetContents_4)
         self.label_40.setObjectName(u"label_40")
 
         self.gridLayout_2.addWidget(self.label_40, 9, 0, 1, 1)
 
-        self.doubleSpinBox_5 = QDoubleSpinBox(self.scrollAreaWidgetContents_4)
-        self.doubleSpinBox_5.setObjectName(u"doubleSpinBox_5")
+        self.ODMRWaterfallStartCurrent = QDoubleSpinBox(self.scrollAreaWidgetContents_4)
+        self.ODMRWaterfallStartCurrent.setObjectName(u"ODMRWaterfallStartCurrent")
 
-        self.gridLayout_2.addWidget(self.doubleSpinBox_5, 10, 1, 1, 1)
+        self.gridLayout_2.addWidget(self.ODMRWaterfallStartCurrent, 10, 1, 1, 1)
 
         self.label_48 = QLabel(self.scrollAreaWidgetContents_4)
         self.label_48.setObjectName(u"label_48")
@@ -868,10 +863,10 @@ class Ui_MainWindow(object):
 
         self.gridLayout_2.addWidget(self.line_25, 12, 0, 1, 1)
 
-        self.doubleSpinBox_3 = QDoubleSpinBox(self.scrollAreaWidgetContents_4)
-        self.doubleSpinBox_3.setObjectName(u"doubleSpinBox_3")
+        self.ODMRWaterfallSweepEnd = QDoubleSpinBox(self.scrollAreaWidgetContents_4)
+        self.ODMRWaterfallSweepEnd.setObjectName(u"ODMRWaterfallSweepEnd")
 
-        self.gridLayout_2.addWidget(self.doubleSpinBox_3, 6, 3, 1, 1)
+        self.gridLayout_2.addWidget(self.ODMRWaterfallSweepEnd, 6, 3, 1, 1)
 
         self.label_47 = QLabel(self.scrollAreaWidgetContents_4)
         self.label_47.setObjectName(u"label_47")
@@ -897,10 +892,10 @@ class Ui_MainWindow(object):
 
         self.gridLayout_2.addWidget(self.line_18, 4, 1, 1, 1)
 
-        self.doubleSpinBox_2 = QDoubleSpinBox(self.scrollAreaWidgetContents_4)
-        self.doubleSpinBox_2.setObjectName(u"doubleSpinBox_2")
+        self.ODMRWaterfallSweepPower = QDoubleSpinBox(self.scrollAreaWidgetContents_4)
+        self.ODMRWaterfallSweepPower.setObjectName(u"ODMRWaterfallSweepPower")
 
-        self.gridLayout_2.addWidget(self.doubleSpinBox_2, 7, 1, 1, 1)
+        self.gridLayout_2.addWidget(self.ODMRWaterfallSweepPower, 7, 1, 1, 1)
 
         self.label_43 = QLabel(self.scrollAreaWidgetContents_4)
         self.label_43.setObjectName(u"label_43")
@@ -919,39 +914,39 @@ class Ui_MainWindow(object):
 
         self.gridLayout_2.addWidget(self.label_32, 5, 0, 1, 1)
 
-        self.spinBox = QSpinBox(self.scrollAreaWidgetContents_4)
-        self.spinBox.setObjectName(u"spinBox")
-        self.spinBox.setMinimum(1)
-        self.spinBox.setMaximum(1000)
+        self.ODMRWaterfallPowerSteps = QSpinBox(self.scrollAreaWidgetContents_4)
+        self.ODMRWaterfallPowerSteps.setObjectName(u"ODMRWaterfallPowerSteps")
+        self.ODMRWaterfallPowerSteps.setMinimum(1)
+        self.ODMRWaterfallPowerSteps.setMaximum(1000)
 
-        self.gridLayout_2.addWidget(self.spinBox, 11, 1, 1, 1)
+        self.gridLayout_2.addWidget(self.ODMRWaterfallPowerSteps, 11, 1, 1, 1)
 
         self.label_44 = QLabel(self.scrollAreaWidgetContents_4)
         self.label_44.setObjectName(u"label_44")
 
         self.gridLayout_2.addWidget(self.label_44, 11, 2, 1, 1)
 
-        self.doubleSpinBox = QDoubleSpinBox(self.scrollAreaWidgetContents_4)
-        self.doubleSpinBox.setObjectName(u"doubleSpinBox")
+        self.ODMRWaterfallSweepStart = QDoubleSpinBox(self.scrollAreaWidgetContents_4)
+        self.ODMRWaterfallSweepStart.setObjectName(u"ODMRWaterfallSweepStart")
 
-        self.gridLayout_2.addWidget(self.doubleSpinBox, 6, 1, 1, 1)
+        self.gridLayout_2.addWidget(self.ODMRWaterfallSweepStart, 6, 1, 1, 1)
 
         self.label_30 = QLabel(self.scrollAreaWidgetContents_4)
         self.label_30.setObjectName(u"label_30")
 
         self.gridLayout_2.addWidget(self.label_30, 1, 0, 1, 1)
 
-        self.comboBox_2 = QComboBox(self.scrollAreaWidgetContents_4)
-        self.comboBox_2.setObjectName(u"comboBox_2")
-        sizePolicy6.setHeightForWidth(self.comboBox_2.sizePolicy().hasHeightForWidth())
-        self.comboBox_2.setSizePolicy(sizePolicy6)
+        self.ODMRWaterfallLockInSelection = QComboBox(self.scrollAreaWidgetContents_4)
+        self.ODMRWaterfallLockInSelection.setObjectName(u"ODMRWaterfallLockInSelection")
+        sizePolicy6.setHeightForWidth(self.ODMRWaterfallLockInSelection.sizePolicy().hasHeightForWidth())
+        self.ODMRWaterfallLockInSelection.setSizePolicy(sizePolicy6)
 
-        self.gridLayout_2.addWidget(self.comboBox_2, 0, 1, 1, 1)
+        self.gridLayout_2.addWidget(self.ODMRWaterfallLockInSelection, 0, 1, 1, 1)
 
-        self.comboBox_7 = QComboBox(self.scrollAreaWidgetContents_4)
-        self.comboBox_7.setObjectName(u"comboBox_7")
+        self.ODMRWaterfallLockInSampleRate = QComboBox(self.scrollAreaWidgetContents_4)
+        self.ODMRWaterfallLockInSampleRate.setObjectName(u"ODMRWaterfallLockInSampleRate")
 
-        self.gridLayout_2.addWidget(self.comboBox_7, 2, 3, 1, 1)
+        self.gridLayout_2.addWidget(self.ODMRWaterfallLockInSampleRate, 2, 3, 1, 1)
 
         self.line_17 = QFrame(self.scrollAreaWidgetContents_4)
         self.line_17.setObjectName(u"line_17")
@@ -960,13 +955,14 @@ class Ui_MainWindow(object):
 
         self.gridLayout_2.addWidget(self.line_17, 4, 0, 1, 1)
 
-        self.doubleSpinBox_8 = QDoubleSpinBox(self.scrollAreaWidgetContents_4)
-        self.doubleSpinBox_8.setObjectName(u"doubleSpinBox_8")
+        self.ODMRWaterfallVoltage = QDoubleSpinBox(self.scrollAreaWidgetContents_4)
+        self.ODMRWaterfallVoltage.setObjectName(u"ODMRWaterfallVoltage")
 
-        self.gridLayout_2.addWidget(self.doubleSpinBox_8, 11, 3, 1, 1)
+        self.gridLayout_2.addWidget(self.ODMRWaterfallVoltage, 11, 3, 1, 1)
 
         self.ODMRWaterfallDisp1Radio = QRadioButton(self.scrollAreaWidgetContents_4)
         self.ODMRWaterfallDisp1Radio.setObjectName(u"ODMRWaterfallDisp1Radio")
+        self.ODMRWaterfallDisp1Radio.setChecked(True)
 
         self.gridLayout_2.addWidget(self.ODMRWaterfallDisp1Radio, 3, 0, 1, 1)
 
@@ -985,6 +981,13 @@ class Ui_MainWindow(object):
 
         self.gridLayout_2.addWidget(self.ODMRWaterfallDisplay2, 3, 3, 1, 1)
 
+        self.ODMRWaterfallLockInFreq = QDoubleSpinBox(self.scrollAreaWidgetContents_4)
+        self.ODMRWaterfallLockInFreq.setObjectName(u"ODMRWaterfallLockInFreq")
+        self.ODMRWaterfallLockInFreq.setMaximum(10000.000000000000000)
+        self.ODMRWaterfallLockInFreq.setStepType(QAbstractSpinBox.StepType.AdaptiveDecimalStepType)
+
+        self.gridLayout_2.addWidget(self.ODMRWaterfallLockInFreq, 2, 1, 1, 1)
+
         self.scrollArea_4.setWidget(self.scrollAreaWidgetContents_4)
 
         self.verticalLayout_12.addWidget(self.scrollArea_4)
@@ -994,17 +997,22 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_12.addWidget(self.ODMRWaterfallStart)
 
-        self.progressBar = QProgressBar(self.expODMRWaterfall)
-        self.progressBar.setObjectName(u"progressBar")
-        self.progressBar.setValue(24)
+        self.ODMRWaterfallSweepProgress = QProgressBar(self.expODMRWaterfall)
+        self.ODMRWaterfallSweepProgress.setObjectName(u"ODMRWaterfallSweepProgress")
+        self.ODMRWaterfallSweepProgress.setValue(24)
+        self.ODMRWaterfallSweepProgress.setTextVisible(False)
+        self.ODMRWaterfallSweepProgress.setInvertedAppearance(False)
+        self.ODMRWaterfallSweepProgress.setTextDirection(QProgressBar.Direction.TopToBottom)
 
-        self.verticalLayout_12.addWidget(self.progressBar)
+        self.verticalLayout_12.addWidget(self.ODMRWaterfallSweepProgress)
 
-        self.progressBar_2 = QProgressBar(self.expODMRWaterfall)
-        self.progressBar_2.setObjectName(u"progressBar_2")
-        self.progressBar_2.setValue(24)
+        self.ODMRWaterfallTotalProgress = QProgressBar(self.expODMRWaterfall)
+        self.ODMRWaterfallTotalProgress.setObjectName(u"ODMRWaterfallTotalProgress")
+        self.ODMRWaterfallTotalProgress.setValue(24)
+        self.ODMRWaterfallTotalProgress.setAlignment(Qt.AlignmentFlag.AlignLeading|Qt.AlignmentFlag.AlignLeft|Qt.AlignmentFlag.AlignVCenter)
+        self.ODMRWaterfallTotalProgress.setTextVisible(False)
 
-        self.verticalLayout_12.addWidget(self.progressBar_2)
+        self.verticalLayout_12.addWidget(self.ODMRWaterfallTotalProgress)
 
         self.expStack.addWidget(self.expODMRWaterfall)
 
@@ -1140,8 +1148,8 @@ class Ui_MainWindow(object):
         self.label_45.setText(QCoreApplication.translate("MainWindow", u"Points/sweep", None))
         self.label_39.setText(QCoreApplication.translate("MainWindow", u"End freq.", None))
         self.label_40.setText(QCoreApplication.translate("MainWindow", u"Power Supply", None))
-        self.label_48.setText(QCoreApplication.translate("MainWindow", u"TextLabel", None))
-        self.label_47.setText(QCoreApplication.translate("MainWindow", u"TextLabel", None))
+        self.label_48.setText(QCoreApplication.translate("MainWindow", u"N/A", None))
+        self.label_47.setText(QCoreApplication.translate("MainWindow", u"N/A", None))
         self.label_31.setText(QCoreApplication.translate("MainWindow", u"Lock-in", None))
         self.label_43.setText(QCoreApplication.translate("MainWindow", u"End current", None))
         self.label_32.setText(QCoreApplication.translate("MainWindow", u"Sweeper", None))
@@ -1149,7 +1157,10 @@ class Ui_MainWindow(object):
         self.label_30.setText(QCoreApplication.translate("MainWindow", u"Sensitivity", None))
         self.ODMRWaterfallDisp1Radio.setText(QCoreApplication.translate("MainWindow", u"Display &1", None))
         self.ODMRWaterfallDisplay2Radio.setText(QCoreApplication.translate("MainWindow", u"Display &2", None))
+        self.ODMRWaterfallLockInFreq.setSuffix(QCoreApplication.translate("MainWindow", u" Hz", None))
         self.ODMRWaterfallStart.setText(QCoreApplication.translate("MainWindow", u"Start measurement", None))
+        self.ODMRWaterfallSweepProgress.setFormat(QCoreApplication.translate("MainWindow", u"Sweep: %p%", None))
+        self.ODMRWaterfallTotalProgress.setFormat(QCoreApplication.translate("MainWindow", u"%p%", None))
         self.tabWidget_2.setTabText(self.tabWidget_2.indexOf(self.tab), QCoreApplication.translate("MainWindow", u"Experiments", None))
     # retranslateUi
 
