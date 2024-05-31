@@ -135,7 +135,7 @@ class Ui_MainWindow(object):
         self.scrollArea.setWidgetResizable(True)
         self.scrollAreaWidgetContents = QWidget()
         self.scrollAreaWidgetContents.setObjectName(u"scrollAreaWidgetContents")
-        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 319, 501))
+        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 579, 501))
         sizePolicy2 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred)
         sizePolicy2.setHorizontalStretch(0)
         sizePolicy2.setVerticalStretch(0)
@@ -698,7 +698,7 @@ class Ui_MainWindow(object):
         self.scrollArea_4.setWidgetResizable(True)
         self.scrollAreaWidgetContents_4 = QWidget()
         self.scrollAreaWidgetContents_4.setObjectName(u"scrollAreaWidgetContents_4")
-        self.scrollAreaWidgetContents_4.setGeometry(QRect(0, -52, 631, 476))
+        self.scrollAreaWidgetContents_4.setGeometry(QRect(0, 0, 631, 476))
         self.gridLayout_2 = QGridLayout(self.scrollAreaWidgetContents_4)
         self.gridLayout_2.setObjectName(u"gridLayout_2")
         self.label_41 = QLabel(self.scrollAreaWidgetContents_4)
@@ -960,11 +960,11 @@ class Ui_MainWindow(object):
 
         self.gridLayout_2.addWidget(self.ODMRWaterfallVoltage, 11, 3, 1, 1)
 
-        self.ODMRWaterfallDisp1Radio = QRadioButton(self.scrollAreaWidgetContents_4)
-        self.ODMRWaterfallDisp1Radio.setObjectName(u"ODMRWaterfallDisp1Radio")
-        self.ODMRWaterfallDisp1Radio.setChecked(True)
+        self.ODMRWaterfallDisplay1Radio = QRadioButton(self.scrollAreaWidgetContents_4)
+        self.ODMRWaterfallDisplay1Radio.setObjectName(u"ODMRWaterfallDisplay1Radio")
+        self.ODMRWaterfallDisplay1Radio.setChecked(True)
 
-        self.gridLayout_2.addWidget(self.ODMRWaterfallDisp1Radio, 3, 0, 1, 1)
+        self.gridLayout_2.addWidget(self.ODMRWaterfallDisplay1Radio, 3, 0, 1, 1)
 
         self.ODMRWaterfallDisplay2Radio = QRadioButton(self.scrollAreaWidgetContents_4)
         self.ODMRWaterfallDisplay2Radio.setObjectName(u"ODMRWaterfallDisplay2Radio")
@@ -1155,7 +1155,7 @@ class Ui_MainWindow(object):
         self.label_32.setText(QCoreApplication.translate("MainWindow", u"Sweeper", None))
         self.label_44.setText(QCoreApplication.translate("MainWindow", u"Max. voltage", None))
         self.label_30.setText(QCoreApplication.translate("MainWindow", u"Sensitivity", None))
-        self.ODMRWaterfallDisp1Radio.setText(QCoreApplication.translate("MainWindow", u"Display &1", None))
+        self.ODMRWaterfallDisplay1Radio.setText(QCoreApplication.translate("MainWindow", u"Display &1", None))
         self.ODMRWaterfallDisplay2Radio.setText(QCoreApplication.translate("MainWindow", u"Display &2", None))
         self.ODMRWaterfallLockInFreq.setSuffix(QCoreApplication.translate("MainWindow", u" Hz", None))
         self.ODMRWaterfallStart.setText(QCoreApplication.translate("MainWindow", u"Start measurement", None))
