@@ -18,6 +18,6 @@ devices:
       bus: 0
   - name: "IT6431"
     type: "psu"
-    model: "IT6400"
+    model: "IT6431"
     usb:
       string: "USB0::0x2EC7::0x6431::800626011777710004::INSTR"

@@ -21,6 +21,7 @@ class RMSimulator():
             "GPIB0::9::INSTR",
             "GPIB0::10::INSTR",
             "GPIB0::11::INSTR",
+            "USB0::0x2EC7::0x6431::800626011777710004::INSTR",
         ]
         return resources
 

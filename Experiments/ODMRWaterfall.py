@@ -20,8 +20,13 @@ class ODMRWaterfall():
         for psu in self.devices["psu"]:
             self.ui.ODMRWaterfallPSUSelection.addItem(psu)
 
-        # Connect start button
+        # Connect buttons
         self.ui.ODMRWaterfallStart.clicked.connect(self.prepare)
+        self.ui.ODMRWaterfallCancel.clicked.connect(self.cancel)
+        self.ui.ODMRWaterfallExport.clicked.connect(self.export)
+
+        # Disable cancel button
+        self.ui.ODMRWaterfallCancel.setEnabled(False)
 
         # Set up timer for progress bar
         # (and for waiting until the sweep is done)
@@ -54,7 +59,7 @@ class ODMRWaterfall():
     def selected(self):
         # Switch to correct page
         self.ui.expStack.setCurrentIndex(2)
-        
+
         # Read back instrument settings
         self.resetLockIn()
         self.resetSweeper()
@@ -74,6 +79,10 @@ class ODMRWaterfall():
         logging.debug("Started Sweep and Lock-in measurement")
         # Reset data storage
         self.data = None
+
+        # Enable cancel button and disable start
+        self.ui.ODMRWaterfallCancel.setEnabled(True)
+        self.ui.ODMRWaterfallStart.setEnabled(False)
 
         # Sweeper setup
         sweepTime = self.ui.ODMRWaterfallSweepTime.value()
@@ -123,15 +132,30 @@ class ODMRWaterfall():
         self.startSweep()
 
     def startSweep(self):
-        # Set up power supply
-        self.actualCurrent = self.currents[self.currentCounter]
-        self.psu.setCurrent(self.actualCurrent)
 
         # Set up lock-in
         sampleFreq = self.ui.ODMRWaterfallLockInSampleRate.currentIndex()
         (self.numPoints, self.padding) = self.lockin.armTimedMeasurement(self.sweepTime, sampleFreq)
         self.totalPoints = self.numPoints + self.padding
         logging.debug(f"{self.numPoints} points will be measured")
+
+        # Set up power supply
+        self.actualCurrent = self.currents[self.currentCounter]
+
+        if abs(self.actualCurrent) < self.psu.currentRange[0]:
+            self.data = np.vstack((self.data, np.zeros(self.totalPoints)))
+            logging.info("Cannot set current, measurement skipped")
+            self.startSweep() # Go to next sweep
+            return None
+        else:
+            if self.actualCurrent < 0:
+                # TODO: Set voltage to negative
+            else:
+                # TODO: Set voltage to positive
+
+            self.psu.setCurrent(abs(self.actualCurrent))
+            self.psu.query("*OPC?") # Wait for PSU to finish
+
 
         # Reset progress bar and step counter
         self.ui.ODMRWaterfallSweepProgress.setRange(0, self.sweepSteps)
@@ -194,13 +218,13 @@ class ODMRWaterfall():
         else:
             # Otherwise, concatenate it
             self.data = np.vstack((self.data, newdata))
-        
+
         currentRange = (self.startCurrent, self.actualCurrent)
         logging.debug(f"Heatmap current range: {currentRange}")
         logging.debug(f"Heatmap frequency range: {self.sweepRange}")
 
         self.plotter.heatmap(np.transpose(self.data), self.sweepRange, currentRange)
-        
+
 
         # Set progress bar to full
         pbar.setRange(0, 1)
@@ -217,8 +241,42 @@ class ODMRWaterfall():
         else:
             # Else, turn off the power supply
             self.psu.disableOutput()
+
             # And inform the user
             logging.info("Measurement completed")
+
+            # Enable start button and disable cancel
+            self.ui.ODMRWaterfallCancel.setEnabled(False)
+            self.ui.ODMRWaterfallStart.setEnabled(True)
+
+    def cancel(self):
+        # Stop sweep timer
+        self.timer.stop()
+
+        # Disable PSU
+        self.psu.disableOutput()
+
+        # Disable sweeper output
+        self.sweeper.powerOff()
+
+        # Pause lock-indata collection
+        self.lockin.pause()
+
+        # Reset progress bars
+        self.sweepProgress.setRange(0, 1)
+        self.sweepProgress.setValue(0)
+        self.totalProgress.setRange(0, 1)
+        self.totalProgress.setValue(0)
+
+        # Enable start button and disable cancel
+        self.ui.ODMRWaterfallCancel.setEnabled(False)
+        self.ui.ODMRWaterfallStart.setEnabled(True)
+
+        logging.info("Measurement canceled")
+
+    def export(self):
+        logging.warning("This is not implemented yet, nothing was saved!")
+
 
     def resetSweeper(self):
         self.sweeper = self.devices["sweeper"][self.ui.ODMRWaterfallSweeperSelection.currentText()]

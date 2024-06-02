@@ -29,7 +29,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(854, 731)
+        MainWindow.resize(1060, 814)
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.verticalLayout_2 = QVBoxLayout(self.centralwidget)
@@ -135,7 +135,7 @@ class Ui_MainWindow(object):
         self.scrollArea.setWidgetResizable(True)
         self.scrollAreaWidgetContents = QWidget()
         self.scrollAreaWidgetContents.setObjectName(u"scrollAreaWidgetContents")
-        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 579, 501))
+        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 806, 504))
         sizePolicy2 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred)
         sizePolicy2.setHorizontalStretch(0)
         sizePolicy2.setVerticalStretch(0)
@@ -345,7 +345,7 @@ class Ui_MainWindow(object):
         self.scrollArea_2.setWidgetResizable(True)
         self.scrollAreaWidgetContents_2 = QWidget()
         self.scrollAreaWidgetContents_2.setObjectName(u"scrollAreaWidgetContents_2")
-        self.scrollAreaWidgetContents_2.setGeometry(QRect(0, 0, 270, 124))
+        self.scrollAreaWidgetContents_2.setGeometry(QRect(0, 0, 226, 112))
         self.formLayout_2 = QFormLayout(self.scrollAreaWidgetContents_2)
         self.formLayout_2.setObjectName(u"formLayout_2")
         self.label_4 = QLabel(self.scrollAreaWidgetContents_2)
@@ -436,7 +436,7 @@ class Ui_MainWindow(object):
         self.scrollArea_3.setAlignment(Qt.AlignmentFlag.AlignLeading|Qt.AlignmentFlag.AlignLeft|Qt.AlignmentFlag.AlignVCenter)
         self.scrollAreaWidgetContents_3 = QWidget()
         self.scrollAreaWidgetContents_3.setObjectName(u"scrollAreaWidgetContents_3")
-        self.scrollAreaWidgetContents_3.setGeometry(QRect(0, 0, 543, 358))
+        self.scrollAreaWidgetContents_3.setGeometry(QRect(0, 0, 858, 482))
         self.gridLayout = QGridLayout(self.scrollAreaWidgetContents_3)
         self.gridLayout.setObjectName(u"gridLayout")
         self.sweepAndLockPower = QDoubleSpinBox(self.scrollAreaWidgetContents_3)
@@ -667,11 +667,37 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_4.addWidget(self.scrollArea_3)
 
+        self.horizontalLayout_11 = QHBoxLayout()
+        self.horizontalLayout_11.setObjectName(u"horizontalLayout_11")
         self.sweepAndLockStart = QPushButton(self.expSweepAndLockIn)
         self.sweepAndLockStart.setObjectName(u"sweepAndLockStart")
+        sizePolicy6.setHeightForWidth(self.sweepAndLockStart.sizePolicy().hasHeightForWidth())
+        self.sweepAndLockStart.setSizePolicy(sizePolicy6)
 
-        self.verticalLayout_4.addWidget(self.sweepAndLockStart)
+        self.horizontalLayout_11.addWidget(self.sweepAndLockStart)
 
+        self.sweepAndLockCancel = QPushButton(self.expSweepAndLockIn)
+        self.sweepAndLockCancel.setObjectName(u"sweepAndLockCancel")
+        sizePolicy7 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Fixed)
+        sizePolicy7.setHorizontalStretch(0)
+        sizePolicy7.setVerticalStretch(0)
+        sizePolicy7.setHeightForWidth(self.sweepAndLockCancel.sizePolicy().hasHeightForWidth())
+        self.sweepAndLockCancel.setSizePolicy(sizePolicy7)
+
+        self.horizontalLayout_11.addWidget(self.sweepAndLockCancel)
+
+        self.sweepAndLockExport = QPushButton(self.expSweepAndLockIn)
+        self.sweepAndLockExport.setObjectName(u"sweepAndLockExport")
+        sizePolicy7.setHeightForWidth(self.sweepAndLockExport.sizePolicy().hasHeightForWidth())
+        self.sweepAndLockExport.setSizePolicy(sizePolicy7)
+
+        self.horizontalLayout_11.addWidget(self.sweepAndLockExport)
+
+
+        self.verticalLayout_4.addLayout(self.horizontalLayout_11)
+
+        self.formLayout_4 = QFormLayout()
+        self.formLayout_4.setObjectName(u"formLayout_4")
         self.sweepAndLockProgress = QProgressBar(self.expSweepAndLockIn)
         self.sweepAndLockProgress.setObjectName(u"sweepAndLockProgress")
         self.sweepAndLockProgress.setMaximum(100)
@@ -679,14 +705,27 @@ class Ui_MainWindow(object):
         self.sweepAndLockProgress.setTextVisible(False)
         self.sweepAndLockProgress.setInvertedAppearance(False)
 
-        self.verticalLayout_4.addWidget(self.sweepAndLockProgress)
+        self.formLayout_4.setWidget(0, QFormLayout.FieldRole, self.sweepAndLockProgress)
 
         self.sweepAndLockTotalProgress = QProgressBar(self.expSweepAndLockIn)
         self.sweepAndLockTotalProgress.setObjectName(u"sweepAndLockTotalProgress")
         self.sweepAndLockTotalProgress.setValue(24)
         self.sweepAndLockTotalProgress.setTextVisible(False)
 
-        self.verticalLayout_4.addWidget(self.sweepAndLockTotalProgress)
+        self.formLayout_4.setWidget(1, QFormLayout.FieldRole, self.sweepAndLockTotalProgress)
+
+        self.label_49 = QLabel(self.expSweepAndLockIn)
+        self.label_49.setObjectName(u"label_49")
+
+        self.formLayout_4.setWidget(0, QFormLayout.LabelRole, self.label_49)
+
+        self.label_50 = QLabel(self.expSweepAndLockIn)
+        self.label_50.setObjectName(u"label_50")
+
+        self.formLayout_4.setWidget(1, QFormLayout.LabelRole, self.label_50)
+
+
+        self.verticalLayout_4.addLayout(self.formLayout_4)
 
         self.expStack.addWidget(self.expSweepAndLockIn)
         self.expODMRWaterfall = QWidget()
@@ -698,7 +737,7 @@ class Ui_MainWindow(object):
         self.scrollArea_4.setWidgetResizable(True)
         self.scrollAreaWidgetContents_4 = QWidget()
         self.scrollAreaWidgetContents_4.setObjectName(u"scrollAreaWidgetContents_4")
-        self.scrollAreaWidgetContents_4.setGeometry(QRect(0, -52, 631, 476))
+        self.scrollAreaWidgetContents_4.setGeometry(QRect(0, 0, 858, 482))
         self.gridLayout_2 = QGridLayout(self.scrollAreaWidgetContents_4)
         self.gridLayout_2.setObjectName(u"gridLayout_2")
         self.label_41 = QLabel(self.scrollAreaWidgetContents_4)
@@ -992,11 +1031,30 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_12.addWidget(self.scrollArea_4)
 
+        self.horizontalLayout_12 = QHBoxLayout()
+        self.horizontalLayout_12.setObjectName(u"horizontalLayout_12")
         self.ODMRWaterfallStart = QPushButton(self.expODMRWaterfall)
         self.ODMRWaterfallStart.setObjectName(u"ODMRWaterfallStart")
+        sizePolicy6.setHeightForWidth(self.ODMRWaterfallStart.sizePolicy().hasHeightForWidth())
+        self.ODMRWaterfallStart.setSizePolicy(sizePolicy6)
 
-        self.verticalLayout_12.addWidget(self.ODMRWaterfallStart)
+        self.horizontalLayout_12.addWidget(self.ODMRWaterfallStart)
 
+        self.ODMRWaterfallCancel = QPushButton(self.expODMRWaterfall)
+        self.ODMRWaterfallCancel.setObjectName(u"ODMRWaterfallCancel")
+
+        self.horizontalLayout_12.addWidget(self.ODMRWaterfallCancel)
+
+        self.ODMRWaterfallExport = QPushButton(self.expODMRWaterfall)
+        self.ODMRWaterfallExport.setObjectName(u"ODMRWaterfallExport")
+
+        self.horizontalLayout_12.addWidget(self.ODMRWaterfallExport)
+
+
+        self.verticalLayout_12.addLayout(self.horizontalLayout_12)
+
+        self.formLayout_3 = QFormLayout()
+        self.formLayout_3.setObjectName(u"formLayout_3")
         self.ODMRWaterfallSweepProgress = QProgressBar(self.expODMRWaterfall)
         self.ODMRWaterfallSweepProgress.setObjectName(u"ODMRWaterfallSweepProgress")
         self.ODMRWaterfallSweepProgress.setValue(24)
@@ -1004,7 +1062,7 @@ class Ui_MainWindow(object):
         self.ODMRWaterfallSweepProgress.setInvertedAppearance(False)
         self.ODMRWaterfallSweepProgress.setTextDirection(QProgressBar.Direction.TopToBottom)
 
-        self.verticalLayout_12.addWidget(self.ODMRWaterfallSweepProgress)
+        self.formLayout_3.setWidget(0, QFormLayout.FieldRole, self.ODMRWaterfallSweepProgress)
 
         self.ODMRWaterfallTotalProgress = QProgressBar(self.expODMRWaterfall)
         self.ODMRWaterfallTotalProgress.setObjectName(u"ODMRWaterfallTotalProgress")
@@ -1012,7 +1070,20 @@ class Ui_MainWindow(object):
         self.ODMRWaterfallTotalProgress.setAlignment(Qt.AlignmentFlag.AlignLeading|Qt.AlignmentFlag.AlignLeft|Qt.AlignmentFlag.AlignVCenter)
         self.ODMRWaterfallTotalProgress.setTextVisible(False)
 
-        self.verticalLayout_12.addWidget(self.ODMRWaterfallTotalProgress)
+        self.formLayout_3.setWidget(1, QFormLayout.FieldRole, self.ODMRWaterfallTotalProgress)
+
+        self.label_47 = QLabel(self.expODMRWaterfall)
+        self.label_47.setObjectName(u"label_47")
+
+        self.formLayout_3.setWidget(0, QFormLayout.LabelRole, self.label_47)
+
+        self.label_48 = QLabel(self.expODMRWaterfall)
+        self.label_48.setObjectName(u"label_48")
+
+        self.formLayout_3.setWidget(1, QFormLayout.LabelRole, self.label_48)
+
+
+        self.verticalLayout_12.addLayout(self.formLayout_3)
 
         self.expStack.addWidget(self.expODMRWaterfall)
 
@@ -1024,11 +1095,11 @@ class Ui_MainWindow(object):
 
         self.logBox = QPlainTextEdit(self.centralwidget)
         self.logBox.setObjectName(u"logBox")
-        sizePolicy7 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Preferred)
-        sizePolicy7.setHorizontalStretch(0)
-        sizePolicy7.setVerticalStretch(1)
-        sizePolicy7.setHeightForWidth(self.logBox.sizePolicy().hasHeightForWidth())
-        self.logBox.setSizePolicy(sizePolicy7)
+        sizePolicy8 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Preferred)
+        sizePolicy8.setHorizontalStretch(0)
+        sizePolicy8.setVerticalStretch(1)
+        sizePolicy8.setHeightForWidth(self.logBox.sizePolicy().hasHeightForWidth())
+        self.logBox.setSizePolicy(sizePolicy8)
         self.logBox.setMinimumSize(QSize(0, 0))
         self.logBox.setMaximumSize(QSize(16777215, 120))
         self.logBox.setBaseSize(QSize(0, 0))
@@ -1136,6 +1207,10 @@ class Ui_MainWindow(object):
         self.label_22.setText(QCoreApplication.translate("MainWindow", u"Display 1", None))
         self.label_29.setText(QCoreApplication.translate("MainWindow", u"Display 2", None))
         self.sweepAndLockStart.setText(QCoreApplication.translate("MainWindow", u"Start measurement", None))
+        self.sweepAndLockCancel.setText(QCoreApplication.translate("MainWindow", u"Cancel", None))
+        self.sweepAndLockExport.setText(QCoreApplication.translate("MainWindow", u"Export results", None))
+        self.label_49.setText(QCoreApplication.translate("MainWindow", u"Sweep progress", None))
+        self.label_50.setText(QCoreApplication.translate("MainWindow", u"Total progress", None))
         self.label_41.setText(QCoreApplication.translate("MainWindow", u"Start current", None))
         self.label_42.setText(QCoreApplication.translate("MainWindow", u"Steps", None))
         self.label_33.setText(QCoreApplication.translate("MainWindow", u"Lock-in freq", None))
@@ -1159,8 +1234,12 @@ class Ui_MainWindow(object):
         self.ODMRWaterfallDisplay2Radio.setText(QCoreApplication.translate("MainWindow", u"Display &2", None))
         self.ODMRWaterfallLockInFreq.setSuffix(QCoreApplication.translate("MainWindow", u" Hz", None))
         self.ODMRWaterfallStart.setText(QCoreApplication.translate("MainWindow", u"Start measurement", None))
-        self.ODMRWaterfallSweepProgress.setFormat(QCoreApplication.translate("MainWindow", u"Sweep: %p%", None))
+        self.ODMRWaterfallCancel.setText(QCoreApplication.translate("MainWindow", u"Cancel", None))
+        self.ODMRWaterfallExport.setText(QCoreApplication.translate("MainWindow", u"Export results", None))
+        self.ODMRWaterfallSweepProgress.setFormat(QCoreApplication.translate("MainWindow", u"%p%", None))
         self.ODMRWaterfallTotalProgress.setFormat(QCoreApplication.translate("MainWindow", u"%p%", None))
+        self.label_47.setText(QCoreApplication.translate("MainWindow", u"Sweep progress", None))
+        self.label_48.setText(QCoreApplication.translate("MainWindow", u"Total progress", None))
         self.tabWidget_2.setTabText(self.tabWidget_2.indexOf(self.tab), QCoreApplication.translate("MainWindow", u"Experiments", None))
     # retranslateUi
 
