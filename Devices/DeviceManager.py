@@ -24,7 +24,7 @@ models = {
         "hp83751a": Devices.Sweeper.HP83751A
     },
     "psu": {
-        "it6400": Devices.PowerSupply.IT6400
+        "it6431": Devices.PowerSupply.IT6431
     }
 }
 

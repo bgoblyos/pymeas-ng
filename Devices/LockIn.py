@@ -9,7 +9,7 @@ class SRCommon(Devices.Common.CommonInstrument):
     def __init__(self, rm, address):
         super().__init__(rm, address)
 
-        self.display1list = [
+        self.display1List = [
             "X",
             "R",
             "X Noise",
@@ -17,7 +17,7 @@ class SRCommon(Devices.Common.CommonInstrument):
             "Aux in 2"
         ]
 
-        self.display2list = [
+        self.display2List = [
             "Y",
             "Theta",
             "Y Noise",
@@ -90,6 +90,7 @@ class SRCommon(Devices.Common.CommonInstrument):
     def readDisplay(self, channel):
         self.query(f"DDEF ? {channel}")
         # TODO implement separating the values into a tuple
+        return 1
 
     def readBinNum(self):
         res = self.query('SPTS?')

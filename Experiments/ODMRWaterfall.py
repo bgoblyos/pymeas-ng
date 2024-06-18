@@ -150,8 +150,10 @@ class ODMRWaterfall():
         else:
             if self.actualCurrent < 0:
                 # TODO: Set voltage to negative
+                logging.debug('Voltage should be set to negative')
             else:
                 # TODO: Set voltage to positive
+                logging.debug('Voltage should be set to positive')
 
             self.psu.setCurrent(abs(self.actualCurrent))
             self.psu.query("*OPC?") # Wait for PSU to finish
@@ -301,6 +303,7 @@ class ODMRWaterfall():
     def resetLockIn(self):
         self.lockin = self.devices["lockin"][self.ui.ODMRWaterfallLockInSelection.currentText()]
 
+        # Sensitivity
         self.ui.ODMRWaterfallLockInSens.clear()
         for sens in self.lockin.sensList:
             self.ui.ODMRWaterfallLockInSens.addItem(formatPrefix(sens, 'V'))
@@ -308,6 +311,7 @@ class ODMRWaterfall():
         currentSens = self.lockin.readSens()
         self.ui.ODMRWaterfallLockInSens.setCurrentIndex(currentSens)
 
+        # Tau
         self.ui.ODMRWaterfallLockInTau.clear()
         for tau in self.lockin.tauList:
             self.ui.ODMRWaterfallLockInTau.addItem(formatPrefix(tau, 's'))
@@ -315,6 +319,7 @@ class ODMRWaterfall():
         currentTau = self.lockin.readTau()
         self.ui.ODMRWaterfallLockInTau.setCurrentIndex(currentTau)
 
+        # Sample rate
         self.ui.ODMRWaterfallLockInSampleRate.clear()
         for sample in self.lockin.sampleFreqList:
             self.ui.ODMRWaterfallLockInSampleRate.addItem(formatPrefix(sample, 'Hz'))
@@ -322,6 +327,23 @@ class ODMRWaterfall():
         currentSampleFreq = self.lockin.readSampleRate()
         self.ui.ODMRWaterfallLockInSampleRate.setCurrentIndex(currentSampleFreq)
 
+        # Display 1
+        self.ui.ODMRWaterfallDisplay1.clear()
+        for disp in self.lockin.display1List:
+            self.ui.ODMRWaterfallDisplay1.addItem(disp)
+
+        currentDisplay1 = self.lockin.readDisplay(1)
+        self.ui.ODMRWaterfallDisplay1.setCurrentIndex(currentDisplay1)
+
+        # Display 2
+        self.ui.ODMRWaterfallDisplay2.clear()
+        for disp in self.lockin.display2List:
+            self.ui.ODMRWaterfallDisplay2.addItem(disp)
+
+        currentDisplay2 = self.lockin.readDisplay(2)
+        self.ui.ODMRWaterfallDisplay2.setCurrentIndex(currentDisplay2)
+
+        # Internal oscillator frequency
         currentFreq = self.lockin.readFreq()
         self.ui.ODMRWaterfallLockInFreq.setValue(currentFreq)
 
