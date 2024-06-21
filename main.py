@@ -71,18 +71,8 @@ class MainWindow(QMainWindow):
         self.settings = Settings(self.ui, self.devices, self.plotter)
         self.experiments = Experiments(self.ui, self.devices, self.plotter)
 
-        # TODO: Move plotting to separate class 
-        self.ui.plotClearButton.clicked.connect(self.clearPlot)
-
         fileDialogTest()
 
-
-    # Plot the given dataset
-    def plot(self, xs, ys):
-        self.ui.graphWidget.plot(xs, ys)
-
-    def clearPlot(self):
-        self.ui.graphWidget.clear()
 
 app = QApplication(sys.argv)
 
