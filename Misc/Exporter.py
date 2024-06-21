@@ -2,24 +2,28 @@ import numpy as np
 import os
 import datetime
 import zipfile
+import logging
 from tempfile import gettempdir
 
-def exportHeatmap(data, xaxis, yaxis, datatitle = 'Data', xtitle = "X axis", ytitle = "Y axis"):
-    zippath = '/tmp/testzip.zip'
-    # Ask user for zip file location here and abort if necessary
-    tempdir = createTempDir()
-    datafile = os.path.join(tempdir, 'data.csv')
-    xaxisfile = os.path.join(tempdir, 'xaxis.csv')
-    yaxisfile = os.path.join(tempdir, 'yaxis.csv')
+from PySide6.QtWidgets import QFileDialog
 
-    np.savetxt(datafile, data, delimiter=',', header=datatitle)
-    np.savetxt(xaxisfile, xaxis, delimiter=',', header=xtitle)
-    np.savetxt(yaxisfile, yaxis, delimiter=',', header=ytitle)
+def promptMultiExport(data, xaxis, yaxis, datatitle = 'Data', xtitle = "X axis", ytitle = "Y axis"):
+    print("Placeholder")
+
+# Export multiple numpy arrays int CSV files and zip them
+# expects an array of tuples: (data, 'label')
+def saveCSVZip(zippath, arrays):# Ask user for zip file location here and abort if necessary
+    tempdir = createTempDir()
 
     with zipfile.ZipFile(zippath, 'w') as newzip:
-        newzip.write(datafile, 'data.csv')
-        newzip.write(xaxisfile, 'xaxis.csv')
-        newzip.write(yaxisfile, 'yaxis.csv')
+        for arr in arrays:
+            tempfile = os.path.join(tempdir, f'{arr[1]}.csv')
+            np.savetxt(tempfile, arr[0], delimiter=',', header=arr[1])
+            logging.debug(f'Exported {tempfile} to temporary directory')
+            newzip.write(tempfile, f'{arr[1]}.csv')
+            logging.debug(f'Added {tempfile} to archive')
+
+    logging.info(f'{zippath} exported')
 
 def ensureTemp():
     tmpdir = os.path.join(gettempdir(), 'pymeas-ng')
@@ -34,10 +38,17 @@ def createTempDir():
     os.makedirs(newdir)
     return newdir
 
+def fileDialogTest():
+    a = QFileDialog.getSaveFileName(
+        caption = "Test",
+        filter = "Zip archive (*.zip);;Numpy arrays (*.npz);;HDF5 file (*.h5 *.hdf5)")
+    print(a)
+
 print(createTempDir())
 
 xs = np.linspace(0, 1, 10)
 ys = np.linspace(1, 2, 20)
 data = np.random.rand(10,20)
 
-exportHeatmap(data, xs, ys)
+saveCSVZip("/tmp/test.zip", [(data, 'data'), (xs, 'xs'), (ys, 'ys')])
+

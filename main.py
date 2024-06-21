@@ -32,6 +32,10 @@ from UI.Plotter import Plotter
 # Import GUI logger
 from UI.Logger import QTextEditLogger
 
+# TODO: Remove
+# Import exporter for testing
+from Misc.Exporter import fileDialogTest
+
 # Main GUI class, meant to glue everything together
 # Always inherit CloseInheritance last, as it is meant to
 # close the inheritance graph. It has a dummy __setup__()
@@ -69,6 +73,8 @@ class MainWindow(QMainWindow):
 
         # TODO: Move plotting to separate class 
         self.ui.plotClearButton.clicked.connect(self.clearPlot)
+
+        fileDialogTest()
 
 
     # Plot the given dataset
