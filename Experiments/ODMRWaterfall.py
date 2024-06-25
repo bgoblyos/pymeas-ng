@@ -137,13 +137,6 @@ class ODMRWaterfall():
         self.startSweep()
 
     def startSweep(self):
-
-        # Set up lock-in
-        sampleFreq = self.ui.ODMRWaterfallLockInSampleRate.currentIndex()
-        (self.numPoints, self.padding) = self.lockin.armTimedMeasurement(self.sweepTime, sampleFreq)
-        self.totalPoints = self.numPoints + self.padding
-        logging.debug(f"{self.numPoints} points will be measured")
-
         # Set up power supply
         self.actualCurrent = self.currents[self.currentCounter]
 
@@ -162,7 +155,12 @@ class ODMRWaterfall():
             self.psu.setCurrent(abs(self.actualCurrent))
             self.psu.enableOutput()
 
-        self.psu.query('*OPC?') # Wait for PSU to finish
+
+        # Set up lock-in
+        sampleFreq = self.ui.ODMRWaterfallLockInSampleRate.currentIndex()
+        (self.numPoints, self.padding) = self.lockin.armTimedMeasurement(self.sweepTime, sampleFreq)
+        self.totalPoints = self.numPoints + self.padding
+        logging.debug(f"{self.numPoints} points will be measured")
 
 
         # Reset progress bar and step counter
@@ -171,7 +169,6 @@ class ODMRWaterfall():
         self.sweepCounter = 0
 
         # Start sweep
-        logging.debug(f"Sweeper state: {self.sweeper.query('*OPC?')}")
         self.sweeper.powerOn()
         self.sweeper.startSweep()
 
