@@ -358,7 +358,11 @@ class ODMRWaterfall():
     def resetPSU(self):
         self.psu = self.devices["psu"][self.ui.ODMRWaterfallPSUSelection.currentText()]
 
-        # TODO: Set current and voltage limits
+        maxCurrent = self.psu.currentRange[1]
+        self.ui.ODMRWaterfallStartCurrent.setMaximum(maxCurrent)
+        self.ui.ODMRWaterfallStartCurrent.setMinimum(-maxCurrent)
+        self.ui.ODMRWaterfallStartCurrent.setMaximum(maxCurrent)
+        self.ui.ODMRWaterfallStartCurrent.setMinimum(-maxCurrent)
 
         current = self.psu.getCurrent()
         self.ui.ODMRWaterfallEndCurrent.setValue(current)
