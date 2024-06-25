@@ -12,7 +12,7 @@ def promptMultiExport(data, xaxis, yaxis, datatitle = 'data', xtitle = "xaxis", 
             caption = "Test",
             filter = "Zip archive (*.zip);;Numpy arrays (*.npz);;HDF5 file (*.h5 *.hdf5)")
 
-    saveCSVZip(fname, [(data, datatitle), (xaxis, xtitle), (yaxis, ytitle)])
+    saveCSVZip(fname[0], [(data, datatitle), (xaxis, xtitle), (yaxis, ytitle)])
 
 # Export multiple numpy arrays int CSV files and zip them
 # expects an array of tuples: (data, 'label')
@@ -24,6 +24,7 @@ def saveCSVZip(zippath, arrays):# Ask user for zip file location here and abort 
             tempfile = os.path.join(tempdir, f'{arr[1]}.csv')
             np.savetxt(tempfile, arr[0], delimiter=',', header=arr[1])
             logging.debug(f'Exported {tempfile} to temporary directory')
+            logging.debug(f'Type of newzip: {type(newzip)}')
             newzip.write(tempfile, f'{arr[1]}.csv')
             logging.debug(f'Added {tempfile} to archive')
 
