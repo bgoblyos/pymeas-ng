@@ -8,11 +8,34 @@ from tempfile import gettempdir
 from PySide6.QtWidgets import QFileDialog
 
 def promptMultiExport(data, xaxis, yaxis, datatitle = 'data', xtitle = "xaxis", ytitle = "yaxis"):
-    fname = QFileDialog.getSaveFileName(
+    choice = QFileDialog.getSaveFileName(
             caption = "Test",
             filter = "Zip archive (*.zip);;Numpy arrays (*.npz);;HDF5 file (*.h5 *.hdf5)")
 
-    saveCSVZip(fname[0], [(data, datatitle), (xaxis, xtitle), (yaxis, ytitle)])
+    fname = choice[0]
+
+    if fname = '':
+        logging.warning('No filename chosen for export, aborting!')
+        return
+
+    ext = fname.split('.')[-1].lower()
+
+    if choice[1] == 'Zip archive (*.zip)'
+        if ext != 'zip':
+            fname += '.zip'
+
+        saveCSVZip(fname, [(data, datatitle), (xaxis, xtitle), (yaxis, ytitle)])
+    elif choice[1] == 'Numpy arrays (*.npz)'
+        if ext != 'npz':
+            fname += '.npz'
+
+        np.savez(fname, data=data, xaxis=xaxis, yaxis=yaxis)
+    elif choice[1] == 'HDF5 file (*.h5 *.hdf5)'
+        if ext != 'h5' and ext != 'hdf5':
+            fname += '.h5'
+
+        logging.warning('HDF5 saving is not implemented yet!')
+
 
 # Export multiple numpy arrays int CSV files and zip them
 # expects an array of tuples: (data, 'label')
