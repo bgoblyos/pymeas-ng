@@ -3,7 +3,7 @@ import numpy as np
 
 from PySide6.QtCore import QTimer
 
-from Misc.Prefix import formatPrefix
+from Misc.Prefix import formatPrefix, formatTime
 from Misc.Exporter import promptMultiExport
 
 class ODMRWaterfall():
@@ -394,3 +394,11 @@ class ODMRWaterfall():
 
         currentSteps = self.ui.ODMRWaterfallPowerSteps.value()
         self.ui.ODMRWaterfallTotalResolutionLabel.setText(f"{points} x {currentSteps}")
+
+        idealTime = currentSteps * sweepTime
+        timeStr = formatTime(idealTime)
+        self.ui.ODMRWaterfallIdealTimeLabel.setText(timeStr)
+
+        totalTime = currentSteps * (sweepTime + 7)
+        timeStr = formatTime(totalTime)
+        self.ui.ODMRWaterfallTotalTimeLabel.setText(timeStr)

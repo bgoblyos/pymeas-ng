@@ -28,13 +28,18 @@ def formatPrefix(n, unit, precision = -1):
 
 def formatTime(seconds):
     hours = seconds // 3600
-    h = '' if hours == 0 else f'{hours}h '
+    h = '' if hours == 0 else f'{round(hours)}h '
     seconds %= 3600
 
     minutes = seconds // 60
-    m = '' if minutes == 0 else f'{minutes}m '
+    m = '' if minutes == 0 else f'{round(minutes)}m '
     seconds %= 60
 
-    s = f'{round(seconds)}s'
+    s = '' if seconds == 0 else f'{round(seconds)}s'
 
-    return h + m + s
+    time = h + m + s
+
+    if time == '':
+        return '0s'
+    else:
+        return time
