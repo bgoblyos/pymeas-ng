@@ -4,6 +4,7 @@ import numpy as np
 from PySide6.QtCore import QTimer
 
 from Misc.Prefix import formatPrefix
+from Misc.Exporter import promptMultiExport
 
 class ODMRWaterfall():
     def __init__(self, ui, devices, plotter):
@@ -47,12 +48,17 @@ class ODMRWaterfall():
         # Read back instrument settings when the selection is changed
         self.ui.ODMRWaterfallLockInSelection.currentIndexChanged.connect(self.resetLockIn)
         self.ui.ODMRWaterfallSweeperSelection.currentIndexChanged.connect(self.resetSweeper)
-        #self.ui.ODMRWaterfallPSUSelection.currentIndexChanged.connect(self.resetSweeper)
+        self.ui.ODMRWaterfallPSUSelection.currentIndexChanged.connect(self.resetPSU)
 
         # Recalculate data point estimates when settings change
         self.ui.ODMRWaterfallSweepTime.valueChanged.connect(self.updateEstimates)
         self.ui.ODMRWaterfallLockInSampleRate.currentIndexChanged.connect(self.updateEstimates)
         self.ui.ODMRWaterfallPowerSteps.valueChanged.connect(self.updateEstimates)
+
+        # Initialize data storage with None
+        self.data = None
+        self.sweepRange = None
+        self.currents = None
 
         logging.debug("Waterfall initialized")
 
@@ -280,7 +286,18 @@ class ODMRWaterfall():
         logging.info("Measurement canceled")
 
     def export(self):
-        logging.warning("This is not implemented yet, nothing was saved!")
+        if self.data is None:
+            logging.warning("No data to be exported! Did you run the experiment?")
+        elif self.currents is None:
+            logging.warning("Current range not found. Did you run the experiment?")
+        elif self.sweepRange is None:
+            logging.warning("Sweep range not found. Did you run the experiment?")
+        else:
+            freqs = np.linspace(self.sweepRange[0], self.sweepRange[1], self.totalPoints)
+            promptMultiExport(
+                data = self.data, datatitle = 'odmrwaterfall',
+                xaxis = freqs, xtitle = 'frequency',
+                yaxis = self.currents, ytitle = 'current')
 
 
     def resetSweeper(self):

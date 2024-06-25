@@ -32,10 +32,6 @@ from UI.Plotter import Plotter
 # Import GUI logger
 from UI.Logger import QTextEditLogger
 
-# TODO: Remove
-# Import exporter for testing
-from Misc.Exporter import fileDialogTest
-
 # Main GUI class, meant to glue everything together
 # Always inherit CloseInheritance last, as it is meant to
 # close the inheritance graph. It has a dummy __setup__()
@@ -70,9 +66,6 @@ class MainWindow(QMainWindow):
         self.deviceTree = DeviceTree(self.ui, self.devices, self.disconnected, self.unknown)
         self.settings = Settings(self.ui, self.devices, self.plotter)
         self.experiments = Experiments(self.ui, self.devices, self.plotter)
-
-        #fileDialogTest()
-
 
 app = QApplication(sys.argv)
 

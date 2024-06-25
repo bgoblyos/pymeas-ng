@@ -7,8 +7,12 @@ from tempfile import gettempdir
 
 from PySide6.QtWidgets import QFileDialog
 
-def promptMultiExport(data, xaxis, yaxis, datatitle = 'Data', xtitle = "X axis", ytitle = "Y axis"):
-    print("Placeholder")
+def promptMultiExport(data, xaxis, yaxis, datatitle = 'data', xtitle = "xaxis", ytitle = "yaxis"):
+    fname = QFileDialog.getSaveFileName(
+            caption = "Test",
+            filter = "Zip archive (*.zip);;Numpy arrays (*.npz);;HDF5 file (*.h5 *.hdf5)")
+
+    saveCSVZip(fname, [(data, datatitle), (xaxis, xtitle), (yaxis, ytitle)])
 
 # Export multiple numpy arrays int CSV files and zip them
 # expects an array of tuples: (data, 'label')
@@ -37,9 +41,3 @@ def createTempDir():
     newdir = os.path.join(tmproot, f'{timestamp}-export-temp')
     os.makedirs(newdir)
     return newdir
-
-def fileDialogTest():
-    a = QFileDialog.getSaveFileName(
-        caption = "Test",
-        filter = "Zip archive (*.zip);;Numpy arrays (*.npz);;HDF5 file (*.h5 *.hdf5)")
-    print(a)
