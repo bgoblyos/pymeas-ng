@@ -218,8 +218,6 @@ class ODMRWaterfall():
         newdata = np.pad(newdata, (0, paddingLength), 'constant')
         logging.info("Data extracted")
 
-        logging.debug(newdata)
-
         if self.data is None:
             # If it's the first run, save our new data
             self.data = np.array([newdata])
