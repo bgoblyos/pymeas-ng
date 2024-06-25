@@ -84,13 +84,17 @@ class SRCommon(Devices.Common.CommonInstrument):
         if float(value) > -10.5 and float(value) < 10.5:
             self.writeStr('AUXV '+ channel + ',' + value)
 
-    def display(self, channel, value, ratio):
-        self.writeStr('DDEF ' + channel + ',' + value + ',' + ratio)
+    def setDisplay(self, channel, value = 0, ratio = None):
+        command = f'DDEF {channel}, {value}'
+        if ratio is not None:
+            command += f', {ratio}'
+        self.writeStr(command)
 
     def readDisplay(self, channel):
-        self.query(f"DDEF ? {channel}")
+        res = self.query(f"DDEF ? {channel}")
         # TODO implement separating the values into a tuple
-        return 1
+        disp = int(res.strip().split(',')[0])
+        return disp
 
     def readBinNum(self):
         res = self.query('SPTS?')

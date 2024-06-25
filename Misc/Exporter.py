@@ -43,12 +43,3 @@ def fileDialogTest():
         caption = "Test",
         filter = "Zip archive (*.zip);;Numpy arrays (*.npz);;HDF5 file (*.h5 *.hdf5)")
     print(a)
-
-print(createTempDir())
-
-xs = np.linspace(0, 1, 10)
-ys = np.linspace(1, 2, 20)
-data = np.random.rand(10,20)
-
-saveCSVZip("/tmp/test.zip", [(data, 'data'), (xs, 'xs'), (ys, 'ys')])
-

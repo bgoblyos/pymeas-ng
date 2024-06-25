@@ -111,6 +111,13 @@ class ODMRWaterfall():
         sens = self.ui.ODMRWaterfallLockInSens.currentIndex()
         self.lockin.setSens(sens)
 
+        if self.channel == 1:
+            disp = self.ui.ODMRWaterfallDisplay1.currentIndex()
+            self.lockin.setDisplay(1, disp)
+        else:
+            disp = self.ui.ODMRWaterfallDisplay2.currentIndex()
+            self.lockin.setDisplay(2, disp)
+
         # Read in PSU settings
         self.startCurrent = self.ui.ODMRWaterfallStartCurrent.value()
         self.endCurrent = self.ui.ODMRWaterfallEndCurrent.value()
@@ -118,9 +125,7 @@ class ODMRWaterfall():
         self.currentCounter = 0
         self.currents = np.linspace(self.startCurrent, self.endCurrent, self.currentSteps)
 
-        # Enable power supply output and set first current
-        self.psu.setCurrent(self.startCurrent)
-        self.psu.enableOutput()
+        self.voltage = self.ui.ODMRWaterfallVoltage.value()
 
         # Reset total progress bar
         self.ui.ODMRWaterfallTotalProgress.setRange(0, self.currentSteps)
@@ -143,20 +148,21 @@ class ODMRWaterfall():
         self.actualCurrent = self.currents[self.currentCounter]
 
         if abs(self.actualCurrent) < self.psu.currentRange[0]:
-            self.data = np.vstack((self.data, np.zeros(self.totalPoints)))
-            logging.info("Cannot set current, measurement skipped")
-            self.startSweep() # Go to next sweep
-            return None
+            logging.info("Current too low, power source turned off")
+            self.currents[self.currentCounter] = 0
+            self.psu.disableOutput()
         else:
             if self.actualCurrent < 0:
-                # TODO: Set voltage to negative
+                self.psu.setVoltage(-self.voltage)
                 logging.debug('Voltage should be set to negative')
             else:
-                # TODO: Set voltage to positive
+                self.psu.setVoltage(self.voltage)
                 logging.debug('Voltage should be set to positive')
 
             self.psu.setCurrent(abs(self.actualCurrent))
-            self.psu.query("*OPC?") # Wait for PSU to finish
+            self.psu.enableOutput()
+
+        self.psu.query('*OPC?') # Wait for PSU to finish
 
 
         # Reset progress bar and step counter

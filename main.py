@@ -71,7 +71,7 @@ class MainWindow(QMainWindow):
         self.settings = Settings(self.ui, self.devices, self.plotter)
         self.experiments = Experiments(self.ui, self.devices, self.plotter)
 
-        fileDialogTest()
+        #fileDialogTest()
 
 
 app = QApplication(sys.argv)
