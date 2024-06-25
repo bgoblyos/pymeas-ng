@@ -14,23 +14,23 @@ def promptMultiExport(data, xaxis, yaxis, datatitle = 'data', xtitle = "xaxis", 
 
     fname = choice[0]
 
-    if fname = '':
+    if fname == '':
         logging.warning('No filename chosen for export, aborting!')
         return
 
     ext = fname.split('.')[-1].lower()
 
-    if choice[1] == 'Zip archive (*.zip)'
+    if choice[1] == 'Zip archive (*.zip)':
         if ext != 'zip':
             fname += '.zip'
 
         saveCSVZip(fname, [(data, datatitle), (xaxis, xtitle), (yaxis, ytitle)])
-    elif choice[1] == 'Numpy arrays (*.npz)'
+    elif choice[1] == 'Numpy arrays (*.npz)':
         if ext != 'npz':
             fname += '.npz'
 
         np.savez(fname, data=data, xaxis=xaxis, yaxis=yaxis)
-    elif choice[1] == 'HDF5 file (*.h5 *.hdf5)'
+    elif choice[1] == 'HDF5 file (*.h5 *.hdf5)':
         if ext != 'h5' and ext != 'hdf5':
             fname += '.h5'
 
