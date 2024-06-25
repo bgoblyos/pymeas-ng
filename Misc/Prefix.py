@@ -25,3 +25,16 @@ def formatPrefix(n, unit, precision = -1):
         rounded = round(n, ndigits = precision)
 
     return f"{rounded} {prefixStr}{unit}"
+
+def formatTime(seconds):
+    hours = seconds // 3600
+    h = '' if hours == 0 else f'{hours}h '
+    seconds %= 3600
+
+    minutes = seconds // 60
+    m = '' if minutes == 0 else f'{minutes}m '
+    seconds %= 60
+
+    s = f'{round(seconds)}s'
+
+    return h + m + s
