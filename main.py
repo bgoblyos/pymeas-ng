@@ -44,6 +44,8 @@ class MainWindow(QMainWindow):
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
 
+        self.setWindowTitle("pymeas-ng")
+
         # Set up logging to the logBox
         logTextBox = QTextEditLogger(self.ui.logBox)
         logging.getLogger().addHandler(logTextBox)

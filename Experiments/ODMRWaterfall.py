@@ -65,6 +65,8 @@ class ODMRWaterfall():
         self.ui.ODMRWaterfallSweepTime.valueChanged.connect(self.updateEstimates)
         self.ui.ODMRWaterfallLockInSampleRate.currentIndexChanged.connect(self.updateEstimates)
         self.ui.ODMRWaterfallPowerSteps.valueChanged.connect(self.updateEstimates)
+        self.ui.ODMRWaterfallSettleTime.valueChanged.connect(self.updateEstimates)
+        self.ui.ODMRWaterfallInitialSettleTime.valueChanged.connect(self.updateEstimates)
 
         # Initialize data storage with None
         self.data = None
@@ -94,6 +96,7 @@ class ODMRWaterfall():
 
     def prepare(self):
         logging.debug("Started ODMR Waterfall measurement")
+
         # Reset data storage
         self.data = None
 
@@ -191,20 +194,22 @@ class ODMRWaterfall():
 
         #self.PSUSettleTimer.start()
         if self.currentCounter == 0:
-            self.PSUSettleTimer.setInterval(10000)
+            waitTime = round(1000 * self.ui.ODMRWaterfallInitialSettleTime.value())
         else:
-            self.PSUSettleTimer.setInterval(5000)
+            waitTime = round(1000 * self.ui.ODMRWaterfallSettleTime.value())
 
+        self.PSUSettleTimer.setInterval(waitTime)
         self.PSUSettleTimer.start()
-        logging.debug("Settle timer started")
+        logging.info(f'Waiting {waitTime} ms for PSU current to settle')
 
     def updatePSUCurrent(self):
         logging.debug("updatePSUCurrent called")
         # Read back PSU current after giving it time to settle
         if self.currents[self.currentCounter] != 0:
             self.currents[self.currentCounter] = self.psu.getCurrent()
-        
+
         self.timer.start()
+        logging.info('Current settled\nStarting sweep')
 
     def updateSweepProgress(self):
         # Check if the run is completed
@@ -219,7 +224,7 @@ class ODMRWaterfall():
 
         # Stop the timer so updateProgress stops running
         self.timer.stop()
-        logging.info("Sweep completed, extracting data...")
+        logging.info("Sweep completed, extracting data")
 
         # Set progress bar to indeterminate
         pbar = self.sweepProgress
@@ -423,31 +428,45 @@ class ODMRWaterfall():
         currentSteps = self.ui.ODMRWaterfallPowerSteps.value()
         self.ui.ODMRWaterfallTotalResolutionLabel.setText(f"{points} x {currentSteps}")
 
-        idealTime = currentSteps * sweepTime
-        timeStr = formatTime(idealTime)
-        self.ui.ODMRWaterfallIdealTimeLabel.setText(timeStr)
+        roundTime = sweepTime + self.ui.ODMRWaterfallSettleTime.value() + 2
+        firstRoundExtra = self.ui.ODMRWaterfallInitialSettleTime.value() - self.ui.ODMRWaterfallSettleTime.value()
 
-        totalTime = currentSteps * (sweepTime + 7)
-        timeStr = formatTime(totalTime)
-        self.ui.ODMRWaterfallTotalTimeLabel.setText(timeStr)
+        expectedTime = currentSteps * roundTime + firstRoundExtra
+        timeStr = formatTime(expectedTime)
+        self.ui.ODMRWaterfallExpectedTimeLabel.setText(timeStr)
+
+        worstTime = currentSteps * (roundTime + 5) + firstRoundExtra
+        timeStr = formatTime(worstTime)
+        self.ui.ODMRWaterfallWorstTimeLabel.setText(timeStr)
 
     def PSUGracefulStop(self):
+        self.totalProgress.setRange(0,0)
+        self.totalProgress.setValue(0)
+
         current = self.psu.getCurrent()
         mincurrent = self.psu.currentRange[0]
 
-        self.PSUStopCurrents = np.flip(np.arange(mincurrent, current, 0.05))
+        currentStep = self.ui.ODMRWaterfallShutdownStepSize.value()
+        waitTime = round(1000 * self.ui.ODMRWaterfallSHutdownInterval.value())
+        self.PSUStopTimer.setInterval(waitTime)
+
+        self.PSUStopCurrents = np.flip(np.arange(mincurrent, current, currentStep))
         self.PSUStopCounter = 0
         self.PSUStopSteps = len(self.PSUStopCurrents)
 
         # Disable start button while shutting down the power supply
         self.ui.ODMRWaterfallStart.setEnabled(False)
         self.PSUStopTimer.start()
-        
+
     def PSUGracefulStopStep(self):
         if self.PSUStopCounter >= self.PSUStopSteps:
-            self.psu.disableOutput()
             self.PSUStopTimer.stop()
+            self.psu.disableOutput()
             self.ui.ODMRWaterfallStart.setEnabled(True)
+
+            self.totalProgress.setRange(0,1)
+            self.totalProgress.setValue(0)
+
             logging.info("Power supply successfully shut down")
         else:
             current = self.PSUStopCurrents[self.PSUStopCounter]

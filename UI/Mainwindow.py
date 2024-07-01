@@ -135,7 +135,7 @@ class Ui_MainWindow(object):
         self.scrollArea.setWidgetResizable(True)
         self.scrollAreaWidgetContents = QWidget()
         self.scrollAreaWidgetContents.setObjectName(u"scrollAreaWidgetContents")
-        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 806, 526))
+        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 806, 528))
         sizePolicy2 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred)
         sizePolicy2.setHorizontalStretch(0)
         sizePolicy2.setVerticalStretch(0)
@@ -737,256 +737,28 @@ class Ui_MainWindow(object):
         self.scrollArea_4.setWidgetResizable(True)
         self.scrollAreaWidgetContents_4 = QWidget()
         self.scrollAreaWidgetContents_4.setObjectName(u"scrollAreaWidgetContents_4")
-        self.scrollAreaWidgetContents_4.setGeometry(QRect(0, -2, 837, 503))
+        self.scrollAreaWidgetContents_4.setGeometry(QRect(0, -88, 837, 585))
         self.gridLayout_2 = QGridLayout(self.scrollAreaWidgetContents_4)
         self.gridLayout_2.setObjectName(u"gridLayout_2")
-        self.label_44 = QLabel(self.scrollAreaWidgetContents_4)
-        self.label_44.setObjectName(u"label_44")
+        self.ODMRWaterfallDisplay2Radio = QRadioButton(self.scrollAreaWidgetContents_4)
+        self.ODMRWaterfallDisplay2Radio.setObjectName(u"ODMRWaterfallDisplay2Radio")
 
-        self.gridLayout_2.addWidget(self.label_44, 11, 2, 1, 1)
+        self.gridLayout_2.addWidget(self.ODMRWaterfallDisplay2Radio, 3, 2, 1, 1)
 
-        self.label_43 = QLabel(self.scrollAreaWidgetContents_4)
-        self.label_43.setObjectName(u"label_43")
+        self.ODMRWaterfallWorstTimeLabel = QLabel(self.scrollAreaWidgetContents_4)
+        self.ODMRWaterfallWorstTimeLabel.setObjectName(u"ODMRWaterfallWorstTimeLabel")
 
-        self.gridLayout_2.addWidget(self.label_43, 10, 2, 1, 1)
-
-        self.line_19 = QFrame(self.scrollAreaWidgetContents_4)
-        self.line_19.setObjectName(u"line_19")
-        self.line_19.setFrameShape(QFrame.Shape.HLine)
-        self.line_19.setFrameShadow(QFrame.Shadow.Sunken)
-
-        self.gridLayout_2.addWidget(self.line_19, 4, 2, 1, 1)
-
-        self.label_37 = QLabel(self.scrollAreaWidgetContents_4)
-        self.label_37.setObjectName(u"label_37")
-
-        self.gridLayout_2.addWidget(self.label_37, 7, 0, 1, 1)
-
-        self.line_20 = QFrame(self.scrollAreaWidgetContents_4)
-        self.line_20.setObjectName(u"line_20")
-        self.line_20.setFrameShape(QFrame.Shape.HLine)
-        self.line_20.setFrameShadow(QFrame.Shadow.Sunken)
-
-        self.gridLayout_2.addWidget(self.line_20, 4, 3, 1, 1)
-
-        self.label_45 = QLabel(self.scrollAreaWidgetContents_4)
-        self.label_45.setObjectName(u"label_45")
-
-        self.gridLayout_2.addWidget(self.label_45, 13, 0, 1, 1)
-
-        self.label_33 = QLabel(self.scrollAreaWidgetContents_4)
-        self.label_33.setObjectName(u"label_33")
-
-        self.gridLayout_2.addWidget(self.label_33, 2, 0, 1, 1)
-
-        self.line_25 = QFrame(self.scrollAreaWidgetContents_4)
-        self.line_25.setObjectName(u"line_25")
-        self.line_25.setFrameShape(QFrame.Shape.HLine)
-        self.line_25.setFrameShadow(QFrame.Shadow.Sunken)
-
-        self.gridLayout_2.addWidget(self.line_25, 12, 0, 1, 1)
-
-        self.label_40 = QLabel(self.scrollAreaWidgetContents_4)
-        self.label_40.setObjectName(u"label_40")
-
-        self.gridLayout_2.addWidget(self.label_40, 9, 0, 1, 1)
-
-        self.ODMRWaterfallSweepStart = QDoubleSpinBox(self.scrollAreaWidgetContents_4)
-        self.ODMRWaterfallSweepStart.setObjectName(u"ODMRWaterfallSweepStart")
-
-        self.gridLayout_2.addWidget(self.ODMRWaterfallSweepStart, 6, 1, 1, 1)
-
-        self.label_35 = QLabel(self.scrollAreaWidgetContents_4)
-        self.label_35.setObjectName(u"label_35")
-
-        self.gridLayout_2.addWidget(self.label_35, 2, 2, 1, 1)
-
-        self.ODMRWaterfallPSUSelection = QComboBox(self.scrollAreaWidgetContents_4)
-        self.ODMRWaterfallPSUSelection.setObjectName(u"ODMRWaterfallPSUSelection")
-
-        self.gridLayout_2.addWidget(self.ODMRWaterfallPSUSelection, 9, 1, 1, 1)
-
-        self.line_18 = QFrame(self.scrollAreaWidgetContents_4)
-        self.line_18.setObjectName(u"line_18")
-        self.line_18.setFrameShape(QFrame.Shape.HLine)
-        self.line_18.setFrameShadow(QFrame.Shadow.Sunken)
-
-        self.gridLayout_2.addWidget(self.line_18, 4, 1, 1, 1)
-
-        self.line_22 = QFrame(self.scrollAreaWidgetContents_4)
-        self.line_22.setObjectName(u"line_22")
-        self.line_22.setFrameShape(QFrame.Shape.HLine)
-        self.line_22.setFrameShadow(QFrame.Shadow.Sunken)
-
-        self.gridLayout_2.addWidget(self.line_22, 8, 1, 1, 1)
-
-        self.line_24 = QFrame(self.scrollAreaWidgetContents_4)
-        self.line_24.setObjectName(u"line_24")
-        self.line_24.setFrameShape(QFrame.Shape.HLine)
-        self.line_24.setFrameShadow(QFrame.Shadow.Sunken)
-
-        self.gridLayout_2.addWidget(self.line_24, 8, 3, 1, 1)
-
-        self.ODMRWaterfallLockInSens = QComboBox(self.scrollAreaWidgetContents_4)
-        self.ODMRWaterfallLockInSens.setObjectName(u"ODMRWaterfallLockInSens")
-
-        self.gridLayout_2.addWidget(self.ODMRWaterfallLockInSens, 1, 1, 1, 1)
-
-        self.line_26 = QFrame(self.scrollAreaWidgetContents_4)
-        self.line_26.setObjectName(u"line_26")
-        self.line_26.setFrameShape(QFrame.Shape.HLine)
-        self.line_26.setFrameShadow(QFrame.Shadow.Sunken)
-
-        self.gridLayout_2.addWidget(self.line_26, 12, 1, 1, 1)
-
-        self.line_17 = QFrame(self.scrollAreaWidgetContents_4)
-        self.line_17.setObjectName(u"line_17")
-        self.line_17.setFrameShape(QFrame.Shape.HLine)
-        self.line_17.setFrameShadow(QFrame.Shadow.Sunken)
-
-        self.gridLayout_2.addWidget(self.line_17, 4, 0, 1, 1)
-
-        self.ODMRWaterfallLockInSampleRate = QComboBox(self.scrollAreaWidgetContents_4)
-        self.ODMRWaterfallLockInSampleRate.setObjectName(u"ODMRWaterfallLockInSampleRate")
-
-        self.gridLayout_2.addWidget(self.ODMRWaterfallLockInSampleRate, 2, 3, 1, 1)
-
-        self.verticalSpacer_3 = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
-
-        self.gridLayout_2.addItem(self.verticalSpacer_3, 15, 0, 1, 1)
-
-        self.ODMRWaterfallSweeperSelection = QComboBox(self.scrollAreaWidgetContents_4)
-        self.ODMRWaterfallSweeperSelection.setObjectName(u"ODMRWaterfallSweeperSelection")
-
-        self.gridLayout_2.addWidget(self.ODMRWaterfallSweeperSelection, 5, 1, 1, 1)
-
-        self.ODMRWaterfallDisplay1 = QComboBox(self.scrollAreaWidgetContents_4)
-        self.ODMRWaterfallDisplay1.setObjectName(u"ODMRWaterfallDisplay1")
-
-        self.gridLayout_2.addWidget(self.ODMRWaterfallDisplay1, 3, 1, 1, 1)
+        self.gridLayout_2.addWidget(self.ODMRWaterfallWorstTimeLabel, 16, 3, 1, 1)
 
         self.ODMRWaterfallDisplay2 = QComboBox(self.scrollAreaWidgetContents_4)
         self.ODMRWaterfallDisplay2.setObjectName(u"ODMRWaterfallDisplay2")
 
         self.gridLayout_2.addWidget(self.ODMRWaterfallDisplay2, 3, 3, 1, 1)
 
-        self.ODMRWaterfallLockInTau = QComboBox(self.scrollAreaWidgetContents_4)
-        self.ODMRWaterfallLockInTau.setObjectName(u"ODMRWaterfallLockInTau")
-        sizePolicy6.setHeightForWidth(self.ODMRWaterfallLockInTau.sizePolicy().hasHeightForWidth())
-        self.ODMRWaterfallLockInTau.setSizePolicy(sizePolicy6)
+        self.label_45 = QLabel(self.scrollAreaWidgetContents_4)
+        self.label_45.setObjectName(u"label_45")
 
-        self.gridLayout_2.addWidget(self.ODMRWaterfallLockInTau, 1, 3, 1, 1)
-
-        self.label_41 = QLabel(self.scrollAreaWidgetContents_4)
-        self.label_41.setObjectName(u"label_41")
-
-        self.gridLayout_2.addWidget(self.label_41, 10, 0, 1, 1)
-
-        self.ODMRWaterfallLockInFreq = QDoubleSpinBox(self.scrollAreaWidgetContents_4)
-        self.ODMRWaterfallLockInFreq.setObjectName(u"ODMRWaterfallLockInFreq")
-        self.ODMRWaterfallLockInFreq.setMaximum(10000.000000000000000)
-        self.ODMRWaterfallLockInFreq.setStepType(QAbstractSpinBox.StepType.AdaptiveDecimalStepType)
-
-        self.gridLayout_2.addWidget(self.ODMRWaterfallLockInFreq, 2, 1, 1, 1)
-
-        self.label_38 = QLabel(self.scrollAreaWidgetContents_4)
-        self.label_38.setObjectName(u"label_38")
-
-        self.gridLayout_2.addWidget(self.label_38, 7, 2, 1, 1)
-
-        self.ODMRWaterfallDisplay2Radio = QRadioButton(self.scrollAreaWidgetContents_4)
-        self.ODMRWaterfallDisplay2Radio.setObjectName(u"ODMRWaterfallDisplay2Radio")
-
-        self.gridLayout_2.addWidget(self.ODMRWaterfallDisplay2Radio, 3, 2, 1, 1)
-
-        self.ODMRWaterfallVoltage = QDoubleSpinBox(self.scrollAreaWidgetContents_4)
-        self.ODMRWaterfallVoltage.setObjectName(u"ODMRWaterfallVoltage")
-
-        self.gridLayout_2.addWidget(self.ODMRWaterfallVoltage, 11, 3, 1, 1)
-
-        self.ODMRWaterfallPowerSteps = QSpinBox(self.scrollAreaWidgetContents_4)
-        self.ODMRWaterfallPowerSteps.setObjectName(u"ODMRWaterfallPowerSteps")
-        self.ODMRWaterfallPowerSteps.setMinimum(1)
-        self.ODMRWaterfallPowerSteps.setMaximum(10000)
-        self.ODMRWaterfallPowerSteps.setValue(2)
-
-        self.gridLayout_2.addWidget(self.ODMRWaterfallPowerSteps, 11, 1, 1, 1)
-
-        self.line_27 = QFrame(self.scrollAreaWidgetContents_4)
-        self.line_27.setObjectName(u"line_27")
-        self.line_27.setFrameShape(QFrame.Shape.HLine)
-        self.line_27.setFrameShadow(QFrame.Shadow.Sunken)
-
-        self.gridLayout_2.addWidget(self.line_27, 12, 2, 1, 1)
-
-        self.ODMRWaterfallTotalResolutionLabel = QLabel(self.scrollAreaWidgetContents_4)
-        self.ODMRWaterfallTotalResolutionLabel.setObjectName(u"ODMRWaterfallTotalResolutionLabel")
-
-        self.gridLayout_2.addWidget(self.ODMRWaterfallTotalResolutionLabel, 13, 3, 1, 1)
-
-        self.ODMRWaterfallSweepPower = QDoubleSpinBox(self.scrollAreaWidgetContents_4)
-        self.ODMRWaterfallSweepPower.setObjectName(u"ODMRWaterfallSweepPower")
-        self.ODMRWaterfallSweepPower.setDecimals(1)
-
-        self.gridLayout_2.addWidget(self.ODMRWaterfallSweepPower, 7, 1, 1, 1)
-
-        self.label_32 = QLabel(self.scrollAreaWidgetContents_4)
-        self.label_32.setObjectName(u"label_32")
-
-        self.gridLayout_2.addWidget(self.label_32, 5, 0, 1, 1)
-
-        self.label_36 = QLabel(self.scrollAreaWidgetContents_4)
-        self.label_36.setObjectName(u"label_36")
-
-        self.gridLayout_2.addWidget(self.label_36, 6, 0, 1, 1)
-
-        self.line_23 = QFrame(self.scrollAreaWidgetContents_4)
-        self.line_23.setObjectName(u"line_23")
-        self.line_23.setFrameShape(QFrame.Shape.HLine)
-        self.line_23.setFrameShadow(QFrame.Shadow.Sunken)
-
-        self.gridLayout_2.addWidget(self.line_23, 8, 2, 1, 1)
-
-        self.label_46 = QLabel(self.scrollAreaWidgetContents_4)
-        self.label_46.setObjectName(u"label_46")
-
-        self.gridLayout_2.addWidget(self.label_46, 13, 2, 1, 1)
-
-        self.label_42 = QLabel(self.scrollAreaWidgetContents_4)
-        self.label_42.setObjectName(u"label_42")
-
-        self.gridLayout_2.addWidget(self.label_42, 11, 0, 1, 1)
-
-        self.ODMRWaterfallSweepResolutionLabel = QLabel(self.scrollAreaWidgetContents_4)
-        self.ODMRWaterfallSweepResolutionLabel.setObjectName(u"ODMRWaterfallSweepResolutionLabel")
-
-        self.gridLayout_2.addWidget(self.ODMRWaterfallSweepResolutionLabel, 13, 1, 1, 1)
-
-        self.label_39 = QLabel(self.scrollAreaWidgetContents_4)
-        self.label_39.setObjectName(u"label_39")
-
-        self.gridLayout_2.addWidget(self.label_39, 6, 2, 1, 1)
-
-        self.label_34 = QLabel(self.scrollAreaWidgetContents_4)
-        self.label_34.setObjectName(u"label_34")
-
-        self.gridLayout_2.addWidget(self.label_34, 1, 2, 1, 1)
-
-        self.ODMRWaterfallSweepTime = QDoubleSpinBox(self.scrollAreaWidgetContents_4)
-        self.ODMRWaterfallSweepTime.setObjectName(u"ODMRWaterfallSweepTime")
-
-        self.gridLayout_2.addWidget(self.ODMRWaterfallSweepTime, 7, 3, 1, 1)
-
-        self.ODMRWaterfallDisplay1Radio = QRadioButton(self.scrollAreaWidgetContents_4)
-        self.ODMRWaterfallDisplay1Radio.setObjectName(u"ODMRWaterfallDisplay1Radio")
-        self.ODMRWaterfallDisplay1Radio.setChecked(True)
-
-        self.gridLayout_2.addWidget(self.ODMRWaterfallDisplay1Radio, 3, 0, 1, 1)
-
-        self.label_30 = QLabel(self.scrollAreaWidgetContents_4)
-        self.label_30.setObjectName(u"label_30")
-
-        self.gridLayout_2.addWidget(self.label_30, 1, 0, 1, 1)
+        self.gridLayout_2.addWidget(self.label_45, 15, 0, 1, 1)
 
         self.line_21 = QFrame(self.scrollAreaWidgetContents_4)
         self.line_21.setObjectName(u"line_21")
@@ -995,30 +767,116 @@ class Ui_MainWindow(object):
 
         self.gridLayout_2.addWidget(self.line_21, 8, 0, 1, 1)
 
-        self.ODMRWaterfallStartCurrent = QDoubleSpinBox(self.scrollAreaWidgetContents_4)
-        self.ODMRWaterfallStartCurrent.setObjectName(u"ODMRWaterfallStartCurrent")
-        self.ODMRWaterfallStartCurrent.setDecimals(3)
+        self.label_37 = QLabel(self.scrollAreaWidgetContents_4)
+        self.label_37.setObjectName(u"label_37")
 
-        self.gridLayout_2.addWidget(self.ODMRWaterfallStartCurrent, 10, 1, 1, 1)
+        self.gridLayout_2.addWidget(self.label_37, 7, 0, 1, 1)
 
-        self.ODMRWaterfallLockInSelection = QComboBox(self.scrollAreaWidgetContents_4)
-        self.ODMRWaterfallLockInSelection.setObjectName(u"ODMRWaterfallLockInSelection")
-        sizePolicy6.setHeightForWidth(self.ODMRWaterfallLockInSelection.sizePolicy().hasHeightForWidth())
-        self.ODMRWaterfallLockInSelection.setSizePolicy(sizePolicy6)
+        self.ODMRWaterfallPSUSelection = QComboBox(self.scrollAreaWidgetContents_4)
+        self.ODMRWaterfallPSUSelection.setObjectName(u"ODMRWaterfallPSUSelection")
 
-        self.gridLayout_2.addWidget(self.ODMRWaterfallLockInSelection, 0, 1, 1, 1)
+        self.gridLayout_2.addWidget(self.ODMRWaterfallPSUSelection, 9, 1, 1, 1)
 
-        self.line_28 = QFrame(self.scrollAreaWidgetContents_4)
-        self.line_28.setObjectName(u"line_28")
-        self.line_28.setFrameShape(QFrame.Shape.HLine)
-        self.line_28.setFrameShadow(QFrame.Shadow.Sunken)
+        self.label_39 = QLabel(self.scrollAreaWidgetContents_4)
+        self.label_39.setObjectName(u"label_39")
 
-        self.gridLayout_2.addWidget(self.line_28, 12, 3, 1, 1)
+        self.gridLayout_2.addWidget(self.label_39, 6, 2, 1, 1)
 
         self.ODMRWaterfallSweepEnd = QDoubleSpinBox(self.scrollAreaWidgetContents_4)
         self.ODMRWaterfallSweepEnd.setObjectName(u"ODMRWaterfallSweepEnd")
 
         self.gridLayout_2.addWidget(self.ODMRWaterfallSweepEnd, 6, 3, 1, 1)
+
+        self.ODMRWaterfallSweepPower = QDoubleSpinBox(self.scrollAreaWidgetContents_4)
+        self.ODMRWaterfallSweepPower.setObjectName(u"ODMRWaterfallSweepPower")
+        self.ODMRWaterfallSweepPower.setDecimals(1)
+
+        self.gridLayout_2.addWidget(self.ODMRWaterfallSweepPower, 7, 1, 1, 1)
+
+        self.label_40 = QLabel(self.scrollAreaWidgetContents_4)
+        self.label_40.setObjectName(u"label_40")
+
+        self.gridLayout_2.addWidget(self.label_40, 9, 0, 1, 1)
+
+        self.line_23 = QFrame(self.scrollAreaWidgetContents_4)
+        self.line_23.setObjectName(u"line_23")
+        self.line_23.setFrameShape(QFrame.Shape.HLine)
+        self.line_23.setFrameShadow(QFrame.Shadow.Sunken)
+
+        self.gridLayout_2.addWidget(self.line_23, 8, 2, 1, 1)
+
+        self.verticalSpacer_3 = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
+
+        self.gridLayout_2.addItem(self.verticalSpacer_3, 17, 0, 1, 1)
+
+        self.line_26 = QFrame(self.scrollAreaWidgetContents_4)
+        self.line_26.setObjectName(u"line_26")
+        self.line_26.setFrameShape(QFrame.Shape.HLine)
+        self.line_26.setFrameShadow(QFrame.Shadow.Sunken)
+
+        self.gridLayout_2.addWidget(self.line_26, 14, 1, 1, 1)
+
+        self.ODMRWaterfallVoltage = QDoubleSpinBox(self.scrollAreaWidgetContents_4)
+        self.ODMRWaterfallVoltage.setObjectName(u"ODMRWaterfallVoltage")
+
+        self.gridLayout_2.addWidget(self.ODMRWaterfallVoltage, 11, 3, 1, 1)
+
+        self.label_30 = QLabel(self.scrollAreaWidgetContents_4)
+        self.label_30.setObjectName(u"label_30")
+
+        self.gridLayout_2.addWidget(self.label_30, 1, 0, 1, 1)
+
+        self.ODMRWaterfallLockInSampleRate = QComboBox(self.scrollAreaWidgetContents_4)
+        self.ODMRWaterfallLockInSampleRate.setObjectName(u"ODMRWaterfallLockInSampleRate")
+
+        self.gridLayout_2.addWidget(self.ODMRWaterfallLockInSampleRate, 2, 3, 1, 1)
+
+        self.line_17 = QFrame(self.scrollAreaWidgetContents_4)
+        self.line_17.setObjectName(u"line_17")
+        self.line_17.setFrameShape(QFrame.Shape.HLine)
+        self.line_17.setFrameShadow(QFrame.Shadow.Sunken)
+
+        self.gridLayout_2.addWidget(self.line_17, 4, 0, 1, 1)
+
+        self.label_42 = QLabel(self.scrollAreaWidgetContents_4)
+        self.label_42.setObjectName(u"label_42")
+
+        self.gridLayout_2.addWidget(self.label_42, 11, 0, 1, 1)
+
+        self.ODMRWaterfallExpectedTimeLabel = QLabel(self.scrollAreaWidgetContents_4)
+        self.ODMRWaterfallExpectedTimeLabel.setObjectName(u"ODMRWaterfallExpectedTimeLabel")
+
+        self.gridLayout_2.addWidget(self.ODMRWaterfallExpectedTimeLabel, 16, 1, 1, 1)
+
+        self.line_18 = QFrame(self.scrollAreaWidgetContents_4)
+        self.line_18.setObjectName(u"line_18")
+        self.line_18.setFrameShape(QFrame.Shape.HLine)
+        self.line_18.setFrameShadow(QFrame.Shadow.Sunken)
+
+        self.gridLayout_2.addWidget(self.line_18, 4, 1, 1, 1)
+
+        self.ODMRWaterfallLockInSens = QComboBox(self.scrollAreaWidgetContents_4)
+        self.ODMRWaterfallLockInSens.setObjectName(u"ODMRWaterfallLockInSens")
+
+        self.gridLayout_2.addWidget(self.ODMRWaterfallLockInSens, 1, 1, 1, 1)
+
+        self.label_53 = QLabel(self.scrollAreaWidgetContents_4)
+        self.label_53.setObjectName(u"label_53")
+
+        self.gridLayout_2.addWidget(self.label_53, 12, 0, 1, 1)
+
+        self.line_20 = QFrame(self.scrollAreaWidgetContents_4)
+        self.line_20.setObjectName(u"line_20")
+        self.line_20.setFrameShape(QFrame.Shape.HLine)
+        self.line_20.setFrameShadow(QFrame.Shadow.Sunken)
+
+        self.gridLayout_2.addWidget(self.line_20, 4, 3, 1, 1)
+
+        self.ODMRWaterfallDisplay1Radio = QRadioButton(self.scrollAreaWidgetContents_4)
+        self.ODMRWaterfallDisplay1Radio.setObjectName(u"ODMRWaterfallDisplay1Radio")
+        self.ODMRWaterfallDisplay1Radio.setChecked(True)
+
+        self.gridLayout_2.addWidget(self.ODMRWaterfallDisplay1Radio, 3, 0, 1, 1)
 
         self.ODMRWaterfallEndCurrent = QDoubleSpinBox(self.scrollAreaWidgetContents_4)
         self.ODMRWaterfallEndCurrent.setObjectName(u"ODMRWaterfallEndCurrent")
@@ -1031,25 +889,222 @@ class Ui_MainWindow(object):
 
         self.gridLayout_2.addWidget(self.label_31, 0, 0, 1, 1)
 
+        self.line_24 = QFrame(self.scrollAreaWidgetContents_4)
+        self.line_24.setObjectName(u"line_24")
+        self.line_24.setFrameShape(QFrame.Shape.HLine)
+        self.line_24.setFrameShadow(QFrame.Shadow.Sunken)
+
+        self.gridLayout_2.addWidget(self.line_24, 8, 3, 1, 1)
+
+        self.label_41 = QLabel(self.scrollAreaWidgetContents_4)
+        self.label_41.setObjectName(u"label_41")
+
+        self.gridLayout_2.addWidget(self.label_41, 10, 0, 1, 1)
+
+        self.line_25 = QFrame(self.scrollAreaWidgetContents_4)
+        self.line_25.setObjectName(u"line_25")
+        self.line_25.setFrameShape(QFrame.Shape.HLine)
+        self.line_25.setFrameShadow(QFrame.Shadow.Sunken)
+
+        self.gridLayout_2.addWidget(self.line_25, 14, 0, 1, 1)
+
+        self.ODMRWaterfallSweepStart = QDoubleSpinBox(self.scrollAreaWidgetContents_4)
+        self.ODMRWaterfallSweepStart.setObjectName(u"ODMRWaterfallSweepStart")
+
+        self.gridLayout_2.addWidget(self.ODMRWaterfallSweepStart, 6, 1, 1, 1)
+
+        self.label_46 = QLabel(self.scrollAreaWidgetContents_4)
+        self.label_46.setObjectName(u"label_46")
+
+        self.gridLayout_2.addWidget(self.label_46, 15, 2, 1, 1)
+
+        self.line_19 = QFrame(self.scrollAreaWidgetContents_4)
+        self.line_19.setObjectName(u"line_19")
+        self.line_19.setFrameShape(QFrame.Shape.HLine)
+        self.line_19.setFrameShadow(QFrame.Shadow.Sunken)
+
+        self.gridLayout_2.addWidget(self.line_19, 4, 2, 1, 1)
+
+        self.line_22 = QFrame(self.scrollAreaWidgetContents_4)
+        self.line_22.setObjectName(u"line_22")
+        self.line_22.setFrameShape(QFrame.Shape.HLine)
+        self.line_22.setFrameShadow(QFrame.Shadow.Sunken)
+
+        self.gridLayout_2.addWidget(self.line_22, 8, 1, 1, 1)
+
+        self.label_38 = QLabel(self.scrollAreaWidgetContents_4)
+        self.label_38.setObjectName(u"label_38")
+
+        self.gridLayout_2.addWidget(self.label_38, 7, 2, 1, 1)
+
+        self.ODMRWaterfallTotalResolutionLabel = QLabel(self.scrollAreaWidgetContents_4)
+        self.ODMRWaterfallTotalResolutionLabel.setObjectName(u"ODMRWaterfallTotalResolutionLabel")
+
+        self.gridLayout_2.addWidget(self.ODMRWaterfallTotalResolutionLabel, 15, 3, 1, 1)
+
         self.label_51 = QLabel(self.scrollAreaWidgetContents_4)
         self.label_51.setObjectName(u"label_51")
 
-        self.gridLayout_2.addWidget(self.label_51, 14, 0, 1, 1)
+        self.gridLayout_2.addWidget(self.label_51, 16, 0, 1, 1)
 
-        self.ODMRWaterfallIdealTimeLabel = QLabel(self.scrollAreaWidgetContents_4)
-        self.ODMRWaterfallIdealTimeLabel.setObjectName(u"ODMRWaterfallIdealTimeLabel")
+        self.line_28 = QFrame(self.scrollAreaWidgetContents_4)
+        self.line_28.setObjectName(u"line_28")
+        self.line_28.setFrameShape(QFrame.Shape.HLine)
+        self.line_28.setFrameShadow(QFrame.Shadow.Sunken)
 
-        self.gridLayout_2.addWidget(self.ODMRWaterfallIdealTimeLabel, 14, 1, 1, 1)
+        self.gridLayout_2.addWidget(self.line_28, 14, 3, 1, 1)
+
+        self.ODMRWaterfallLockInFreq = QDoubleSpinBox(self.scrollAreaWidgetContents_4)
+        self.ODMRWaterfallLockInFreq.setObjectName(u"ODMRWaterfallLockInFreq")
+        self.ODMRWaterfallLockInFreq.setMaximum(10000.000000000000000)
+        self.ODMRWaterfallLockInFreq.setStepType(QAbstractSpinBox.StepType.AdaptiveDecimalStepType)
+
+        self.gridLayout_2.addWidget(self.ODMRWaterfallLockInFreq, 2, 1, 1, 1)
+
+        self.label_33 = QLabel(self.scrollAreaWidgetContents_4)
+        self.label_33.setObjectName(u"label_33")
+
+        self.gridLayout_2.addWidget(self.label_33, 2, 0, 1, 1)
+
+        self.label_44 = QLabel(self.scrollAreaWidgetContents_4)
+        self.label_44.setObjectName(u"label_44")
+
+        self.gridLayout_2.addWidget(self.label_44, 11, 2, 1, 1)
+
+        self.line_27 = QFrame(self.scrollAreaWidgetContents_4)
+        self.line_27.setObjectName(u"line_27")
+        self.line_27.setFrameShape(QFrame.Shape.HLine)
+        self.line_27.setFrameShadow(QFrame.Shadow.Sunken)
+
+        self.gridLayout_2.addWidget(self.line_27, 14, 2, 1, 1)
+
+        self.label_32 = QLabel(self.scrollAreaWidgetContents_4)
+        self.label_32.setObjectName(u"label_32")
+
+        self.gridLayout_2.addWidget(self.label_32, 5, 0, 1, 1)
+
+        self.ODMRWaterfallSweepResolutionLabel = QLabel(self.scrollAreaWidgetContents_4)
+        self.ODMRWaterfallSweepResolutionLabel.setObjectName(u"ODMRWaterfallSweepResolutionLabel")
+
+        self.gridLayout_2.addWidget(self.ODMRWaterfallSweepResolutionLabel, 15, 1, 1, 1)
+
+        self.label_35 = QLabel(self.scrollAreaWidgetContents_4)
+        self.label_35.setObjectName(u"label_35")
+
+        self.gridLayout_2.addWidget(self.label_35, 2, 2, 1, 1)
+
+        self.ODMRWaterfallLockInTau = QComboBox(self.scrollAreaWidgetContents_4)
+        self.ODMRWaterfallLockInTau.setObjectName(u"ODMRWaterfallLockInTau")
+        sizePolicy6.setHeightForWidth(self.ODMRWaterfallLockInTau.sizePolicy().hasHeightForWidth())
+        self.ODMRWaterfallLockInTau.setSizePolicy(sizePolicy6)
+
+        self.gridLayout_2.addWidget(self.ODMRWaterfallLockInTau, 1, 3, 1, 1)
+
+        self.label_54 = QLabel(self.scrollAreaWidgetContents_4)
+        self.label_54.setObjectName(u"label_54")
+
+        self.gridLayout_2.addWidget(self.label_54, 12, 2, 1, 1)
+
+        self.ODMRWaterfallPowerSteps = QSpinBox(self.scrollAreaWidgetContents_4)
+        self.ODMRWaterfallPowerSteps.setObjectName(u"ODMRWaterfallPowerSteps")
+        self.ODMRWaterfallPowerSteps.setMinimum(1)
+        self.ODMRWaterfallPowerSteps.setMaximum(10000)
+        self.ODMRWaterfallPowerSteps.setValue(2)
+
+        self.gridLayout_2.addWidget(self.ODMRWaterfallPowerSteps, 11, 1, 1, 1)
+
+        self.ODMRWaterfallLockInSelection = QComboBox(self.scrollAreaWidgetContents_4)
+        self.ODMRWaterfallLockInSelection.setObjectName(u"ODMRWaterfallLockInSelection")
+        sizePolicy6.setHeightForWidth(self.ODMRWaterfallLockInSelection.sizePolicy().hasHeightForWidth())
+        self.ODMRWaterfallLockInSelection.setSizePolicy(sizePolicy6)
+
+        self.gridLayout_2.addWidget(self.ODMRWaterfallLockInSelection, 0, 1, 1, 1)
+
+        self.ODMRWaterfallStartCurrent = QDoubleSpinBox(self.scrollAreaWidgetContents_4)
+        self.ODMRWaterfallStartCurrent.setObjectName(u"ODMRWaterfallStartCurrent")
+        self.ODMRWaterfallStartCurrent.setDecimals(3)
+
+        self.gridLayout_2.addWidget(self.ODMRWaterfallStartCurrent, 10, 1, 1, 1)
 
         self.label_52 = QLabel(self.scrollAreaWidgetContents_4)
         self.label_52.setObjectName(u"label_52")
 
-        self.gridLayout_2.addWidget(self.label_52, 14, 2, 1, 1)
+        self.gridLayout_2.addWidget(self.label_52, 16, 2, 1, 1)
 
-        self.ODMRWaterfallTotalTimeLabel = QLabel(self.scrollAreaWidgetContents_4)
-        self.ODMRWaterfallTotalTimeLabel.setObjectName(u"ODMRWaterfallTotalTimeLabel")
+        self.ODMRWaterfallSweeperSelection = QComboBox(self.scrollAreaWidgetContents_4)
+        self.ODMRWaterfallSweeperSelection.setObjectName(u"ODMRWaterfallSweeperSelection")
 
-        self.gridLayout_2.addWidget(self.ODMRWaterfallTotalTimeLabel, 14, 3, 1, 1)
+        self.gridLayout_2.addWidget(self.ODMRWaterfallSweeperSelection, 5, 1, 1, 1)
+
+        self.label_36 = QLabel(self.scrollAreaWidgetContents_4)
+        self.label_36.setObjectName(u"label_36")
+
+        self.gridLayout_2.addWidget(self.label_36, 6, 0, 1, 1)
+
+        self.ODMRWaterfallSweepTime = QDoubleSpinBox(self.scrollAreaWidgetContents_4)
+        self.ODMRWaterfallSweepTime.setObjectName(u"ODMRWaterfallSweepTime")
+
+        self.gridLayout_2.addWidget(self.ODMRWaterfallSweepTime, 7, 3, 1, 1)
+
+        self.label_43 = QLabel(self.scrollAreaWidgetContents_4)
+        self.label_43.setObjectName(u"label_43")
+
+        self.gridLayout_2.addWidget(self.label_43, 10, 2, 1, 1)
+
+        self.ODMRWaterfallDisplay1 = QComboBox(self.scrollAreaWidgetContents_4)
+        self.ODMRWaterfallDisplay1.setObjectName(u"ODMRWaterfallDisplay1")
+
+        self.gridLayout_2.addWidget(self.ODMRWaterfallDisplay1, 3, 1, 1, 1)
+
+        self.label_34 = QLabel(self.scrollAreaWidgetContents_4)
+        self.label_34.setObjectName(u"label_34")
+
+        self.gridLayout_2.addWidget(self.label_34, 1, 2, 1, 1)
+
+        self.label_55 = QLabel(self.scrollAreaWidgetContents_4)
+        self.label_55.setObjectName(u"label_55")
+
+        self.gridLayout_2.addWidget(self.label_55, 13, 0, 1, 1)
+
+        self.label_56 = QLabel(self.scrollAreaWidgetContents_4)
+        self.label_56.setObjectName(u"label_56")
+
+        self.gridLayout_2.addWidget(self.label_56, 13, 2, 1, 1)
+
+        self.ODMRWaterfallShutdownInterval = QDoubleSpinBox(self.scrollAreaWidgetContents_4)
+        self.ODMRWaterfallShutdownInterval.setObjectName(u"ODMRWaterfallShutdownInterval")
+        self.ODMRWaterfallShutdownInterval.setDecimals(3)
+        self.ODMRWaterfallShutdownInterval.setMinimum(0.100000000000000)
+        self.ODMRWaterfallShutdownInterval.setMaximum(10.000000000000000)
+        self.ODMRWaterfallShutdownInterval.setValue(0.200000000000000)
+
+        self.gridLayout_2.addWidget(self.ODMRWaterfallShutdownInterval, 12, 3, 1, 1)
+
+        self.ODMRWaterfallInitialSettleTime = QDoubleSpinBox(self.scrollAreaWidgetContents_4)
+        self.ODMRWaterfallInitialSettleTime.setObjectName(u"ODMRWaterfallInitialSettleTime")
+        self.ODMRWaterfallInitialSettleTime.setDecimals(3)
+        self.ODMRWaterfallInitialSettleTime.setMinimum(0.100000000000000)
+        self.ODMRWaterfallInitialSettleTime.setMaximum(100.000000000000000)
+        self.ODMRWaterfallInitialSettleTime.setValue(10.000000000000000)
+
+        self.gridLayout_2.addWidget(self.ODMRWaterfallInitialSettleTime, 13, 3, 1, 1)
+
+        self.ODMRWaterfallSettleTime = QDoubleSpinBox(self.scrollAreaWidgetContents_4)
+        self.ODMRWaterfallSettleTime.setObjectName(u"ODMRWaterfallSettleTime")
+        self.ODMRWaterfallSettleTime.setDecimals(3)
+        self.ODMRWaterfallSettleTime.setMinimum(0.100000000000000)
+        self.ODMRWaterfallSettleTime.setMaximum(100.000000000000000)
+        self.ODMRWaterfallSettleTime.setValue(3.000000000000000)
+
+        self.gridLayout_2.addWidget(self.ODMRWaterfallSettleTime, 13, 1, 1, 1)
+
+        self.ODMRWaterfallShutdownStepSize = QDoubleSpinBox(self.scrollAreaWidgetContents_4)
+        self.ODMRWaterfallShutdownStepSize.setObjectName(u"ODMRWaterfallShutdownStepSize")
+        self.ODMRWaterfallShutdownStepSize.setDecimals(3)
+        self.ODMRWaterfallShutdownStepSize.setMaximum(10.000000000000000)
+        self.ODMRWaterfallShutdownStepSize.setValue(0.050000000000000)
+
+        self.gridLayout_2.addWidget(self.ODMRWaterfallShutdownStepSize, 12, 1, 1, 1)
 
         self.scrollArea_4.setWidget(self.scrollAreaWidgetContents_4)
 
@@ -1082,7 +1137,7 @@ class Ui_MainWindow(object):
         self.label_47 = QLabel(self.expODMRWaterfall)
         self.label_47.setObjectName(u"label_47")
 
-        self.formLayout_3.setWidget(0, QFormLayout.LabelRole, self.label_47)
+        self.formLayout_3.setWidget(1, QFormLayout.LabelRole, self.label_47)
 
         self.ODMRWaterfallSweepProgress = QProgressBar(self.expODMRWaterfall)
         self.ODMRWaterfallSweepProgress.setObjectName(u"ODMRWaterfallSweepProgress")
@@ -1091,12 +1146,12 @@ class Ui_MainWindow(object):
         self.ODMRWaterfallSweepProgress.setInvertedAppearance(False)
         self.ODMRWaterfallSweepProgress.setTextDirection(QProgressBar.Direction.TopToBottom)
 
-        self.formLayout_3.setWidget(0, QFormLayout.FieldRole, self.ODMRWaterfallSweepProgress)
+        self.formLayout_3.setWidget(1, QFormLayout.FieldRole, self.ODMRWaterfallSweepProgress)
 
         self.label_48 = QLabel(self.expODMRWaterfall)
         self.label_48.setObjectName(u"label_48")
 
-        self.formLayout_3.setWidget(1, QFormLayout.LabelRole, self.label_48)
+        self.formLayout_3.setWidget(2, QFormLayout.LabelRole, self.label_48)
 
         self.ODMRWaterfallTotalProgress = QProgressBar(self.expODMRWaterfall)
         self.ODMRWaterfallTotalProgress.setObjectName(u"ODMRWaterfallTotalProgress")
@@ -1104,7 +1159,7 @@ class Ui_MainWindow(object):
         self.ODMRWaterfallTotalProgress.setAlignment(Qt.AlignmentFlag.AlignLeading|Qt.AlignmentFlag.AlignLeft|Qt.AlignmentFlag.AlignVCenter)
         self.ODMRWaterfallTotalProgress.setTextVisible(False)
 
-        self.formLayout_3.setWidget(1, QFormLayout.FieldRole, self.ODMRWaterfallTotalProgress)
+        self.formLayout_3.setWidget(2, QFormLayout.FieldRole, self.ODMRWaterfallTotalProgress)
 
 
         self.verticalLayout_12.addLayout(self.formLayout_3)
@@ -1235,45 +1290,53 @@ class Ui_MainWindow(object):
         self.sweepAndLockExport.setText(QCoreApplication.translate("MainWindow", u"Export results", None))
         self.label_49.setText(QCoreApplication.translate("MainWindow", u"Sweep progress", None))
         self.label_50.setText(QCoreApplication.translate("MainWindow", u"Total progress", None))
-        self.label_44.setText(QCoreApplication.translate("MainWindow", u"Max. voltage", None))
-        self.label_43.setText(QCoreApplication.translate("MainWindow", u"End current", None))
-        self.label_37.setText(QCoreApplication.translate("MainWindow", u"Power", None))
-        self.label_45.setText(QCoreApplication.translate("MainWindow", u"Points/sweep", None))
-        self.label_33.setText(QCoreApplication.translate("MainWindow", u"Lock-in freq", None))
-        self.label_40.setText(QCoreApplication.translate("MainWindow", u"Power Supply", None))
-        self.ODMRWaterfallSweepStart.setSuffix(QCoreApplication.translate("MainWindow", u" GHz", None))
-        self.label_35.setText(QCoreApplication.translate("MainWindow", u"Sample rate", None))
-        self.label_41.setText(QCoreApplication.translate("MainWindow", u"Start current", None))
-        self.ODMRWaterfallLockInFreq.setSuffix(QCoreApplication.translate("MainWindow", u" Hz", None))
-        self.label_38.setText(QCoreApplication.translate("MainWindow", u"Sweep time", None))
         self.ODMRWaterfallDisplay2Radio.setText(QCoreApplication.translate("MainWindow", u"Display &2", None))
-        self.ODMRWaterfallVoltage.setSuffix(QCoreApplication.translate("MainWindow", u" V", None))
-        self.ODMRWaterfallTotalResolutionLabel.setText(QCoreApplication.translate("MainWindow", u"N/A", None))
-        self.ODMRWaterfallSweepPower.setSuffix(QCoreApplication.translate("MainWindow", u" dBm", None))
-        self.label_32.setText(QCoreApplication.translate("MainWindow", u"Sweeper", None))
-        self.label_36.setText(QCoreApplication.translate("MainWindow", u"Start freq.", None))
-        self.label_46.setText(QCoreApplication.translate("MainWindow", u"Resolution", None))
-        self.label_42.setText(QCoreApplication.translate("MainWindow", u"Steps", None))
-        self.ODMRWaterfallSweepResolutionLabel.setText(QCoreApplication.translate("MainWindow", u"N/A", None))
-        self.label_39.setText(QCoreApplication.translate("MainWindow", u"End freq.", None))
-        self.label_34.setText(QCoreApplication.translate("MainWindow", u"Time const.", None))
-        self.ODMRWaterfallSweepTime.setSuffix(QCoreApplication.translate("MainWindow", u" s", None))
-        self.ODMRWaterfallDisplay1Radio.setText(QCoreApplication.translate("MainWindow", u"Display &1", None))
-        self.label_30.setText(QCoreApplication.translate("MainWindow", u"Sensitivity", None))
-        self.ODMRWaterfallStartCurrent.setSuffix(QCoreApplication.translate("MainWindow", u" A", None))
+        self.ODMRWaterfallWorstTimeLabel.setText(QCoreApplication.translate("MainWindow", u"N/A", None))
+        self.label_45.setText(QCoreApplication.translate("MainWindow", u"Points/sweep", None))
+        self.label_37.setText(QCoreApplication.translate("MainWindow", u"Power", None))
+        self.label_39.setText(QCoreApplication.translate("MainWindow", u"End frequency", None))
         self.ODMRWaterfallSweepEnd.setSuffix(QCoreApplication.translate("MainWindow", u" GHz", None))
+        self.ODMRWaterfallSweepPower.setSuffix(QCoreApplication.translate("MainWindow", u" dBm", None))
+        self.label_40.setText(QCoreApplication.translate("MainWindow", u"Power Supply", None))
+        self.ODMRWaterfallVoltage.setSuffix(QCoreApplication.translate("MainWindow", u" V", None))
+        self.label_30.setText(QCoreApplication.translate("MainWindow", u"Sensitivity", None))
+        self.label_42.setText(QCoreApplication.translate("MainWindow", u"Steps", None))
+        self.ODMRWaterfallExpectedTimeLabel.setText(QCoreApplication.translate("MainWindow", u"N/A", None))
+        self.label_53.setText(QCoreApplication.translate("MainWindow", u"Shutdown step size", None))
+        self.ODMRWaterfallDisplay1Radio.setText(QCoreApplication.translate("MainWindow", u"Display &1", None))
         self.ODMRWaterfallEndCurrent.setSuffix(QCoreApplication.translate("MainWindow", u" A", None))
-        self.label_31.setText(QCoreApplication.translate("MainWindow", u"Lock-in", None))
+        self.label_31.setText(QCoreApplication.translate("MainWindow", u"Lock-In Amplifier", None))
+        self.label_41.setText(QCoreApplication.translate("MainWindow", u"Start current", None))
+        self.ODMRWaterfallSweepStart.setSuffix(QCoreApplication.translate("MainWindow", u" GHz", None))
+        self.label_46.setText(QCoreApplication.translate("MainWindow", u"Resolution", None))
+        self.label_38.setText(QCoreApplication.translate("MainWindow", u"Sweep time", None))
+        self.ODMRWaterfallTotalResolutionLabel.setText(QCoreApplication.translate("MainWindow", u"N/A", None))
 #if QT_CONFIG(tooltip)
-        self.label_51.setToolTip(QCoreApplication.translate("MainWindow", u"<html><head/><body><p>The time spent running sweeps</p></body></html>", None))
+        self.label_51.setToolTip(QCoreApplication.translate("MainWindow", u"<html><head/><body><p>Total measurement time including sweep time, PSU settle time and a 2 second wait before reading the lock-in. Does not include other blockers, such as the time it takes to read out the data from the instruments or the process of shutting down the power supply.</p></body></html>", None))
 #endif // QT_CONFIG(tooltip)
-        self.label_51.setText(QCoreApplication.translate("MainWindow", u"Ideal time", None))
-        self.ODMRWaterfallIdealTimeLabel.setText(QCoreApplication.translate("MainWindow", u"N/A", None))
+        self.label_51.setText(QCoreApplication.translate("MainWindow", u"Expected time", None))
+        self.ODMRWaterfallLockInFreq.setSuffix(QCoreApplication.translate("MainWindow", u" Hz", None))
+        self.label_33.setText(QCoreApplication.translate("MainWindow", u"Lock-in frequency", None))
+        self.label_44.setText(QCoreApplication.translate("MainWindow", u"Maximum voltage", None))
+        self.label_32.setText(QCoreApplication.translate("MainWindow", u"Sweeper", None))
+        self.ODMRWaterfallSweepResolutionLabel.setText(QCoreApplication.translate("MainWindow", u"N/A", None))
+        self.label_35.setText(QCoreApplication.translate("MainWindow", u"Sample rate", None))
+        self.label_54.setText(QCoreApplication.translate("MainWindow", u"Shutdown interval", None))
+        self.ODMRWaterfallStartCurrent.setSuffix(QCoreApplication.translate("MainWindow", u" A", None))
 #if QT_CONFIG(tooltip)
-        self.label_52.setToolTip(QCoreApplication.translate("MainWindow", u"<html><head/><body><p>The expected time for completing the measurement, including wait times</p></body></html>", None))
+        self.label_52.setToolTip(QCoreApplication.translate("MainWindow", u"<html><head/><body><p>Worst-case scenario where each sweep is held up for 10 more seconds.</p></body></html>", None))
 #endif // QT_CONFIG(tooltip)
-        self.label_52.setText(QCoreApplication.translate("MainWindow", u"Total time", None))
-        self.ODMRWaterfallTotalTimeLabel.setText(QCoreApplication.translate("MainWindow", u"TextLabel", None))
+        self.label_52.setText(QCoreApplication.translate("MainWindow", u"Worst time", None))
+        self.label_36.setText(QCoreApplication.translate("MainWindow", u"Start frequency", None))
+        self.ODMRWaterfallSweepTime.setSuffix(QCoreApplication.translate("MainWindow", u" s", None))
+        self.label_43.setText(QCoreApplication.translate("MainWindow", u"End current", None))
+        self.label_34.setText(QCoreApplication.translate("MainWindow", u"Time constant", None))
+        self.label_55.setText(QCoreApplication.translate("MainWindow", u"Settle time", None))
+        self.label_56.setText(QCoreApplication.translate("MainWindow", u"Initial settle time", None))
+        self.ODMRWaterfallShutdownInterval.setSuffix(QCoreApplication.translate("MainWindow", u" s", None))
+        self.ODMRWaterfallInitialSettleTime.setSuffix(QCoreApplication.translate("MainWindow", u" s", None))
+        self.ODMRWaterfallSettleTime.setSuffix(QCoreApplication.translate("MainWindow", u" s", None))
+        self.ODMRWaterfallShutdownStepSize.setSuffix(QCoreApplication.translate("MainWindow", u" A", None))
         self.ODMRWaterfallStart.setText(QCoreApplication.translate("MainWindow", u"Start measurement", None))
         self.ODMRWaterfallCancel.setText(QCoreApplication.translate("MainWindow", u"Cancel", None))
         self.ODMRWaterfallExport.setText(QCoreApplication.translate("MainWindow", u"Export results", None))
