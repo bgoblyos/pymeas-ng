@@ -1031,7 +1031,7 @@
                <property name="geometry">
                 <rect>
                  <x>0</x>
-                 <y>-88</y>
+                 <y>0</y>
                  <width>837</width>
                  <height>585</height>
                 </rect>
@@ -1056,6 +1056,9 @@
                 </item>
                 <item row="15" column="0">
                  <widget class="QLabel" name="label_45">
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The number of data points captured by the lock-in amplifier during a sweep. The maximum that the device can handle is displayed in brackets. If the memory fills up, the measurement will be padded with zeros. The memory is wiped between sweeps.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
                   <property name="text">
                    <string>Points/sweep</string>
                   </property>
@@ -1255,6 +1258,9 @@
                 </item>
                 <item row="15" column="2">
                  <widget class="QLabel" name="label_46">
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Total resolution of the resulting heatmap&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
                   <property name="text">
                    <string>Resolution</string>
                   </property>
@@ -1320,6 +1326,9 @@
                 </item>
                 <item row="2" column="0">
                  <widget class="QLabel" name="label_33">
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Frequency of the lock-in amplifier's internal oscillator. Set this to a random value that's not a multiple of any expected noise frequencies.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
                   <property name="text">
                    <string>Lock-in frequency</string>
                   </property>
@@ -1355,6 +1364,9 @@
                 </item>
                 <item row="2" column="2">
                  <widget class="QLabel" name="label_35">
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Number of measurements made per second&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
                   <property name="text">
                    <string>Sample rate</string>
                   </property>
