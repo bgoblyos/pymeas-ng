@@ -1,5 +1,6 @@
 import logging
 import numpy as np
+from math import copysign
 
 from PySide6.QtCore import QTimer
 
@@ -201,7 +202,7 @@ class ODMRWaterfall():
     def startSweep(self):
         # Read back PSU current after giving it time to settle
         if self.currents[self.currentCounter] != 0:
-            self.currents[self.currentCounter] = self.psu.getCurrent()
+            self.currents[self.currentCounter] = copysign(self.psu.getCurrent(), self.currents[self.currentCounter])
 
         # Start sweep
         self.sweeper.powerOn()
@@ -411,7 +412,7 @@ class ODMRWaterfall():
         current = self.psu.getCurrent()
         self.ui.ODMRWaterfallEndCurrent.setValue(current)
 
-        voltage = self.psu.getVoltage()
+        voltage = abs(self.psu.getVoltage())
         self.ui.ODMRWaterfallVoltage.setValue(voltage)
 
     def updateEstimates(self):
