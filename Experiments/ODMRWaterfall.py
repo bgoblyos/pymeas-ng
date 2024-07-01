@@ -38,7 +38,7 @@ class ODMRWaterfall():
         # Set up timer for waiting while the current settles
         self.PSUSettleTimer = QTimer()
         self.PSUSettleTimer.setInterval(5000)
-        self.PSUSettleTimer.timeout.connect(self.updatePSUCurrent)
+        self.PSUSettleTimer.timeout.connect(self.startSweep)
         self.PSUSettleTimer.setSingleShot(True)
 
         # Set up timer for gracefully stopping the power supply
@@ -154,9 +154,9 @@ class ODMRWaterfall():
         # Set total step count per run
         self.sweepSteps = 2*(np.ceil(self.sweepTime) + 1)
 
-        self.startSweep()
+        self.setupSweep()
 
-    def startSweep(self):
+    def setupSweep(self):
         # Set up power supply
         self.actualCurrent = self.currents[self.currentCounter]
 
@@ -188,10 +188,6 @@ class ODMRWaterfall():
         self.ui.ODMRWaterfallSweepProgress.setValue(0)
         self.sweepCounter = 0
 
-        # Start sweep
-        self.sweeper.powerOn()
-        self.sweeper.startSweep()
-
         #self.PSUSettleTimer.start()
         if self.currentCounter == 0:
             waitTime = round(1000 * self.ui.ODMRWaterfallInitialSettleTime.value())
@@ -202,11 +198,14 @@ class ODMRWaterfall():
         self.PSUSettleTimer.start()
         logging.info(f'Waiting {waitTime} ms for PSU current to settle')
 
-    def updatePSUCurrent(self):
-        logging.debug("updatePSUCurrent called")
+    def startSweep(self):
         # Read back PSU current after giving it time to settle
         if self.currents[self.currentCounter] != 0:
             self.currents[self.currentCounter] = self.psu.getCurrent()
+
+        # Start sweep
+        self.sweeper.powerOn()
+        self.sweeper.startSweep()
 
         self.timer.start()
         logging.info('Current settled\nStarting sweep')
@@ -277,7 +276,7 @@ class ODMRWaterfall():
 
         # Run again if we're not done yet
         if self.currentSteps > self.currentCounter:
-            self.startSweep()
+            self.setupSweep()
         else:
             # Else, turn off the power supply
             #self.psu.disableOutput()
@@ -447,7 +446,7 @@ class ODMRWaterfall():
         mincurrent = self.psu.currentRange[0]
 
         currentStep = self.ui.ODMRWaterfallShutdownStepSize.value()
-        waitTime = round(1000 * self.ui.ODMRWaterfallSHutdownInterval.value())
+        waitTime = round(1000 * self.ui.ODMRWaterfallShutdownInterval.value())
         self.PSUStopTimer.setInterval(waitTime)
 
         self.PSUStopCurrents = np.flip(np.arange(mincurrent, current, currentStep))
