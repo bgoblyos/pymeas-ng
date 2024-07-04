@@ -10,7 +10,7 @@ from PySide6.QtWidgets import QFileDialog
 def promptMultiExport(data, xaxis, yaxis, datatitle = 'data', xtitle = "xaxis", ytitle = "yaxis"):
     choice = QFileDialog.getSaveFileName(
             caption = "Test",
-            filter = "Zip archive (*.zip);;Numpy arrays (*.npz);;HDF5 file (*.h5 *.hdf5)")
+            filter = "Zip archive (*.zip);;Numpy arrays (*.npz)")
 
     fname = choice[0]
 
@@ -25,16 +25,11 @@ def promptMultiExport(data, xaxis, yaxis, datatitle = 'data', xtitle = "xaxis", 
             fname += '.zip'
 
         saveCSVZip(fname, [(data, datatitle), (xaxis, xtitle), (yaxis, ytitle)])
-    elif choice[1] == 'Numpy arrays (*.npz)':
+    else:
         if ext != 'npz':
             fname += '.npz'
 
         np.savez(fname, data=data, xaxis=xaxis, yaxis=yaxis)
-    elif choice[1] == 'HDF5 file (*.h5 *.hdf5)':
-        if ext != 'h5' and ext != 'hdf5':
-            fname += '.h5'
-
-        logging.warning('HDF5 saving is not implemented yet!')
 
 
 # Export multiple numpy arrays int CSV files and zip them
