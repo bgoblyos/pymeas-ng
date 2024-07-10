@@ -143,7 +143,7 @@ class SRCommon(Devices.Common.CommonInstrument):
         maxfreq = 1/tau
         # Iterate over the list in reverse
         for i in reversed(range(0, len(self.sampleFreqList))):
-            if self.sampleFreqList[i] < maxfreq:
+            if self.sampleFreqList[i] <= maxfreq:
                 return i
 
         print("No appropriate sample rate found, setting it to the lowest available.")

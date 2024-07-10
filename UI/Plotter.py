@@ -32,9 +32,6 @@ class Plotter():
             os.makedirs(self.quickSaveDir)
             logging.debug(f"Created {self.quickSaveDir}")
 
-
-        self.heatmap(np.random.rand(100,100))
-
     def clear(self):
         self.plt.clear()
         self.heatmapData = None

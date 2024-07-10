@@ -13,6 +13,9 @@ from time import sleep
 
 from Misc.Prefix import formatPrefix
 
+# Exporter
+from Misc.Exporter import promptSweepExport
+
 class StitchedSweep():
     def __init__(self, ui, devices, plotter):
 
@@ -20,8 +23,16 @@ class StitchedSweep():
         self.devices = devices
         self.plotter = plotter
 
+        # Initialize data
+        self.data1 = array([])
+        self.data2 = array([])
+        self.freqs = array([])
+
         # Connect start button
-        self.ui.sweepAndLockStart.clicked.connect(self.prepare)
+        self.ui.StitchedSweepStartButton.clicked.connect(self.prepare)
+
+        # Connect export button
+        self.ui.StitchedSweepExportButton.clicked.connect(self.export)
 
         # Set up timer for progress bar
         # (and for waiting until the sweep is done)
@@ -30,8 +41,8 @@ class StitchedSweep():
         self.timer.timeout.connect(self.updateProgress)
 
         # Reset progress bars
-        self.ui.sweepAndLockProgress.setValue(0)
-        self.ui.sweepAndLockTotalProgress.setValue(0)
+        self.ui.StitchedSweepSweepProgress.setValue(0)
+        self.ui.StitchedSweepTotalProgress.setValue(0)
 
         # Add devices to selection box
         for sweeper in self.devices["sweeper"]:
@@ -40,48 +51,76 @@ class StitchedSweep():
             self.ui.StitchedSweepLockInSelection.addItem(lockin)
 
         # Reset selections
-        self.ui.sweepAndLockSelectLockIn.setCurrentIndex(0)
-        self.ui.sweepAndLockSelectSweeper.setCurrentIndex(0)
+        self.ui.StitchedSweepLockInSelection.setCurrentIndex(0)
+        self.ui.StitchedSweepSweeperSelection.setCurrentIndex(0)
 
         # Read back instrument settings when the selection is changed
-        self.ui.sweepAndLockSelectLockIn.currentIndexChanged.connect(self.resetLockIn)
-        self.ui.sweepAndLockSelectSweeper.currentIndexChanged.connect(self.resetSweeper)
+        self.ui.StitchedSweepLockInSelection.currentIndexChanged.connect(self.resetLockIn)
+        self.ui.StitchedSweepSweeperSelection.currentIndexChanged.connect(self.resetSweeper)
 
         # Recalculate data point estimates when settings change
         self.ui.sweepAndLockSweepTime.valueChanged.connect(self.updateEstimates)
         self.ui.sweepAndLockSampleFreq.currentIndexChanged.connect(self.updateEstimates)
 
+        # Set up display selection checkboxes
+        self.ui.StitchedSweepDisp1Check.checkStateChanged.connect(self.display1Toggled)
+        self.display1Toggled()
+        self.ui.StitchedSweepDisp2Check.checkStateChanged.connect(self.display2Toggled)
+        self.display2Toggled()
+
+    def export(self):
+        promptSweepExport(self.freqs, self.data1, self.data2)
+
+    def display1Toggled(self):
+        if self.ui.StitchedSweepDisp1Check.isChecked():
+            self.ui.StitchedSweepDisp1Selection.setEnabled(True)
+        else:
+            self.ui.StitchedSweepDisp1Selection.setEnabled(False)
+
+    def display2Toggled(self):
+        if self.ui.StitchedSweepDisp2Check.isChecked():
+            self.ui.StitchedSweepDisp2Selection.setEnabled(True)
+        else:
+            self.ui.StitchedSweepDisp2Selection.setEnabled(False)
 
     def prepare(self):
-        logging.debug("Started Sweep and Lock-in measurement")
-        # Sweeper setup
-        sweepTime = self.ui.sweepAndLockSweepTime.value()
-        startFreq = self.ui.sweepAndLockStartFreq.value()
-        endFreq = self.ui.sweepAndLockEndFreq.value()
+        self.channel1 = self.ui.StitchedSweepDisp1Check.isChecked()
+        self.channel2 = self.ui.StitchedSweepDisp2Check.isChecked()
+        
+        if not (self.channel1 or self.channel2):
+            logging.warning("At least one channel must be enabled!")
+            return
+        
+        self.data1 = array([])
+        self.data2 = array([])
+        self.freqs = array([])
+        
+        #TODO: Disable start and enable cancel
 
-        self.sweeper.setupSweep(startFreq, endFreq, sweepTime)
+        logging.debug("Started Stitched Sweep measurement")
+       
+        self.numSweeps = self.ui.StitchedSweepNumSweeps.value()
 
-        # Update sweep time in case it got clamped
-        # From here on, we can use this value, as it's not changed
-        # until the end of the measurement
-        self.sweepTime = self.sweeper.readSweepTime()
+        # Sweeper parameters
+        self.sweepTime = self.ui.StitchedSweepSweepTime.value()
+        startFreq = self.ui.StitchedSweepStartFreq.value()
+        endFreq = self.ui.StitchedSweepEndFreq.value()
+        self.sweepFreqs = linspace(startFreq, endFreq, self.numSweeps + 1)
+        self.sweepCounter = 1
 
         # Set power level and turn off continous sweep
-        self.sweeper.setPowerLevel(self.ui.sweepAndLockPower.value())
+        self.sweeper.setPowerLevel(self.ui.StitchedSweepPower.value())
         self.sweeper.setContSweep(False)
 
         # Lock-in setup
-        freq = self.ui.sweepAndLockFreq.value()
+        freq = self.ui.StitchedSweepLockInFreq.value()
         self.lockin.setFreq(freq)
 
-        tau = self.ui.sweepAndLockTau.currentIndex()
+        tau = self.ui.StitchedSweepTau.currentIndex()
         self.lockin.setTau(tau)
 
-        sens = self.ui.sweepAndLockSens.currentIndex()
+        sens = self.ui.StitchedSweepSens.currentIndex()
         self.lockin.setSens(sens)
-
-        self.totalRuns = self.ui.sweepAndLockNumRuns.value()
-        self.currentRun = 1
 
         self.data1 = array([])
         self.data2 = array([])
@@ -90,8 +129,8 @@ class StitchedSweep():
         self.curve2 = self.plotter.emptyPlot("g")
 
         # Reset total progress bar
-        self.ui.sweepAndLockTotalProgress.setRange(0, self.totalRuns)
-        self.ui.sweepAndLockTotalProgress.setValue(0)
+        self.ui.StitchedSweepTotalProgress.setRange(0, self.numSweeps)
+        self.ui.StitchedSweepTotalProgress.setValue(0)
 
         # Set total step count per run
         self.totalSteps = 2*(ceil(self.sweepTime) + 1)
@@ -99,14 +138,24 @@ class StitchedSweep():
         self.startRun()
 
     def startRun(self):
+        startFreq = self.sweepFreqs[self.sweepCounter - 1]
+        endFreq = self.sweepFreqs[self.sweepCounter]
 
-        sampleFreq = self.ui.sweepAndLockSampleRate.currentIndex()
+        # TODO: Update these
+        self.sweeper.setupSweep(startFreq, endFreq, self.sweepTime)
+
+        # Update sweep time in case it got clamped
+        # From here on, we can use this value, as it's not changed
+        # until the end of the measurement
+        self.sweepTime = self.sweeper.readSweepTime()
+
+        sampleFreq = self.ui.StitchedSweepSampleRate.currentIndex()
         (self.numPoints, self.padding) = self.lockin.armTimedMeasurement(self.sweepTime, sampleFreq)
         logging.debug(f"{self.numPoints} points will be measured")
 
         # Reset progress bar and step counter
-        self.ui.sweepAndLockProgress.setRange(0, self.totalSteps)
-        self.ui.sweepAndLockProgress.setValue(0)
+        self.ui.StitchedSweepSweepProgress.setRange(0, self.totalSteps)
+        self.ui.StitchedSweepSweepProgress.setValue(0)
         self.currentStep = 0
 
         # Start sweep
@@ -123,8 +172,7 @@ class StitchedSweep():
         else:
             # Increment counter and progress bar
             self.currentStep += 1
-            self.ui.sweepAndLockProgress.setValue(self.currentStep)
-
+            self.ui.StitchedSweepSweepProgress.setValue(self.currentStep)
 
     def completeRun(self):
 
@@ -133,7 +181,7 @@ class StitchedSweep():
         logging.info("Sweep completed, extracting data...")
 
         # Set progress bar to indeterminate
-        pbar = self.ui.sweepAndLockProgress
+        pbar = self.ui.StitchedSweepSweepProgress
         pbar.setRange(0, 0)
         pbar.setValue(0)
 
@@ -144,57 +192,44 @@ class StitchedSweep():
         #self.sweeper.stopSweep()
         self.lockin.pause()
 
-        # Extract both datasets
+        padding = zeros(self.padding)
+        
+        # Extract dataset(s)
         logging.debug(f"{self.numPoints} points will be extracted")
         logging.debug(f"The buffer contains {self.lockin.query('SPTS?')}")
-        data1 = array(self.lockin.readBuffer(1, 0, self.numPoints))
-        logging.debug(f"Register 1 extracted")
-        data2 = array(self.lockin.readBuffer(2, 0, self.numPoints))
-        logging.debug(f"Register 2 extracted")
+        if self.channel1:
+            newdata = array(self.lockin.readBuffer(1, 0, self.numPoints))
+            logging.debug(f"Register 1 extracted")
+            self.data1 = concatenate((self.data1, newdata, padding))
 
-        # Pad the data if necessary
-        padding = zeros(self.padding)
-        data1 = concatenate((data1, padding))
-        data2 = concatenate((data2, padding))
+        if self.channel2:
+            newdata = array(self.lockin.readBuffer(2, 0, self.numPoints))
+            logging.debug(f"Register 2 extracted")
+            self.data1 = concatenate((self.data2, newdata, padding))
+
         logging.info("Data extracted")
 
+        # Read back sweep parameters from the instrument
+        start, end, _ = self.sweeper.readSweepParams()
+        newfreqs = linspace(start, end, self.numPoints, endpoint=False)
+        self.freqs = concatenate((self.freqs, newfreqs))
 
-        if self.currentRun == 1:
-            # If it's the first run, save our new data
-            self.data1 = data1
-            self.data2 = data2
-
-            # Read back sweep parameters from the instrument
-            start, end, _ = self.sweeper.readSweepParams()
-            self.freqs = linspace(start, end, len(self.data1))
-
-            # Plot the first set of data 
+        # Plot the data 
+        if self.channel1:
             self.curve1.setData(self.freqs, self.data1)
+        if self.channel2:
             self.curve2.setData(self.freqs, self.data2)
-
-        else:
-            # If there's already data, we add our new data to it
-            # elementwise
-            self.data1 += data1
-            self.data2 += data2
-
-            normalized1 = self.data1 / self.currentRun
-            normalized2 = self.data2 / self.currentRun
-
-            # We update the y axis data with our new average
-            self.curve1.setData(self.freqs, normalized1)
-            self.curve2.setData(self.freqs, normalized2)
 
         # Set progress bar to full
         pbar.setRange(0, 1)
         pbar.setValue(1)
 
         # Update the total progress
-        self.ui.sweepAndLockTotalProgress.setValue(self.currentRun)
+        self.ui.StitchedSweepTotalProgress.setValue(self.sweepCounter)
 
         # Run again if we're not done yet
-        if self.totalRuns > self.currentRun:
-            self.currentRun += 1
+        if self.numSweeps > self.sweepCounter:
+            self.sweepCounter += 1
             self.startRun()
 
 
@@ -208,8 +243,8 @@ class StitchedSweep():
 
         # Power
         currentPower = self.sweeper.readPowerLevel()
-        self.ui.StitchedSweepPower.setValue(currentPower)
         self.ui.StitchedSweepPower.setRange(*self.sweeper.powerRange)
+        self.ui.StitchedSweepPower.setValue(currentPower)
 
         # Sweep limits
         start, end, time = self.sweeper.readSweepParams()
@@ -262,4 +297,4 @@ class StitchedSweep():
 
         points = round(sweepTime*sampleFreq)
 
-        self.ui.sweepAndLockDataPointsLabel.setText(f"{points} ({maxBins} max)")
+        #self.ui.sweepAndLockDataPointsLabel.setText(f"{points} ({maxBins} max)")

@@ -7,6 +7,31 @@ from tempfile import gettempdir
 
 from PySide6.QtWidgets import QFileDialog
 
+def promptSweepExport(freqs, channel1, channel2):
+    choice = QFileDialog.getSaveFileName(
+            caption = "Test",
+            filter = "Zip archive (*.zip);;Numpy arrays (*.npz)")
+
+    fname = choice[0]
+
+    if fname == '':
+        logging.warning('No filename chosen for export, aborting!')
+        return
+
+    ext = fname.split('.')[-1].lower()
+
+    if choice[1] == 'Zip archive (*.zip)':
+        if ext != 'zip':
+            fname += '.zip'
+
+        saveCSVZip(fname, [(freqs, 'frequency'), (channel1, 'channel1'), (channel2, 'channel2')])
+    else:
+        if ext != 'npz':
+            fname += '.npz'
+
+        np.savez(fname, freqs=freqs, channel1=channel1, channel2=channel2)
+
+
 def promptMultiExport(data, xaxis, yaxis, datatitle = 'data', xtitle = "xaxis", ytitle = "yaxis"):
     choice = QFileDialog.getSaveFileName(
             caption = "Test",
