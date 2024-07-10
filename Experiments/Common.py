@@ -2,6 +2,7 @@ from PySide6.QtWidgets import *
 
 from Experiments.SweepAndLockIn import SweepAndLockIn
 from Experiments.ODMRWaterfall import ODMRWaterfall
+from Experiments.StitchedSweep import StitchedSweep
 
 import logging
 
@@ -18,6 +19,7 @@ class Experiments():
 
         self.sweepAndLockIn = SweepAndLockIn(self.ui, self.devices, self.plotter)
         self.ODMRWaterfall = ODMRWaterfall(self.ui, self.devices, self.plotter)
+        self.StitchedSweep = StitchedSweep(self.ui, self.devices, self.plotter)
 
     def selectionChanged(self):
         currItem = self.ui.expList.currentItem().text()
@@ -31,6 +33,10 @@ class Experiments():
             case "ODMR Waterfall":
                 logging.debug("Called ODMR Waterfall handler")
                 self.ODMRWaterfall.selected()
+                return
+            case "Stitched Sweep":
+                logging.debug("Called Stitched Sweep handler")
+                self.StitchedSweep.selected()
                 return
 
         logging.info(f"Could not find handler for {currItem}")
