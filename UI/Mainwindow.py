@@ -786,6 +786,7 @@ class Ui_MainWindow(object):
 
         self.ODMRWaterfallSweepEnd = QDoubleSpinBox(self.scrollAreaWidgetContents_4)
         self.ODMRWaterfallSweepEnd.setObjectName(u"ODMRWaterfallSweepEnd")
+        self.ODMRWaterfallSweepEnd.setDecimals(6)
 
         self.gridLayout_2.addWidget(self.ODMRWaterfallSweepEnd, 6, 3, 1, 1)
 
@@ -912,6 +913,7 @@ class Ui_MainWindow(object):
 
         self.ODMRWaterfallSweepStart = QDoubleSpinBox(self.scrollAreaWidgetContents_4)
         self.ODMRWaterfallSweepStart.setObjectName(u"ODMRWaterfallSweepStart")
+        self.ODMRWaterfallSweepStart.setDecimals(6)
 
         self.gridLayout_2.addWidget(self.ODMRWaterfallSweepStart, 6, 1, 1, 1)
 
@@ -1243,6 +1245,7 @@ class Ui_MainWindow(object):
 
         self.StitchedSweepEndFreq = QDoubleSpinBox(self.scrollAreaWidgetContents_5)
         self.StitchedSweepEndFreq.setObjectName(u"StitchedSweepEndFreq")
+        self.StitchedSweepEndFreq.setDecimals(6)
 
         self.gridLayout_3.addWidget(self.StitchedSweepEndFreq, 6, 3, 1, 1)
 
@@ -1260,6 +1263,9 @@ class Ui_MainWindow(object):
 
         self.StitchedSweepNumSweeps = QSpinBox(self.scrollAreaWidgetContents_5)
         self.StitchedSweepNumSweeps.setObjectName(u"StitchedSweepNumSweeps")
+        self.StitchedSweepNumSweeps.setMinimum(1)
+        self.StitchedSweepNumSweeps.setMaximum(1000)
+        self.StitchedSweepNumSweeps.setValue(2)
 
         self.gridLayout_3.addWidget(self.StitchedSweepNumSweeps, 9, 1, 1, 1)
 
@@ -1287,6 +1293,7 @@ class Ui_MainWindow(object):
 
         self.StitchedSweepStartFreq = QDoubleSpinBox(self.scrollAreaWidgetContents_5)
         self.StitchedSweepStartFreq.setObjectName(u"StitchedSweepStartFreq")
+        self.StitchedSweepStartFreq.setDecimals(6)
 
         self.gridLayout_3.addWidget(self.StitchedSweepStartFreq, 6, 1, 1, 1)
 
@@ -1326,6 +1333,7 @@ class Ui_MainWindow(object):
 
         self.StitchedSweepLockInFreq = QDoubleSpinBox(self.scrollAreaWidgetContents_5)
         self.StitchedSweepLockInFreq.setObjectName(u"StitchedSweepLockInFreq")
+        self.StitchedSweepLockInFreq.setMaximum(100000.000000000000000)
 
         self.gridLayout_3.addWidget(self.StitchedSweepLockInFreq, 2, 1, 1, 1)
 
@@ -1645,12 +1653,17 @@ class Ui_MainWindow(object):
         self.label_67.setText(QCoreApplication.translate("MainWindow", u"Sweeps", None))
         self.label_65.setText(QCoreApplication.translate("MainWindow", u"End frequency", None))
         self.label_57.setText(QCoreApplication.translate("MainWindow", u"Lock-in Amplifier", None))
+        self.StitchedSweepEndFreq.setSuffix(QCoreApplication.translate("MainWindow", u" GHz", None))
         self.label_66.setText(QCoreApplication.translate("MainWindow", u"Sweep time", None))
         self.label_60.setText(QCoreApplication.translate("MainWindow", u"Sweeper", None))
+        self.StitchedSweepStartFreq.setSuffix(QCoreApplication.translate("MainWindow", u" GHz", None))
         self.label_62.setText(QCoreApplication.translate("MainWindow", u"Sample rate", None))
         self.StitchedSweepDisp2Check.setText(QCoreApplication.translate("MainWindow", u"Display 2", None))
+        self.StitchedSweepSweepTime.setSuffix(QCoreApplication.translate("MainWindow", u" s", None))
         self.label_59.setText(QCoreApplication.translate("MainWindow", u"Frequency", None))
         self.StitchedSweepTotalTimeLabel.setText(QCoreApplication.translate("MainWindow", u"N/A", None))
+        self.StitchedSweepLockInFreq.setSuffix(QCoreApplication.translate("MainWindow", u" Hz", None))
+        self.StitchedSweepPower.setSuffix(QCoreApplication.translate("MainWindow", u" dBm", None))
         self.label_68.setText(QCoreApplication.translate("MainWindow", u"Total time", None))
         self.label_63.setText(QCoreApplication.translate("MainWindow", u"Start frequency", None))
         self.label_69.setText(QCoreApplication.translate("MainWindow", u"Data points / sweep", None))

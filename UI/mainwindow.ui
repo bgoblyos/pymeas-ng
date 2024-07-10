@@ -1098,6 +1098,9 @@
                   <property name="suffix">
                    <string> GHz</string>
                   </property>
+                  <property name="decimals">
+                   <number>6</number>
+                  </property>
                  </widget>
                 </item>
                 <item row="7" column="1">
@@ -1259,6 +1262,9 @@
                   <property name="suffix">
                    <string> GHz</string>
                   </property>
+                  <property name="decimals">
+                   <number>6</number>
+                  </property>
                  </widget>
                 </item>
                 <item row="15" column="2">
@@ -1320,6 +1326,9 @@
                  <widget class="QDoubleSpinBox" name="ODMRWaterfallLockInFreq">
                   <property name="suffix">
                    <string> Hz</string>
+                  </property>
+                  <property name="decimals">
+                   <number>1</number>
                   </property>
                   <property name="maximum">
                    <double>10000.000000000000000</double>
@@ -1745,7 +1754,14 @@
                  </widget>
                 </item>
                 <item row="6" column="3">
-                 <widget class="QDoubleSpinBox" name="StitchedSweepEndFreq"/>
+                 <widget class="QDoubleSpinBox" name="StitchedSweepEndFreq">
+                  <property name="suffix">
+                   <string> GHz</string>
+                  </property>
+                  <property name="decimals">
+                   <number>6</number>
+                  </property>
+                 </widget>
                 </item>
                 <item row="4" column="2">
                  <widget class="Line" name="line_7">
@@ -1758,7 +1774,17 @@
                  <widget class="QComboBox" name="comboBox_3"/>
                 </item>
                 <item row="9" column="1">
-                 <widget class="QSpinBox" name="StitchedSweepNumSweeps"/>
+                 <widget class="QSpinBox" name="StitchedSweepNumSweeps">
+                  <property name="minimum">
+                   <number>1</number>
+                  </property>
+                  <property name="maximum">
+                   <number>1000</number>
+                  </property>
+                  <property name="value">
+                   <number>2</number>
+                  </property>
+                 </widget>
                 </item>
                 <item row="7" column="2">
                  <widget class="QLabel" name="label_66">
@@ -1788,7 +1814,14 @@
                  </widget>
                 </item>
                 <item row="6" column="1">
-                 <widget class="QDoubleSpinBox" name="StitchedSweepStartFreq"/>
+                 <widget class="QDoubleSpinBox" name="StitchedSweepStartFreq">
+                  <property name="suffix">
+                   <string> GHz</string>
+                  </property>
+                  <property name="decimals">
+                   <number>6</number>
+                  </property>
+                 </widget>
                 </item>
                 <item row="2" column="2">
                  <widget class="QLabel" name="label_62">
@@ -1818,7 +1851,11 @@
                  </spacer>
                 </item>
                 <item row="7" column="3">
-                 <widget class="QDoubleSpinBox" name="StitchedSweepSweepTime"/>
+                 <widget class="QDoubleSpinBox" name="StitchedSweepSweepTime">
+                  <property name="suffix">
+                   <string> s</string>
+                  </property>
+                 </widget>
                 </item>
                 <item row="5" column="1">
                  <widget class="QComboBox" name="StitchedSweepSweeperSelection"/>
@@ -1838,10 +1875,24 @@
                  </widget>
                 </item>
                 <item row="2" column="1">
-                 <widget class="QDoubleSpinBox" name="StitchedSweepLockInFreq"/>
+                 <widget class="QDoubleSpinBox" name="StitchedSweepLockInFreq">
+                  <property name="suffix">
+                   <string> Hz</string>
+                  </property>
+                  <property name="decimals">
+                   <number>1</number>
+                  </property>
+                  <property name="maximum">
+                   <double>100000.000000000000000</double>
+                  </property>
+                 </widget>
                 </item>
                 <item row="7" column="1">
-                 <widget class="QDoubleSpinBox" name="StitchedSweepPower"/>
+                 <widget class="QDoubleSpinBox" name="StitchedSweepPower">
+                  <property name="suffix">
+                   <string> dBm</string>
+                  </property>
+                 </widget>
                 </item>
                 <item row="4" column="0">
                  <widget class="Line" name="line_5">
