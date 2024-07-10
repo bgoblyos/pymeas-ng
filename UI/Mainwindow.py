@@ -1234,10 +1234,10 @@ class Ui_MainWindow(object):
 
         self.gridLayout_3.addWidget(self.label_65, 6, 2, 1, 1)
 
-        self.comboBox_4 = QComboBox(self.scrollAreaWidgetContents_5)
-        self.comboBox_4.setObjectName(u"comboBox_4")
+        self.StitchedSweepDisp2Selection = QComboBox(self.scrollAreaWidgetContents_5)
+        self.StitchedSweepDisp2Selection.setObjectName(u"StitchedSweepDisp2Selection")
 
-        self.gridLayout_3.addWidget(self.comboBox_4, 3, 3, 1, 1)
+        self.gridLayout_3.addWidget(self.StitchedSweepDisp2Selection, 3, 3, 1, 1)
 
         self.label_57 = QLabel(self.scrollAreaWidgetContents_5)
         self.label_57.setObjectName(u"label_57")
@@ -1257,10 +1257,10 @@ class Ui_MainWindow(object):
 
         self.gridLayout_3.addWidget(self.line_7, 4, 2, 1, 1)
 
-        self.comboBox_3 = QComboBox(self.scrollAreaWidgetContents_5)
-        self.comboBox_3.setObjectName(u"comboBox_3")
+        self.StitchedSweepDisp1Selection = QComboBox(self.scrollAreaWidgetContents_5)
+        self.StitchedSweepDisp1Selection.setObjectName(u"StitchedSweepDisp1Selection")
 
-        self.gridLayout_3.addWidget(self.comboBox_3, 3, 1, 1, 1)
+        self.gridLayout_3.addWidget(self.StitchedSweepDisp1Selection, 3, 1, 1, 1)
 
         self.StitchedSweepNumSweeps = QSpinBox(self.scrollAreaWidgetContents_5)
         self.StitchedSweepNumSweeps.setObjectName(u"StitchedSweepNumSweeps")
