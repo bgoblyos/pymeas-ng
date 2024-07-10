@@ -960,6 +960,7 @@ class Ui_MainWindow(object):
 
         self.ODMRWaterfallLockInFreq = QDoubleSpinBox(self.scrollAreaWidgetContents_4)
         self.ODMRWaterfallLockInFreq.setObjectName(u"ODMRWaterfallLockInFreq")
+        self.ODMRWaterfallLockInFreq.setDecimals(1)
         self.ODMRWaterfallLockInFreq.setMaximum(10000.000000000000000)
         self.ODMRWaterfallLockInFreq.setStepType(QAbstractSpinBox.StepType.AdaptiveDecimalStepType)
 
@@ -1333,6 +1334,7 @@ class Ui_MainWindow(object):
 
         self.StitchedSweepLockInFreq = QDoubleSpinBox(self.scrollAreaWidgetContents_5)
         self.StitchedSweepLockInFreq.setObjectName(u"StitchedSweepLockInFreq")
+        self.StitchedSweepLockInFreq.setDecimals(1)
         self.StitchedSweepLockInFreq.setMaximum(100000.000000000000000)
 
         self.gridLayout_3.addWidget(self.StitchedSweepLockInFreq, 2, 1, 1, 1)
