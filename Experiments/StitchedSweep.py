@@ -11,7 +11,7 @@ import logging
 # Only for debugging purposes
 from time import sleep
 
-from Misc.Prefix import formatPrefix
+from Misc.Prefix import formatPrefix, formatTime
 
 # Exporter
 from Misc.Exporter import promptSweepExport
@@ -64,8 +64,10 @@ class StitchedSweep():
         self.ui.StitchedSweepSweeperSelection.currentIndexChanged.connect(self.resetSweeper)
 
         # Recalculate data point estimates when settings change
-        self.ui.sweepAndLockSweepTime.valueChanged.connect(self.updateEstimates)
-        self.ui.sweepAndLockSampleFreq.currentIndexChanged.connect(self.updateEstimates)
+        self.ui.StitchedSweepSweepTime.valueChanged.connect(self.updateEstimates)
+        self.ui.StitchedSweepDiscard.valueChanged.connect(self.updateEstimates)
+        self.ui.StitchedSweepNumSweeps.valueChanged.connect(self.updateEstimates)
+        self.ui.StitchedSweepSampleRate.currentIndexChanged.connect(self.updateEstimates)
 
         # Set up display selection checkboxes
         self.ui.StitchedSweepDisp1Check.checkStateChanged.connect(self.display1Toggled)
@@ -241,6 +243,7 @@ class StitchedSweep():
         # Extract dataset(s)
         logging.debug(f"{self.numPoints} points will be extracted")
         logging.debug(f"The buffer contains {self.lockin.query('SPTS?')}")
+
         if self.channel1:
             newdata = array(self.lockin.readBuffer(1, 0, self.numPoints))[self.discard:]
             logging.debug(f"Register 1 extracted")
@@ -255,7 +258,7 @@ class StitchedSweep():
 
         # Read back sweep parameters from the instrument
         start, end, _ = self.sweeper.readSweepParams()
-        newfreqs = linspace(start, end, self.numPoints, endpoint=False)[self.discard:]
+        newfreqs = linspace(start, end, self.numPoints + self.padding, endpoint=False)[self.discard:]
         self.freqs = concatenate((self.freqs, newfreqs))
 
         # Plot the data 
@@ -355,8 +358,16 @@ class StitchedSweep():
         sampleFreqIndex = self.ui.StitchedSweepSampleRate.currentIndex()
         sampleFreq = self.lockin.sampleFreqList[sampleFreqIndex]
         maxBins = self.lockin.bufferSize
-        sweepTime = self.ui.sweepAndLockSweepTime.value()
+        sweepTime = self.ui.StitchedSweepSweepTime.value()
 
         points = round(sweepTime*sampleFreq)
+        discarded = self.ui.StitchedSweepDiscard.value()
+        kept = points - discarded
+        self.ui.StitchedSweepPointsPerSweepLabel.setText(f"{points} recorded ({maxBins} max), {kept} saved")
 
-        self.ui.StitchedSweep.setText(f"{points} ({maxBins} max)")
+        numSweeps = self.ui.StitchedSweepNumSweeps.value()
+        totalSaved = kept * numSweeps
+        self.ui.StitchedSweepTotalPointsLabel.setText(f"{totalSaved}")
+
+        totalTime = ((sweepTime + 5) * numSweeps)
+        self.ui.StitchedSweepTotalTimeLabel.setText(formatTime(totalTime))
