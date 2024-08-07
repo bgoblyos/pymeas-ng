@@ -1390,10 +1390,10 @@ class Ui_MainWindow(object):
 
         self.gridLayout_3.addWidget(self.StitchedSweepSweeperSelection, 5, 1, 1, 1)
 
-        self.label_70 = QLabel(self.scrollAreaWidgetContents_5)
-        self.label_70.setObjectName(u"label_70")
+        self.StitchedSweepPointsPerSweepLabel = QLabel(self.scrollAreaWidgetContents_5)
+        self.StitchedSweepPointsPerSweepLabel.setObjectName(u"StitchedSweepPointsPerSweepLabel")
 
-        self.gridLayout_3.addWidget(self.label_70, 11, 1, 1, 1)
+        self.gridLayout_3.addWidget(self.StitchedSweepPointsPerSweepLabel, 11, 1, 1, 1)
 
         self.label_64 = QLabel(self.scrollAreaWidgetContents_5)
         self.label_64.setObjectName(u"label_64")
@@ -1694,7 +1694,7 @@ class Ui_MainWindow(object):
         self.StitchedSweepLockInFreq.setSuffix(QCoreApplication.translate("MainWindow", u" Hz", None))
         self.label_65.setText(QCoreApplication.translate("MainWindow", u"End frequency", None))
         self.label_66.setText(QCoreApplication.translate("MainWindow", u"Sweep time", None))
-        self.label_70.setText(QCoreApplication.translate("MainWindow", u"N/A", None))
+        self.StitchedSweepPointsPerSweepLabel.setText(QCoreApplication.translate("MainWindow", u"N/A", None))
         self.label_64.setText(QCoreApplication.translate("MainWindow", u"Power", None))
 #if QT_CONFIG(tooltip)
         self.label_72.setToolTip(QCoreApplication.translate("MainWindow", u"<html><head/><body><p>Start sweeps with an overlap.</p><p>The total interval is split into a number of equal sweeps. This option is extends each sweep by a given percentage in the negative direction, causing them to overlap. Useful when using the discard option.</p><p>Does not go below the start frequency, and as such has no effect on the first sweep.</p></body></html>", None))

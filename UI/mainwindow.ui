@@ -1949,7 +1949,7 @@
                  <widget class="QComboBox" name="StitchedSweepSweeperSelection"/>
                 </item>
                 <item row="11" column="1">
-                 <widget class="QLabel" name="label_70">
+                 <widget class="QLabel" name="StitchedSweepPointsPerSweepLabel">
                   <property name="text">
                    <string>N/A</string>
                   </property>
