@@ -252,7 +252,7 @@ class StitchedSweep():
         if self.channel2:
             newdata = array(self.lockin.readBuffer(2, 0, self.numPoints))[self.discard:]
             logging.debug(f"Register 2 extracted")
-            self.data1 = concatenate((self.data2, newdata, padding))
+            self.data2 = concatenate((self.data2, newdata, padding))
 
         logging.info("Data extracted")
 
