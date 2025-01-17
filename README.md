@@ -1,3 +1,3 @@
 # Python measurement suite
 
-Reimplementation of pymeas by csoszgabor94
+Reimplementation and extension of pymeas by csoszgabor94
